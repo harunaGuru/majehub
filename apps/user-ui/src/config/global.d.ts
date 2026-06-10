@@ -17,6 +17,7 @@ interface ProductCardProps {
   short_Description: string;
   sale_price: number;
   regular_price: number;
+  event: boolean;
   starting_date?: string | null;
   ending_date?: string | null;
   stock: number;

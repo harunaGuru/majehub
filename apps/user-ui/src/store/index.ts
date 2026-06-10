@@ -5,39 +5,41 @@ import { sendKafkaEvent } from '@/actions/track-user';
 interface Product {
   id: string;
   title: string;
-  price: number;
+  price?: number;
+  sale_price?: number;
   quantity: number;
   image: string;
+  discount_code?: string[];
   shopId: string;
   selectedOption?: {
     colors: string[];
     sizes: string[];
-  },
+  };
 }
- export interface DeviceInfo {
-   browserName?: string;
-   browserVersion?: string;
-   osName?: string;
-   osVersion?: string;
-   deviceType?: string;
-   deviceVendor?: string;
-   deviceModel?: string;
-   cpuArchitecture?: string;
- }
- export interface GeoData {
-   country: string;
-   regionName: string;
-   city: string;
-   zip: string;
-   lat: number;
-   lon: number;
-   isp: string;
-   query: string; // IP
- }
- export interface UserInfo {
-   name?: string;
-   id: string;
- }
+export interface DeviceInfo {
+  browserName?: string;
+  browserVersion?: string;
+  osName?: string;
+  osVersion?: string;
+  deviceType?: string;
+  deviceVendor?: string;
+  deviceModel?: string;
+  cpuArchitecture?: string;
+}
+export interface GeoData {
+  country?: string;
+  regionName?: string;
+  city?: string;
+  zip?: string;
+  lat?: number;
+  lon?: number;
+  isp?: string;
+  query?: string; // IP
+}
+export interface UserInfo {
+  name?: string;
+  id: string;
+}
 
 export interface CartWishlistItem {
   product: Product;
@@ -54,7 +56,7 @@ interface Store {
     product: Product,
     user: UserInfo,
     location: GeoData,
-    deviceInfo: DeviceInfo,
+    deviceInfo: DeviceInfo
   ) => void;
 
   removeFromCart: (
@@ -70,13 +72,14 @@ interface Store {
     location: GeoData,
     deviceInfo: DeviceInfo
   ) => void;
-
+  updateCartQuantity: (productId: string, type: 'inc' | 'dec') => void;
   removeFromWishlist: (
     product: Product,
     user: UserInfo,
     location: GeoData,
     deviceInfo: DeviceInfo
   ) => void;
+  updateWishlistQuantity: (productId: string, type: 'inc' | 'dec') => void;
   clearWishlist: () => void;
   clearCart: () => void;
 }
@@ -95,7 +98,7 @@ export function buildEvent(
     userId: user?.id ?? 'anonymous',
     country: location?.country || 'Unknown',
     city: location?.city || 'Unknown',
-    device: deviceInfo || "Unknown device",
+    device: deviceInfo || 'Unknown device',
     timestamp: new Date().toISOString(),
   };
 }
@@ -123,8 +126,8 @@ export const useStore = create<Store>()(
             //   JSON.stringify(item.product.selectedOption) ===
             //   JSON.stringify(product.selectedOption);
 
-            return sameProduct
-              // && sameOptions;
+            return sameProduct;
+            // && sameOptions;
           });
 
           if (existingIndex !== -1) {
@@ -143,7 +146,6 @@ export const useStore = create<Store>()(
             return { cart: updatedCart };
           }
 
-          // 🚀 If product does not exist → add new entry
           const newItem = {
             product,
             userInfo: user,
@@ -154,10 +156,29 @@ export const useStore = create<Store>()(
 
           return { cart: [...state.cart, newItem] };
         });
-
       },
+      updateCartQuantity: (productId: string, type: 'inc' | 'dec') =>
+        set((state) => ({
+          cart: state.cart.map((item) => {
+            if (item.product.id === productId) {
+              const newQty =
+                type === 'inc'
+                  ? item.product.quantity + 1
+                  : Math.max(1, item.product.quantity - 1);
 
-      removeFromCart: (product, user, location, deviceInfo) =>{
+              return {
+                ...item,
+                product: {
+                  ...item.product,
+                  quantity: newQty,
+                },
+              };
+            }
+            return item;
+          }),
+        })),
+
+      removeFromCart: (product, user, location, deviceInfo) => {
         const event = buildEvent(
           'remove_from_cart',
           product,
@@ -169,8 +190,7 @@ export const useStore = create<Store>()(
 
         set((state) => ({
           cart: state.cart.filter((item) => item.product.id !== product.id),
-        }))
-
+        }));
       },
 
       clearCart: () => set({ cart: [] }),
@@ -195,10 +215,9 @@ export const useStore = create<Store>()(
         set((state) => ({
           wishlist: [...state.wishlist, newItem],
         }));
-
       },
 
-      removeFromWishlist: (product, user, location, deviceInfo) =>{
+      removeFromWishlist: (product, user, location, deviceInfo) => {
         const event = buildEvent(
           'remove_from_wishlist',
           product,
@@ -207,14 +226,33 @@ export const useStore = create<Store>()(
           deviceInfo
         );
         sendKafkaEvent(event);
-        
+
         set((state) => ({
           wishlist: state.wishlist.filter(
             (item) => item.product.id !== product.id
           ),
-        }))
-
+        }));
       },
+      updateWishlistQuantity: (productId: string, type: 'inc' | 'dec') =>
+        set((state) => ({
+          wishlist: state.wishlist.map((item) => {
+            if (item.product.id === productId) {
+              const newQty =
+                type === 'inc'
+                  ? item.product.quantity + 1
+                  : Math.max(1, item.product.quantity - 1);
+
+              return {
+                ...item,
+                product: {
+                  ...item.product,
+                  quantity: newQty,
+                },
+              };
+            }
+            return item;
+          }),
+        })),
 
       clearWishlist: () => set({ wishlist: [] }),
     }),

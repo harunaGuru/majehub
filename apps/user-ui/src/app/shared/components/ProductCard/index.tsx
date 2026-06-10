@@ -4,9 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Heart, Eye, ShoppingCart } from 'lucide-react';
 import Rating from '@/app/shared/components/Rating';
-import { useMemo} from "react";
-import {useUserDevice} from "@/hooks/useDeviceTracking";
-import {useGeoLocation} from "@/hooks/useLocationTracking";
+import { useMemo } from "react";
+import { useUserDevice } from "@/hooks/useDeviceTracking";
+import { useGeoLocation } from "@/hooks/useLocationTracking";
 import { CartWishlistItem, useStore } from '@/store';
 import { useAuthUser } from '@/hooks/useAuthUser';
 
@@ -19,34 +19,34 @@ const ProductCard = ({
   slug,
   stock,
   shop,
-  starting_date,
+  starting_date = null,
+  event,
   totalSales
 }: ProductCardProps) => {
-  const {browserName, browserVersion, osName, osVersion, deviceModel, deviceType, cpuArch} = useUserDevice()
-  const {geoData} =useGeoLocation()
-  const {cart, wishlist, addToCart, removeFromCart, addToWishlist, removeFromWishlist} = useStore()
-  const {user} = useAuthUser()
-  const isEvent = starting_date !== null;
+  const { browserName, browserVersion, osName, osVersion, deviceModel, deviceType, cpuArch } = useUserDevice()
+  const { geoData } = useGeoLocation()
+  const { cart, wishlist, addToCart, removeFromCart, addToWishlist, removeFromWishlist } = useStore()
+  const { user } = useAuthUser()
+  const isEvent = event || starting_date !== null;
   const isLimited = stock < 10;
-   console.log('isEvent', isEvent);
   const userInfo = {
     name: user?.name,
     id: user?.id,
   };
   const isInCart = useMemo(
-      () => cart.some((item: CartWishlistItem) => item.product.id === id),
-      [cart, id]
+    () => cart.some((item: CartWishlistItem) => item.product.id === id),
+    [cart, id]
   );
 
   const isInWishlist = useMemo(
-    () => wishlist.some((item:CartWishlistItem) => item.product.id === id),
+    () => wishlist.some((item: CartWishlistItem) => item.product.id === id),
     [wishlist, id]
   );
 
   const productPayload = {
     id,
     title,
-    price: sale_price,
+    sale_price,
     quantity: 1,
     image:
       images[0]?.fileUrl ||
@@ -55,70 +55,70 @@ const ProductCard = ({
     selectedOption: undefined,
   };
 
-  const handleAddToWishList =()=>{
-    if(isInWishlist){
+  const handleAddToWishList = () => {
+    if (isInWishlist) {
       removeFromWishlist(
-          productPayload,
-          userInfo,
-          geoData!,
-          {
-            browserName,
-            browserVersion,
-            osName,
-            osVersion,
-            deviceModel,
-            deviceType,
-            cpuArchitecture: cpuArch,
-          }
+        productPayload,
+        userInfo,
+        geoData!,
+        {
+          browserName,
+          browserVersion,
+          osName,
+          osVersion,
+          deviceModel,
+          deviceType,
+          cpuArchitecture: cpuArch,
+        }
       )
-    }else {
+    } else {
       addToWishlist(
-          productPayload,
-          userInfo,
-          geoData!,
-          {
-            browserName,
-            browserVersion,
-            osName,
-            osVersion,
-            deviceModel,
-            deviceType,
-            cpuArchitecture: cpuArch,
-          }
+        productPayload,
+        userInfo,
+        geoData!,
+        {
+          browserName,
+          browserVersion,
+          osName,
+          osVersion,
+          deviceModel,
+          deviceType,
+          cpuArchitecture: cpuArch,
+        }
       )
     }
   }
 
-  const handleAddToCart =()=>{
-    if(isInCart){
+  const handleAddToCart = () => {
+    if (isInCart) {
       removeFromCart(
-          productPayload,
-          userInfo,
-          geoData!,
-          {
-            browserName,
-            browserVersion,
-            osName,
-            osVersion,
-            deviceModel,
-            deviceType,
-            cpuArchitecture: cpuArch,
-          }
+        productPayload,
+        userInfo,
+        geoData!,
+        {
+          browserName,
+          browserVersion,
+          osName,
+          osVersion,
+          deviceModel,
+          deviceType,
+          cpuArchitecture: cpuArch,
+        }
       )
-    }else {
+    } else {
       addToCart(
-          productPayload,
-         userInfo,
-          geoData!,
-          {
-            browserName,
-            browserVersion,
-            osName,
-            osVersion,
-            deviceModel,
-            deviceType,
-            cpuArchitecture: cpuArch,
-          }
+        productPayload,
+        userInfo,
+        geoData!,
+        {
+          browserName,
+          browserVersion,
+          osName,
+          osVersion,
+          deviceModel,
+          deviceType,
+          cpuArchitecture: cpuArch,
+        }
       )
     }
   }
@@ -126,7 +126,7 @@ const ProductCard = ({
     <div className=" bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-shadow duration-300 overflow-hidden ">
       {/* IMAGE SECTION */}
       <div className="relative w-full aspect-square bg-gray-100 overflow-hidden">
-        <Link href={`/product/${slug}`} className="block w-full h-full">
+        <Link href={`/product/${slug}`} className="block relative w-full h-full">
           <Image
             src={
               images[0]?.fileUrl ||
@@ -156,11 +156,10 @@ const ProductCard = ({
         <div className="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col gap-3 y duration-300">
           <button
             onClick={handleAddToWishList}
-            className={`w-9 h-9 rounded-full shadow-md flex items-center justify-center transition ${
-              isInWishlist
-                ? 'bg-red-500 text-white'
-                : 'bg-white hover:bg-gray-100'
-            }`}
+            className={`w-9 h-9 rounded-full shadow-md flex items-center justify-center transition ${isInWishlist
+              ? 'bg-red-500 text-white'
+              : 'bg-white hover:bg-gray-100'
+              }`}
           >
             <Heart size={18} fill={isInWishlist ? 'white' : 'none'} />
           </button>
@@ -174,9 +173,8 @@ const ProductCard = ({
 
           <button
             onClick={handleAddToCart}
-            className={`w-9 h-9 rounded-full shadow-md flex items-center justify-center transition ${
-              isInCart ? 'bg-blue-600 text-white' : 'bg-white hover:bg-gray-100'
-            }`}
+            className={`w-9 h-9 rounded-full shadow-md flex items-center justify-center transition ${isInCart ? 'bg-blue-600 text-white' : 'bg-white hover:bg-gray-100'
+              }`}
           >
             <ShoppingCart size={18} fill={isInCart ? 'white' : 'none'} />
           </button>
@@ -209,7 +207,7 @@ const ProductCard = ({
             </span>
           </div>
 
-          <span className="text-xs text-gray-500">{totalSales} sold</span>
+          <span className="text-xs font-semibold text-green-500">{totalSales} sold</span>
         </div>
       </div>
     </div>

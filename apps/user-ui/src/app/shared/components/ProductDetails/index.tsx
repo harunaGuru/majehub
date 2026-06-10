@@ -9,6 +9,7 @@ import {
   CircleQuestionMark,
   Handbag,
   Heart,
+  Loader2,
   MapPin,
   MessageSquarePlus,
 } from 'lucide-react';
@@ -21,7 +22,11 @@ import { useUserDevice } from '@/hooks/useDeviceTracking';
 import { useGeoLocation } from '@/hooks/useLocationTracking';
 import { buildEvent, CartWishlistItem, useStore } from '@/store';
 import { sendKafkaEvent } from '@/actions/track-user';
-import { useAuthUser } from '@/hooks/useAuthUser';
+import { useRouter } from 'next/navigation';
+import { axiosInstance } from '@/utils/axiosInstance';
+import toast from 'react-hot-toast';
+import { isProtected } from '@/utils/isProtected';
+import { useUser } from '@/hooks/useUser';
 
 const ProductDetailedAndReviewTab = dynamic(
   () => import('@/app/shared/components/ProductDetailedAndReviewTab'),
@@ -29,13 +34,47 @@ const ProductDetailedAndReviewTab = dynamic(
 );
 
 
-const ProductDetailsPage = ({product}:{product:any}) => {
+const ProductDetailsPage = ({ product }: { product: any }) => {
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState<string>('');
   const image = product?.images?.[0];
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
+
+  const { user, isLoading: userLoading } = useUser()
+  const userInfo = {
+    name: user?.name,
+    id: user?.id,
+  };
+
+
+  const handleChat = async () => {
+    try {
+      setLoading(true)
+
+      const { data } = await axiosInstance.post(
+        '/chatting/api/create-conversation-id',
+        {
+          sellerId: product.shop.sellerId
+        },
+        isProtected()
+      )
+
+      const conversationId = data.conversationId
+      router.push(`/inbox?conversationId=${conversationId}`)
+    } catch (error) {
+      if (!user) {
+        toast.error('Please login to start chat')
+        return
+      }
+      toast.error('Failed to start chat')
+    } finally {
+      setLoading(false)
+    }
+  }
 
 
   useEffect(() => {
@@ -56,14 +95,6 @@ const ProductDetailsPage = ({product}:{product:any}) => {
     deviceType,
     cpuArch,
   } = useUserDevice();
-  console.log({
-    browserName,
-    browserVersion,
-    osName,
-    osVersion,
-    deviceType,
-    cpuArch,
-  });
 
   const { geoData } = useGeoLocation();
   const {
@@ -74,12 +105,7 @@ const ProductDetailsPage = ({product}:{product:any}) => {
     addToWishlist,
     removeFromWishlist,
   } = useStore();
-  // console.log("geoData", geoData);
-  const { user, isLoading:userLoading } = useAuthUser()
-  const userInfo = {
-    name: user?.name,
-    id: user?.id,
-  };
+
   const isInCart = useMemo(
     () =>
       !!product &&
@@ -98,6 +124,7 @@ const ProductDetailsPage = ({product}:{product:any}) => {
     id: product?.id as string,
     title: product?.title as string,
     price: product?.sale_price,
+    sale_price: product?.price,
     quantity: quantity,
     image:
       product?.images[0]?.fileUrl ||
@@ -119,7 +146,6 @@ const ProductDetailsPage = ({product}:{product:any}) => {
         deviceType,
         cpuArchitecture: cpuArch,
       });
-      console.log('event in product page', event);
       sendKafkaEvent(event)
     }
   }, [userLoading, geoData, browserName]);
@@ -170,7 +196,6 @@ const ProductDetailsPage = ({product}:{product:any}) => {
 
   const handleQuantityChange = (value: number) => {
     setQuantity(value);
-    // console.log("Quantity", value);
   };
   const handleSizeToggle = (size: string) => {
     setSelectedSizes(
@@ -232,7 +257,7 @@ const ProductDetailsPage = ({product}:{product:any}) => {
                 hasSpacer={true}
                 zoomScale={1.5}
                 fullscreenOnMobile
-                className="w-full h-full"
+                className="w-full h-full object-cover"
               />
             </div>
 
@@ -251,17 +276,16 @@ const ProductDetailsPage = ({product}:{product:any}) => {
             {/*  />*/}
             {/*</div>*/}
             {/*Thumbnails*/}
-            {product?.images.length > 1 && (
+            {product?.images?.length > 1 && (
               <div className="flex gap-3 overflow-x-auto">
-                {product?.images.map((img: any, index: number) => (
+                {product?.images?.map((img: any, index: number) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImage(img?.fileUrl)}
-                    className={`relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border-2 ${
-                      selectedImage === img?.fileUrl
-                        ? 'border-gray-200'
-                        : 'border-none'
-                    }`}
+                    className={`relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border-2 ${selectedImage === img?.fileUrl
+                      ? 'border-gray-200'
+                      : 'border-none'
+                      }`}
                   >
                     <Image
                       src={img?.fileUrl}
@@ -285,11 +309,10 @@ const ProductDetailsPage = ({product}:{product:any}) => {
                 <ProductRating value={product?.ratings || 4.5} />
                 <button
                   onClick={handleAddToWishList}
-                  className={`w-9 h-9 rounded-full shadow-md flex items-center justify-center transition ${
-                    isInWishlist
-                      ? 'bg-red-500 text-white'
-                      : 'bg-white hover:bg-gray-100'
-                  }`}
+                  className={`w-9 h-9 rounded-full shadow-md flex items-center justify-center transition ${isInWishlist
+                    ? 'bg-red-500 text-white'
+                    : 'bg-white hover:bg-gray-100'
+                    }`}
                 >
                   <Heart size={18} fill={isInWishlist ? 'white' : 'none'} />
                 </button>
@@ -302,7 +325,7 @@ const ProductDetailsPage = ({product}:{product:any}) => {
               </div>
             </div>
             <div className="flex flex-col border-b border-gray-200 mt-3">
-              <h3 className="text-lg font-bold text-[#EF4444]">
+              <h3 className="text-base font-extrabold text-[#C15B27]">
                 ${product?.sale_price}
               </h3>
               <div className="space-x-2 mb-2">
@@ -321,7 +344,7 @@ const ProductDetailsPage = ({product}:{product:any}) => {
             <div className="flex flex-col mt-3">
               <span className="font-bold text-sm">Color:</span>
               <div className="flex items-center gap-2 mt-1">
-                {product.colors.map((color: string) => {
+                {product?.colors?.map((color: string) => {
                   const isActive = selectedColors.includes(color);
 
                   return (
@@ -332,11 +355,10 @@ const ProductDetailsPage = ({product}:{product:any}) => {
                       className={`
                             w-6 h-6 rounded-full transition-all duration-200
                             border border-gray-700/50
-                            ${
-                              isActive
-                                ? 'border-gray-900  scale-110'
-                                : 'border-transparent'
-                            }
+                            ${isActive
+                          ? 'border-gray-900  scale-110'
+                          : 'border-transparent'
+                        }
                           `}
                       style={{ backgroundColor: color }}
                       aria-label={`Select color ${color}`}
@@ -346,20 +368,19 @@ const ProductDetailsPage = ({product}:{product:any}) => {
               </div>
             </div>
             {/*Sizes selector*/}
-            {product.sizes?.length > 0 && (
+            {product?.sizes?.length > 0 && (
               <div className="mt-3">
                 <span className="font-bold text-sm mb-3">Sizes:</span>
 
                 <div className="flex gap-3 flex-wrap">
-                  {product.sizes.map((size: string) => (
+                  {product?.sizes?.map((size: string) => (
                     <button
                       key={size}
                       onClick={() => handleSizeToggle(size)}
-                      className={`px-2 py-1 rounded-md border transition ${
-                        selectedSizes.includes(size)
-                          ? 'bg-black text-white border-black'
-                          : 'bg-white border-gray-300 hover:border-black'
-                      }`}
+                      className={`px-2 py-1 rounded-md border transition ${selectedSizes.includes(size)
+                        ? 'bg-black text-white border-black'
+                        : 'bg-white border-gray-300 hover:border-black'
+                        }`}
                     >
                       {size}
                     </button>
@@ -380,10 +401,9 @@ const ProductDetailsPage = ({product}:{product:any}) => {
                 px-3 sm:text-sm font-semibold rounded-lg py-2 
                 flex items-center justify-center gap-2 
                 transition-all duration-300
-                ${
-                  isInCart
-                    ? 'bg-green-600 hover:bg-green-700 text-white'
-                    : 'bg-[#EF4444] hover:bg-[#f15656] text-white'
+                ${isInCart
+                  ? 'bg-green-600 hover:bg-green-700 text-white'
+                  : 'bg-[#EF4444] hover:bg-[#f15656] text-white'
                 }
               `}
             >
@@ -424,11 +444,19 @@ const ProductDetailsPage = ({product}:{product:any}) => {
             <div className="flex items-center justify-between">
               <div className="flex flex-col justify-center">
                 <span>sold by</span>
-                <h4 className="font-semibold">Infrincode</h4>
+                <h4 className="font-semibold text-blue-600">{product?.shop?.name}</h4>
               </div>
-              <button className="flex items-center gap-1 text-blue-600 hover:text-blue-500">
-                <MessageSquarePlus size={19} className="text-blue-600" />
-                <span>Chat Now</span>
+              <button
+                onClick={handleChat}
+                disabled={loading}
+                className="flex items-center gap-1 text-blue-600 hover:text-blue-500 disabled:opacity-50"
+              >
+                {loading ? (
+                  <Loader2 className="animate-spin" size={18} />
+                ) : (
+                  <MessageSquarePlus size={19} />
+                )}
+                <span>{loading ? 'Opening...' : 'Chat Now'}</span>
               </button>
             </div>
             <div className="grid grid-cols-3 gap-1 ">
@@ -447,7 +475,7 @@ const ProductDetailsPage = ({product}:{product:any}) => {
             </div>
             <Link
               className="w-full flex items-center justify-center text-sm text-blue-600 font-bold"
-              href="/shop"
+              href="/shops"
             >
               Go TO STORE
             </Link>
@@ -469,4 +497,4 @@ const ProductDetailsPage = ({product}:{product:any}) => {
     </div>
   );
 }
-export default  ProductDetailsPage
+export default ProductDetailsPage

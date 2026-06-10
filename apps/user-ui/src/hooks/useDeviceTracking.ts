@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { UAParser } from 'ua-parser-js';
 
@@ -26,7 +25,6 @@ export const useUserDevice = (): UserDeviceInfo => {
   useEffect(() => {
     const parser = new UAParser();
     const result = parser.getResult();
-    console.log()
 
     setDeviceInfo({
       browserName: result.browser.name,

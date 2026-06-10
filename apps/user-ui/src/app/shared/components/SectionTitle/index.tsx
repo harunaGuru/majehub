@@ -30,7 +30,7 @@ const SectionTitle = ({ title, className }: SectionTitleProps) => {
           strokeLinejoin="round"
         />
       </svg>
-      ;{/* TEXT ABOVE */}
+      {/* TEXT ABOVE */}
       <h2 className="relative z-10 text-xl sm:text-2xl font-bold text-gray-900">
         {title}
       </h2>

@@ -5,7 +5,7 @@ export const navLinks: NavItem[] = [
   { name: 'Products', path: '/products' },
   { name: 'Shops', path: '/shops' },
   { name: 'Offers', path: '/offers' },
-  { name: 'Become a Seller', path: '/become-seller' },
+  { name: 'Become a Seller', path: `${process.env.NEXT_PUBLIC_SELLER_URL}/signup` },
 ];
 
 export const defaultCategories: string[] = [
@@ -13,17 +13,24 @@ export const defaultCategories: string[] = [
   'Fashion',
   'Home & Kitchen',
   'Sport & Fitness',
+  'Beauty'
 ];
 export const defaultSubCategories: SubCategoryMap = {
-  electronic: ['Mobile Phones', 'Laptops', 'Gaming Consoles', 'Televisions'],
-  fashion: ['Men Clothing', 'Women Clothing', 'Shoes', 'Accessories'],
-  'Home & Kitchen': ['Furniture', 'Cookware', 'Home Decor', 'Appliances'],
-  'Sport & Fitness': [
+  "electronic": ['Mobile Phones', 'Laptops', 'Gaming Consoles', 'Televisions'],
+  "fashion": ['Men Clothing', 'Women Clothing', 'Shoes', 'Accessories'],
+  "Home & Kitchen": ['Furniture', 'Cookware', 'Home Decor', 'Appliances'],
+  "Sport & Fitness": [
     'Gym Equipment',
     'Outdoor Sports',
     'Fitness Wear',
     'Cycling',
   ],
+  "Beauty": [
+    'Skin Care',
+    'Makeup',
+    'Fragrance',
+    'Hair Care',
+  ]
 };
 
 export type ColorOption = {
@@ -67,6 +74,28 @@ export const shopCategories = [
   { value: 'software', label: 'Software & Technology services' },
 ];
 
+export const countries = [
+  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria",
+  "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia",
+  "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia",
+  "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)",
+  "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czechia", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica",
+  "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia",
+  "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea",
+  "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel",
+  "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon",
+  "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives",
+  "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia",
+  "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua",
+  "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama",
+  "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda",
+  "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe",
+  "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands",
+  "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland",
+  "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia",
+  "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States",
+  "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe", "Kosovo"
+];
 // const mockProducts = Array.from({ length: 10 }).map((_, i) => ({
 //     id: `item-${i}`,
 //     image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",

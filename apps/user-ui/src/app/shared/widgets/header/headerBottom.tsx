@@ -14,20 +14,35 @@ import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react';
 import { useUser } from '@/hooks/useUser';
 import { useRouter } from 'next/navigation';
-import {defaultCategories, defaultSubCategories} from '@/config/constant';
+// import { defaultCategories, defaultSubCategories } from '@/config/constant';
 import { useStore } from '@/store';
+import { axiosInstance } from '@/utils/axiosInstance';
+import { useQuery } from '@tanstack/react-query';
+
+const getConfig = async () => {
+  const { data } = await axiosInstance.get("/admin/api/site-config");
+  return data.data;
+};
 
 const HeaderBottom = () => {
-  const {user, isLoading} = useUser()
+  const { user, isLoading } = useUser()
   const router = useRouter();
   const [isDeptOpen, setIsDeptOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isFixed, setIsFixed] = React.useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const {cart, wishlist} = useStore()
+  const { cart, wishlist } = useStore()
   const cartlength = cart?.length;
   const wishlistLength = wishlist?.length;
+
+  const { data, isLoading: catLoading } = useQuery({
+    queryKey: ["site-config"],
+    queryFn: getConfig,
+  });
+
+  const categories = data?.categories || [];
+  const subCategories = data?.subCategories || {};
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -70,12 +85,11 @@ const HeaderBottom = () => {
 
   return (
     <div
-      className={`w-full bg-white border-t border-gray-200 ${
-        isFixed ? 'fixed top-0 left-0 z-50 shadow-md' : 'static'
-      }`}
+      className={`w-full bg-white border-t border-gray-200 ${isFixed ? 'fixed top-0 left-0 z-50 bg-white/20 backdrop-blur-xl border border-white/20 shadow-xl' : 'static'
+        }`}
     >
-      <div className="w-[95%] lg:w-[80%] mx-auto bg-white">
-        <div className="flex items-center justify-between w-full py-3">
+      <div className="w-[95%] lg:w-[80%] mx-auto ">
+        <div className="flex items-center justify-between w-full">
           {/*  MOBILE  BUTTON */}
           <button
             className="lg:hidden"
@@ -90,7 +104,12 @@ const HeaderBottom = () => {
             <div className="relative ref={dropdownRef} ">
               <button
                 onClick={() => setIsDeptOpen(!isDeptOpen)}
-                className="w-[280px] bg-blue-500 p-3 flex justify-between items-center cursor-pointer"
+                className={`w-[280px] mr-4 px-2 py-2.5 flex justify-between items-center cursor-pointer rounded-sm transition-all duration-300
+                  ${isFixed
+                    ? "bg-blue-900/20 backdrop-blur-lg border border-white/50 text-blue-900 hover:bg-blue-900/30"
+                    : "bg-blue-500 text-white hover:bg-blue-600"
+                  }
+              `}
               >
                 <div className="flex items-center gap-2">
                   <TextAlignStart color="#fff" size={20} />
@@ -100,50 +119,46 @@ const HeaderBottom = () => {
                 {/* 🔥 Chevron rotates */}
                 <ChevronDown
                   color="#fff"
-                  className={`transition-transform duration-300 ${
-                    isDeptOpen ? 'rotate-180' : ''
-                  }`}
+                  className={`transition-transform duration-300 ${isDeptOpen ? 'rotate-180' : ''
+                    }`}
                 />
               </button>
 
               {/* 🔥 DROPDOWN */}
               <div
-                className={`absolute top-full left-0 w-[280px] bg-white shadow-lg transition-all duration-300 overflow-hidden ${
-                  isDeptOpen
-                    ? 'max-h-[600px] opacity-100 z-50'
-                    : 'max-h-0 opacity-0'
-                }`}
+                className={`absolute top-full left-0 w-[280px] bg-white shadow-lg transition-all duration-300 overflow-hidden ${isDeptOpen
+                  ? 'max-h-[600px] opacity-100 z-50 '
+                  : 'max-h-0 opacity-0'
+                  } ${isFixed ? 'bg-blue-900/50 backdrop-blur-lg border border-white/20 text-gray-900' : ''}`}
               >
-                {defaultCategories.map((cat) => (
+                {!catLoading && categories?.map((cat: string) => (
                   <div key={cat} className="">
                     {/* CATEGORY */}
                     <button
                       onClick={() =>
                         setActiveCategory(activeCategory === cat ? null : cat)
                       }
-                      className="w-full flex justify-between items-center px-4 py-3 text-sm hover:bg-blue-50"
+                      className="w-full flex justify-between items-center px-4 py-3 text-sm capitalize"
                     >
                       {cat}
 
                       <ChevronRight
                         size={16}
-                        className={`transition-transform duration-300 ${
-                          activeCategory === cat ? 'rotate-90' : ''
-                        }`}
+                        className={`transition-transform duration-300 ${activeCategory === cat ? 'rotate-90' : ''
+                          }`}
                       />
                     </button>
 
-                    {/* 🔥 SUBCATEGORIES WITH SMOOTH TRANSITION */}
+
                     <div
-                      className={`transition-all duration-300 overflow-hidden ${
-                        activeCategory === cat ? 'max-h-[300px]' : 'max-h-0'
-                      }`}
+                      className={`transition-all duration-300 overflow-hidden ${activeCategory === cat ? 'max-h-[300px]' : 'max-h-0'
+                        }`}
                     >
-                      {defaultSubCategories[cat]?.map((sub) => (
+                      {subCategories?.[cat]?.map((sub: string) => (
                         <button
                           key={sub}
                           onClick={() => handleSubCategoryClick(sub)}
-                          className="block w-full text-left px-8 py-2 text-sm hover:bg-blue-50"
+                          className="block w-full text-left px-8 py-2 text-sm"
                         >
                           {sub}
                         </button>
@@ -154,7 +169,7 @@ const HeaderBottom = () => {
               </div>
             </div>
 
-            {/* 🔥 NAV LINKS */}
+            {/*  NAV LINKS */}
             <nav className=" flex items-center gap-6">
               {navLinks.map((link: NavItem) => (
                 <Link
@@ -176,14 +191,14 @@ const HeaderBottom = () => {
                 <>
                   <Link
                     href="/profile"
-                    className="border bg-white border-gray-200 rounded-full"
+                    className="border bg-white border-gray-200 rounded-full cursor-pointer"
                   >
                     <ProfileIcon width={40} height={40} color="#282828" />
                   </Link>
 
                   <Link
                     href="/profile"
-                    className="flex flex-col justify-center ml-2"
+                    className="flex flex-col justify-center"
                   >
                     <span className="text-xs font-medium">Hello</span>
                     <span className="text-xs font-medium">
@@ -197,7 +212,7 @@ const HeaderBottom = () => {
                     href="/login"
                     className="border bg-white border-gray-200 rounded-full"
                   >
-                    <ProfileIcon width={40} height={40} color="#282828" />
+                    <ProfileIcon width={30} height={30} color="#282828" />
                   </Link>
 
                   <Link
@@ -211,7 +226,7 @@ const HeaderBottom = () => {
               )}
 
               <Link
-                href="/whishlist"
+                href="/wishlist"
                 className="flex items-center gap-2 relative cursor-pointer"
               >
                 <Heart />
@@ -241,7 +256,7 @@ const HeaderBottom = () => {
           )}
         </div>
 
-        {/* 🔥 MOBILE DROPDOWN NAV */}
+        {/*  MOBILE DROPDOWN NAV */}
         {mobileOpen && (
           <div className="lg:hidden border-t border-gray-300 py-4 space-y-2">
             {navLinks.map((link: NavItem) => (

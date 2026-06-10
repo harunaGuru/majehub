@@ -1,9 +1,6 @@
-//added from 1892
 [
   {
-    "_id": {
-      "$oid": "86e3e95e91434d168bf5e1f9"
-    },
+    "_id": { "$oid": "86e3e95e91434d168bf5e1f9" },
     "title": "iPhone 14 Pro Max 256GB",
     "short_Description": "iPhone 14 Pro Max 256GB delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>iPhone 14 Pro Max 256GB</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__aRPWAovYP.avif?updatedAt=1772461080934\" alt=\"iPhone 14 Pro Max 256GB\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -44,27 +41,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "71"
-    },
-    "totalSales": {
-      "$numberLong": "26"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.030243Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.030253Z"
-    },
+    "stock": { "$numberLong": "71" },
+    "totalSales": { "$numberLong": "26" },
+    "shopId": { "$oid": "69910d83793e24b1ee575961" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.030243Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.030253Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "b735dae246844f02a040ca18"
-    },
+    "_id": { "$oid": "b735dae246844f02a040ca18" },
     "title": "Samsung Galaxy S23 Ultra",
     "short_Description": "Samsung Galaxy S23 Ultra delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Samsung Galaxy S23 Ultra</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud-case_YvZ58lFBK.jpg?updatedAt=1771937346257\" alt=\"Samsung Galaxy S23 Ultra\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -105,27 +90,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "310"
-    },
-    "totalSales": {
-      "$numberLong": "189"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.030646Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.030661Z"
-    },
+    "stock": { "$numberLong": "310" },
+    "totalSales": { "$numberLong": "189" },
+    "shopId": { "$oid": "69910d83793e24b1ee575962" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.030646Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.030661Z" },
     "ratings": 5
   },
   {
-    "_id": {
-      "$oid": "f158ce8e512b4a49ad475e7b"
-    },
+    "_id": { "$oid": "f158ce8e512b4a49ad475e7b" },
     "title": "Nike Air Zoom Pegasus 40",
     "short_Description": "Nike Air Zoom Pegasus 40 delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Nike Air Zoom Pegasus 40</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/thom-bradley-A6qNzfJXRGQ-unsplash__1__rj4NhCBxo.avif?updatedAt=1772461245935\" alt=\"Nike Air Zoom Pegasus 40\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -166,27 +139,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "413"
-    },
-    "totalSales": {
-      "$numberLong": "84"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.031002Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.031010Z"
-    },
+    "stock": { "$numberLong": "413" },
+    "totalSales": { "$numberLong": "84" },
+    "shopId": { "$oid": "69910d83793e24b1ee575963" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.031002Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.031010Z" },
     "ratings": 5
   },
   {
-    "_id": {
-      "$oid": "3a74a5bce6d8481c959f78b6"
-    },
+    "_id": { "$oid": "3a74a5bce6d8481c959f78b6" },
     "title": "Adidas Ultraboost 22",
     "short_Description": "Adidas Ultraboost 22 delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Adidas Ultraboost 22</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/red_sneakers_rGjK9zCMCc.avif?updatedAt=1772459991090\" alt=\"Adidas Ultraboost 22\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -227,27 +188,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "189"
-    },
-    "totalSales": {
-      "$numberLong": "100"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.031599Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.031609Z"
-    },
+    "stock": { "$numberLong": "189" },
+    "totalSales": { "$numberLong": "100" },
+    "shopId": { "$oid": "69910d83793e24b1ee575964" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.031599Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.031609Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "c52985c41e494efd8b92cef8"
-    },
+    "_id": { "$oid": "c52985c41e494efd8b92cef8" },
     "title": "Sony WH-1000XM5 Wireless Headphones",
     "short_Description": "Sony WH-1000XM5 Wireless Headphones delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Sony WH-1000XM5 Wireless Headphones</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud2_AcpBR7f_a.webp?updatedAt=1771924047822\" alt=\"Sony WH-1000XM5 Wireless Headphones\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -288,27 +237,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "347"
-    },
-    "totalSales": {
-      "$numberLong": "158"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.031789Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.031797Z"
-    },
+    "stock": { "$numberLong": "347" },
+    "totalSales": { "$numberLong": "158" },
+    "shopId": { "$oid": "69910d83793e24b1ee575965" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.031789Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.031797Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "7272dc38dc1b442f8acac6f8"
-    },
+    "_id": { "$oid": "7272dc38dc1b442f8acac6f8" },
     "title": "Apple AirPods Pro (2nd Gen)",
     "short_Description": "Apple AirPods Pro (2nd Gen) delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Apple AirPods Pro (2nd Gen)</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/omid-armin-B2w4rdIihEo-unsplash__1__RDomWFQhD.avif?updatedAt=1772461797613\" alt=\"Apple AirPods Pro (2nd Gen)\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -349,27 +286,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "354"
-    },
-    "totalSales": {
-      "$numberLong": "46"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.031969Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.031991Z"
-    },
+    "stock": { "$numberLong": "354" },
+    "totalSales": { "$numberLong": "46" },
+    "shopId": { "$oid": "69910d83793e24b1ee575966" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.031969Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.031991Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "f2da1397d3a740cb99767c61"
-    },
+    "_id": { "$oid": "f2da1397d3a740cb99767c61" },
     "title": "LG 55\" 4K UHD Smart TV",
     "short_Description": "LG 55\" 4K UHD Smart TV delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>LG 55\" 4K UHD Smart TV</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__aRPWAovYP.avif?updatedAt=1772461080934\" alt=\"LG 55&quot; 4K UHD Smart TV\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -410,27 +335,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "247"
-    },
-    "totalSales": {
-      "$numberLong": "45"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.032296Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.032306Z"
-    },
+    "stock": { "$numberLong": "247" },
+    "totalSales": { "$numberLong": "45" },
+    "shopId": { "$oid": "69910d83793e24b1ee575961" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.032296Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.032306Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "b21f5b6797064100918f1561"
-    },
+    "_id": { "$oid": "b21f5b6797064100918f1561" },
     "title": "PlayStation 5 Console",
     "short_Description": "PlayStation 5 Console delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>PlayStation 5 Console</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud-case_YvZ58lFBK.jpg?updatedAt=1771937346257\" alt=\"PlayStation 5 Console\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -471,27 +384,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "315"
-    },
-    "totalSales": {
-      "$numberLong": "122"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.032575Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.032583Z"
-    },
+    "stock": { "$numberLong": "315" },
+    "totalSales": { "$numberLong": "122" },
+    "shopId": { "$oid": "69910d83793e24b1ee575962" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.032575Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.032583Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "669eff70104540a9b18c66f9"
-    },
+    "_id": { "$oid": "669eff70104540a9b18c66f9" },
     "title": "Dell XPS 13 Laptop",
     "short_Description": "Dell XPS 13 Laptop delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Dell XPS 13 Laptop</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/thom-bradley-A6qNzfJXRGQ-unsplash__1__rj4NhCBxo.avif?updatedAt=1772461245935\" alt=\"Dell XPS 13 Laptop\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -532,27 +433,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "492"
-    },
-    "totalSales": {
-      "$numberLong": "45"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.032696Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.032700Z"
-    },
+    "stock": { "$numberLong": "492" },
+    "totalSales": { "$numberLong": "45" },
+    "shopId": { "$oid": "69910d83793e24b1ee575963" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.032696Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.032700Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "85bd4556ee7442fd8ad9a72c"
-    },
+    "_id": { "$oid": "85bd4556ee7442fd8ad9a72c" },
     "title": "HP Pavilion 15 Laptop",
     "short_Description": "HP Pavilion 15 Laptop delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>HP Pavilion 15 Laptop</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/red_sneakers_rGjK9zCMCc.avif?updatedAt=1772459991090\" alt=\"HP Pavilion 15 Laptop\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -593,27 +482,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "209"
-    },
-    "totalSales": {
-      "$numberLong": "198"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.032805Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.032809Z"
-    },
+    "stock": { "$numberLong": "209" },
+    "totalSales": { "$numberLong": "198" },
+    "shopId": { "$oid": "69910d83793e24b1ee575964" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.032805Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.032809Z" },
     "ratings": 5
   },
   {
-    "_id": {
-      "$oid": "af088b5f8f234565ab4c9b9a"
-    },
+    "_id": { "$oid": "af088b5f8f234565ab4c9b9a" },
     "title": "Modern Wooden Coffee Table",
     "short_Description": "Modern Wooden Coffee Table delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Modern Wooden Coffee Table</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud2_AcpBR7f_a.webp?updatedAt=1771924047822\" alt=\"Modern Wooden Coffee Table\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -654,27 +531,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "118"
-    },
-    "totalSales": {
-      "$numberLong": "162"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.032910Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.032974Z"
-    },
+    "stock": { "$numberLong": "118" },
+    "totalSales": { "$numberLong": "162" },
+    "shopId": { "$oid": "69910d83793e24b1ee575965" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.032910Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.032974Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "a7b4771330f24ea49127ad4d"
-    },
+    "_id": { "$oid": "a7b4771330f24ea49127ad4d" },
     "title": "Non-Stick 10pcs Cookware Set",
     "short_Description": "Non-Stick 10pcs Cookware Set delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Non-Stick 10pcs Cookware Set</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/omid-armin-B2w4rdIihEo-unsplash__1__RDomWFQhD.avif?updatedAt=1772461797613\" alt=\"Non-Stick 10pcs Cookware Set\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -715,27 +580,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "289"
-    },
-    "totalSales": {
-      "$numberLong": "66"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.033063Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.033067Z"
-    },
+    "stock": { "$numberLong": "289" },
+    "totalSales": { "$numberLong": "66" },
+    "shopId": { "$oid": "69910d83793e24b1ee575966" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.033063Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.033067Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "ccd64053359c4eae836d23b8"
-    },
+    "_id": { "$oid": "ccd64053359c4eae836d23b8" },
     "title": "Ergonomic Office Chair",
     "short_Description": "Ergonomic Office Chair delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Ergonomic Office Chair</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__aRPWAovYP.avif?updatedAt=1772461080934\" alt=\"Ergonomic Office Chair\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -776,27 +629,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "348"
-    },
-    "totalSales": {
-      "$numberLong": "44"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.033144Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.033148Z"
-    },
+    "stock": { "$numberLong": "348" },
+    "totalSales": { "$numberLong": "44" },
+    "shopId": { "$oid": "69910d83793e24b1ee575961" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.033144Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.033148Z" },
     "ratings": 5
   },
   {
-    "_id": {
-      "$oid": "00c2bd240706419697863e07"
-    },
+    "_id": { "$oid": "00c2bd240706419697863e07" },
     "title": "Stainless Steel Blender 700W",
     "short_Description": "Stainless Steel Blender 700W delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Stainless Steel Blender 700W</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud-case_YvZ58lFBK.jpg?updatedAt=1771937346257\" alt=\"Stainless Steel Blender 700W\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -837,27 +678,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "328"
-    },
-    "totalSales": {
-      "$numberLong": "154"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.033223Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.033226Z"
-    },
+    "stock": { "$numberLong": "328" },
+    "totalSales": { "$numberLong": "154" },
+    "shopId": { "$oid": "69910d83793e24b1ee575962" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.033223Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.033226Z" },
     "ratings": 5
   },
   {
-    "_id": {
-      "$oid": "c70379e2ec0146a8855a205f"
-    },
+    "_id": { "$oid": "c70379e2ec0146a8855a205f" },
     "title": "Adjustable Dumbbell Set 20kg",
     "short_Description": "Adjustable Dumbbell Set 20kg delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Adjustable Dumbbell Set 20kg</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/thom-bradley-A6qNzfJXRGQ-unsplash__1__rj4NhCBxo.avif?updatedAt=1772461245935\" alt=\"Adjustable Dumbbell Set 20kg\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -898,27 +727,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "301"
-    },
-    "totalSales": {
-      "$numberLong": "149"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.033288Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.033291Z"
-    },
+    "stock": { "$numberLong": "301" },
+    "totalSales": { "$numberLong": "149" },
+    "shopId": { "$oid": "69910d83793e24b1ee575963" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.033288Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.033291Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "f2cf4005c97d4cdcbb14ab92"
-    },
+    "_id": { "$oid": "f2cf4005c97d4cdcbb14ab92" },
     "title": "Mountain Bike 26\" Alloy Frame",
     "short_Description": "Mountain Bike 26\" Alloy Frame delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Mountain Bike 26\" Alloy Frame</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/red_sneakers_rGjK9zCMCc.avif?updatedAt=1772459991090\" alt=\"Mountain Bike 26&quot; Alloy Frame\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -930,12 +747,8 @@
     "colors": ["#ff0000", "#000000", "#0000ff"],
     "sizes": ["M", "S"],
     "tags": ["mountain", "bike"],
-    "starting_date": {
-      "$date": "2026-04-06T14:39:35.033329Z"
-    },
-    "ending_date": {
-      "$date": "2026-05-01T14:39:35.033341Z"
-    },
+    "starting_date": { "$date": "2026-04-06T14:39:35.033329Z" },
+    "ending_date": { "$date": "2026-05-01T14:39:35.033341Z" },
     "video_url": null,
     "category": "Sport & Fitness",
     "subCategory": "Gym Equipment",
@@ -963,27 +776,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "73"
-    },
-    "totalSales": {
-      "$numberLong": "5"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.033379Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.033382Z"
-    },
+    "stock": { "$numberLong": "73" },
+    "totalSales": { "$numberLong": "5" },
+    "shopId": { "$oid": "69910d83793e24b1ee575964" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.033379Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.033382Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "608f8dbaf0d54b8fb6ef392f"
-    },
+    "_id": { "$oid": "608f8dbaf0d54b8fb6ef392f" },
     "title": "Men Slim Fit Casual Shirt",
     "short_Description": "Men Slim Fit Casual Shirt delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Men Slim Fit Casual Shirt</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud2_AcpBR7f_a.webp?updatedAt=1771924047822\" alt=\"Men Slim Fit Casual Shirt\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -995,12 +796,8 @@
     "colors": ["#ff0000", "#000000"],
     "sizes": ["XL", "L"],
     "tags": ["men", "slim"],
-    "starting_date": {
-      "$date": "2026-04-01T14:39:35.033433Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-07T14:39:35.033443Z"
-    },
+    "starting_date": { "$date": "2026-04-01T14:39:35.033433Z" },
+    "ending_date": { "$date": "2026-04-07T14:39:35.033443Z" },
     "video_url": null,
     "category": "Sport & Fitness",
     "subCategory": "Cycling",
@@ -1028,27 +825,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "492"
-    },
-    "totalSales": {
-      "$numberLong": "91"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.033512Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.033518Z"
-    },
+    "stock": { "$numberLong": "492" },
+    "totalSales": { "$numberLong": "91" },
+    "shopId": { "$oid": "69910d83793e24b1ee575965" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.033512Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.033518Z" },
     "ratings": 5
   },
   {
-    "_id": {
-      "$oid": "907a5c806d204d6da399a3fd"
-    },
+    "_id": { "$oid": "907a5c806d204d6da399a3fd" },
     "title": "Women Floral Summer Dress",
     "short_Description": "Women Floral Summer Dress delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Women Floral Summer Dress</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/omid-armin-B2w4rdIihEo-unsplash__1__RDomWFQhD.avif?updatedAt=1772461797613\" alt=\"Women Floral Summer Dress\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1060,12 +845,8 @@
     "colors": ["#0000ff", "#000000", "#00ff00"],
     "sizes": ["S", "XL", "L"],
     "tags": ["women", "floral"],
-    "starting_date": {
-      "$date": "2026-04-03T14:39:35.033613Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-25T14:39:35.033622Z"
-    },
+    "starting_date": { "$date": "2026-04-03T14:39:35.033613Z" },
+    "ending_date": { "$date": "2026-04-25T14:39:35.033622Z" },
     "video_url": null,
     "category": "Home & Kitchen",
     "subCategory": "Cookware",
@@ -1093,27 +874,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "295"
-    },
-    "totalSales": {
-      "$numberLong": "123"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.033673Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.033679Z"
-    },
+    "stock": { "$numberLong": "295" },
+    "totalSales": { "$numberLong": "123" },
+    "shopId": { "$oid": "69910d83793e24b1ee575966" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.033673Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.033679Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "cbf90429d2b7471b979246df"
-    },
+    "_id": { "$oid": "cbf90429d2b7471b979246df" },
     "title": "Running Compression Tights",
     "short_Description": "Running Compression Tights delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Running Compression Tights</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__aRPWAovYP.avif?updatedAt=1772461080934\" alt=\"Running Compression Tights\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1125,12 +894,8 @@
     "colors": ["#000000", "#ffffff", "#00ff00"],
     "sizes": ["S", "XL", "M"],
     "tags": ["running", "compression"],
-    "starting_date": {
-      "$date": "2026-04-20T14:39:35.033770Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-03T14:39:35.033781Z"
-    },
+    "starting_date": { "$date": "2026-04-20T14:39:35.033770Z" },
+    "ending_date": { "$date": "2026-04-03T14:39:35.033781Z" },
     "video_url": null,
     "category": "Fashion",
     "subCategory": "Shoes",
@@ -1158,27 +923,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "380"
-    },
-    "totalSales": {
-      "$numberLong": "104"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.033847Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.033854Z"
-    },
+    "stock": { "$numberLong": "380" },
+    "totalSales": { "$numberLong": "104" },
+    "shopId": { "$oid": "69910d83793e24b1ee575961" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.033847Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.033854Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "b426da88c5e14f70be063627"
-    },
+    "_id": { "$oid": "b426da88c5e14f70be063627" },
     "title": "Yoga Mat Premium 6mm",
     "short_Description": "Yoga Mat Premium 6mm delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Yoga Mat Premium 6mm</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud-case_YvZ58lFBK.jpg?updatedAt=1771937346257\" alt=\"Yoga Mat Premium 6mm\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1190,12 +943,8 @@
     "colors": ["#ff0000", "#0000ff"],
     "sizes": ["S", "L"],
     "tags": ["yoga", "mat"],
-    "starting_date": {
-      "$date": "2026-04-03T14:39:35.033940Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-18T14:39:35.033948Z"
-    },
+    "starting_date": { "$date": "2026-04-03T14:39:35.033940Z" },
+    "ending_date": { "$date": "2026-04-18T14:39:35.033948Z" },
     "video_url": null,
     "category": "Home & Kitchen",
     "subCategory": "Appliances",
@@ -1223,27 +972,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "306"
-    },
-    "totalSales": {
-      "$numberLong": "129"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.033995Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.034001Z"
-    },
+    "stock": { "$numberLong": "306" },
+    "totalSales": { "$numberLong": "129" },
+    "shopId": { "$oid": "69910d83793e24b1ee575962" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.033995Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.034001Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "005eb0e05121451a9a14f173"
-    },
+    "_id": { "$oid": "005eb0e05121451a9a14f173" },
     "title": "Cycling Helmet Lightweight",
     "short_Description": "Cycling Helmet Lightweight delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Cycling Helmet Lightweight</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/thom-bradley-A6qNzfJXRGQ-unsplash__1__rj4NhCBxo.avif?updatedAt=1772461245935\" alt=\"Cycling Helmet Lightweight\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1255,12 +992,8 @@
     "colors": ["#0000ff", "#00ff00", "#ff0000"],
     "sizes": ["L", "XL", "M"],
     "tags": ["cycling", "helmet"],
-    "starting_date": {
-      "$date": "2026-04-03T14:39:35.034089Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-29T14:39:35.034097Z"
-    },
+    "starting_date": { "$date": "2026-04-03T14:39:35.034089Z" },
+    "ending_date": { "$date": "2026-04-29T14:39:35.034097Z" },
     "video_url": null,
     "category": "Electronic",
     "subCategory": "Mobile Phones",
@@ -1288,27 +1021,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "429"
-    },
-    "totalSales": {
-      "$numberLong": "111"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.034146Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.034152Z"
-    },
+    "stock": { "$numberLong": "429" },
+    "totalSales": { "$numberLong": "111" },
+    "shopId": { "$oid": "69910d83793e24b1ee575963" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.034146Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.034152Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "4d6540d8afac4db7b15eea97"
-    },
+    "_id": { "$oid": "4d6540d8afac4db7b15eea97" },
     "title": "Leather Crossbody Handbag",
     "short_Description": "Leather Crossbody Handbag delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Leather Crossbody Handbag</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/red_sneakers_rGjK9zCMCc.avif?updatedAt=1772459991090\" alt=\"Leather Crossbody Handbag\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1320,12 +1041,8 @@
     "colors": ["#000000", "#ff0000", "#ffffff"],
     "sizes": ["S", "L", "XL"],
     "tags": ["leather", "crossbody"],
-    "starting_date": {
-      "$date": "2026-04-28T14:39:35.034239Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-30T14:39:35.034247Z"
-    },
+    "starting_date": { "$date": "2026-04-28T14:39:35.034239Z" },
+    "ending_date": { "$date": "2026-04-30T14:39:35.034247Z" },
     "video_url": null,
     "category": "Home & Kitchen",
     "subCategory": "Furniture",
@@ -1353,27 +1070,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "426"
-    },
-    "totalSales": {
-      "$numberLong": "152"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.034296Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.034302Z"
-    },
+    "stock": { "$numberLong": "426" },
+    "totalSales": { "$numberLong": "152" },
+    "shopId": { "$oid": "69910d83793e24b1ee575964" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.034296Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.034302Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "18992a399a1b473899863710"
-    },
+    "_id": { "$oid": "18992a399a1b473899863710" },
     "title": "Gaming Wireless Controller",
     "short_Description": "Gaming Wireless Controller delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Gaming Wireless Controller</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud2_AcpBR7f_a.webp?updatedAt=1771924047822\" alt=\"Gaming Wireless Controller\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1385,12 +1090,8 @@
     "colors": ["#ff0000", "#ffffff"],
     "sizes": ["S", "L", "M"],
     "tags": ["gaming", "wireless"],
-    "starting_date": {
-      "$date": "2026-04-15T14:39:35.034385Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-08T14:39:35.034416Z"
-    },
+    "starting_date": { "$date": "2026-04-15T14:39:35.034385Z" },
+    "ending_date": { "$date": "2026-04-08T14:39:35.034416Z" },
     "video_url": null,
     "category": "Home & Kitchen",
     "subCategory": "Cookware",
@@ -1418,27 +1119,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "289"
-    },
-    "totalSales": {
-      "$numberLong": "55"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.034465Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.034471Z"
-    },
+    "stock": { "$numberLong": "289" },
+    "totalSales": { "$numberLong": "55" },
+    "shopId": { "$oid": "69910d83793e24b1ee575965" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.034465Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.034471Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "b51843e6e5ec4636a55a6791"
-    },
+    "_id": { "$oid": "b51843e6e5ec4636a55a6791" },
     "title": "Smart LED Television 43\"",
     "short_Description": "Smart LED Television 43\" delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Smart LED Television 43\"</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/omid-armin-B2w4rdIihEo-unsplash__1__RDomWFQhD.avif?updatedAt=1772461797613\" alt=\"Smart LED Television 43&quot;\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1450,12 +1139,8 @@
     "colors": ["#ffffff", "#00ff00"],
     "sizes": ["M", "XL", "L"],
     "tags": ["smart", "led"],
-    "starting_date": {
-      "$date": "2026-04-21T14:39:35.034551Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-20T14:39:35.034561Z"
-    },
+    "starting_date": { "$date": "2026-04-21T14:39:35.034551Z" },
+    "ending_date": { "$date": "2026-04-20T14:39:35.034561Z" },
     "video_url": null,
     "category": "Fashion",
     "subCategory": "Women Clothing",
@@ -1483,27 +1168,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "494"
-    },
-    "totalSales": {
-      "$numberLong": "26"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.034611Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.034617Z"
-    },
+    "stock": { "$numberLong": "494" },
+    "totalSales": { "$numberLong": "26" },
+    "shopId": { "$oid": "69910d83793e24b1ee575966" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.034611Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.034617Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "1059070ea5de4374bd3496a1"
-    },
+    "_id": { "$oid": "1059070ea5de4374bd3496a1" },
     "title": "Air Fryer 5L Digital",
     "short_Description": "Air Fryer 5L Digital delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Air Fryer 5L Digital</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__aRPWAovYP.avif?updatedAt=1772461080934\" alt=\"Air Fryer 5L Digital\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1515,12 +1188,8 @@
     "colors": ["#ff0000", "#ffffff"],
     "sizes": ["M", "S", "XL"],
     "tags": ["air", "fryer"],
-    "starting_date": {
-      "$date": "2026-04-15T14:39:35.034693Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-18T14:39:35.034701Z"
-    },
+    "starting_date": { "$date": "2026-04-15T14:39:35.034693Z" },
+    "ending_date": { "$date": "2026-04-18T14:39:35.034701Z" },
     "video_url": null,
     "category": "Home & Kitchen",
     "subCategory": "Appliances",
@@ -1548,27 +1217,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "132"
-    },
-    "totalSales": {
-      "$numberLong": "133"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.034748Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.034754Z"
-    },
+    "stock": { "$numberLong": "132" },
+    "totalSales": { "$numberLong": "133" },
+    "shopId": { "$oid": "69910d83793e24b1ee575961" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.034748Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.034754Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "e824724020fa42249edfe53b"
-    },
+    "_id": { "$oid": "e824724020fa42249edfe53b" },
     "title": "Fitness Smart Watch Pro",
     "short_Description": "Fitness Smart Watch Pro delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Fitness Smart Watch Pro</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud-case_YvZ58lFBK.jpg?updatedAt=1771937346257\" alt=\"Fitness Smart Watch Pro\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1580,12 +1237,8 @@
     "colors": ["#ff0000", "#ffffff", "#0000ff"],
     "sizes": ["S", "XL", "M"],
     "tags": ["fitness", "smart"],
-    "starting_date": {
-      "$date": "2026-04-12T14:39:35.034844Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-14T14:39:35.034852Z"
-    },
+    "starting_date": { "$date": "2026-04-12T14:39:35.034844Z" },
+    "ending_date": { "$date": "2026-04-14T14:39:35.034852Z" },
     "video_url": null,
     "category": "Home & Kitchen",
     "subCategory": "Home Decor",
@@ -1613,27 +1266,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "91"
-    },
-    "totalSales": {
-      "$numberLong": "10"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.034900Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.034905Z"
-    },
+    "stock": { "$numberLong": "91" },
+    "totalSales": { "$numberLong": "10" },
+    "shopId": { "$oid": "69910d83793e24b1ee575962" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.034900Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.034905Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "e82e93ce2204498bbf6e71e0"
-    },
+    "_id": { "$oid": "e82e93ce2204498bbf6e71e0" },
     "title": "Bluetooth Portable Speaker",
     "short_Description": "Bluetooth Portable Speaker delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Bluetooth Portable Speaker</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/thom-bradley-A6qNzfJXRGQ-unsplash__1__rj4NhCBxo.avif?updatedAt=1772461245935\" alt=\"Bluetooth Portable Speaker\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1645,12 +1286,8 @@
     "colors": ["#ffffff", "#ff0000"],
     "sizes": ["XL", "M", "S"],
     "tags": ["bluetooth", "portable"],
-    "starting_date": {
-      "$date": "2026-04-27T14:39:35.034987Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-15T14:39:35.034995Z"
-    },
+    "starting_date": { "$date": "2026-04-27T14:39:35.034987Z" },
+    "ending_date": { "$date": "2026-04-15T14:39:35.034995Z" },
     "video_url": null,
     "category": "Sport & Fitness",
     "subCategory": "Cycling",
@@ -1678,27 +1315,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "53"
-    },
-    "totalSales": {
-      "$numberLong": "83"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.035042Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.035048Z"
-    },
+    "stock": { "$numberLong": "53" },
+    "totalSales": { "$numberLong": "83" },
+    "shopId": { "$oid": "69910d83793e24b1ee575963" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.035042Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.035048Z" },
     "ratings": 5
   },
   {
-    "_id": {
-      "$oid": "b87588e69d2043d0b3d4436a"
-    },
+    "_id": { "$oid": "b87588e69d2043d0b3d4436a" },
     "title": "Luxury King Size Bed Frame",
     "short_Description": "Luxury King Size Bed Frame delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Luxury King Size Bed Frame</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/red_sneakers_rGjK9zCMCc.avif?updatedAt=1772459991090\" alt=\"Luxury King Size Bed Frame\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1710,12 +1335,8 @@
     "colors": ["#000000", "#ff0000"],
     "sizes": ["M", "XL"],
     "tags": ["luxury", "king"],
-    "starting_date": {
-      "$date": "2026-04-17T14:39:35.035129Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-22T14:39:35.035137Z"
-    },
+    "starting_date": { "$date": "2026-04-17T14:39:35.035129Z" },
+    "ending_date": { "$date": "2026-04-22T14:39:35.035137Z" },
     "video_url": null,
     "category": "Electronic",
     "subCategory": "Televisions",
@@ -1743,27 +1364,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "149"
-    },
-    "totalSales": {
-      "$numberLong": "173"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.035186Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.035192Z"
-    },
+    "stock": { "$numberLong": "149" },
+    "totalSales": { "$numberLong": "173" },
+    "shopId": { "$oid": "69910d83793e24b1ee575964" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.035186Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.035192Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "e0b2771e572b4bedad54ce7f"
-    },
+    "_id": { "$oid": "e0b2771e572b4bedad54ce7f" },
     "title": "Men Sports Hoodie",
     "short_Description": "Men Sports Hoodie delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Men Sports Hoodie</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud2_AcpBR7f_a.webp?updatedAt=1771924047822\" alt=\"Men Sports Hoodie\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1775,12 +1384,8 @@
     "colors": ["#ffffff", "#000000", "#ff0000"],
     "sizes": ["M", "L", "XL"],
     "tags": ["men", "sports"],
-    "starting_date": {
-      "$date": "2026-04-07T14:39:35.035273Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-17T14:39:35.035281Z"
-    },
+    "starting_date": { "$date": "2026-04-07T14:39:35.035273Z" },
+    "ending_date": { "$date": "2026-04-17T14:39:35.035281Z" },
     "video_url": null,
     "category": "Fashion",
     "subCategory": "Men Clothing",
@@ -1808,27 +1413,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "436"
-    },
-    "totalSales": {
-      "$numberLong": "159"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.035327Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.035332Z"
-    },
+    "stock": { "$numberLong": "436" },
+    "totalSales": { "$numberLong": "159" },
+    "shopId": { "$oid": "69910d83793e24b1ee575965" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.035327Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.035332Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "a9ef20cf95cd4492bdc453ee"
-    },
+    "_id": { "$oid": "a9ef20cf95cd4492bdc453ee" },
     "title": "Wireless Charging Pad Fast Charge",
     "short_Description": "Wireless Charging Pad Fast Charge delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Wireless Charging Pad Fast Charge</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/omid-armin-B2w4rdIihEo-unsplash__1__RDomWFQhD.avif?updatedAt=1772461797613\" alt=\"Wireless Charging Pad Fast Charge\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1840,12 +1433,8 @@
     "colors": ["#ffffff", "#00ff00", "#ff0000"],
     "sizes": ["S", "XL", "M"],
     "tags": ["wireless", "charging"],
-    "starting_date": {
-      "$date": "2026-04-21T14:39:35.035408Z"
-    },
-    "ending_date": {
-      "$date": "2026-04-26T14:39:35.035415Z"
-    },
+    "starting_date": { "$date": "2026-04-21T14:39:35.035408Z" },
+    "ending_date": { "$date": "2026-04-26T14:39:35.035415Z" },
     "video_url": null,
     "category": "Fashion",
     "subCategory": "Accessories",
@@ -1873,28 +1462,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "242"
-    },
-    "totalSales": {
-      "$numberLong": "131"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-03-02T14:39:35.035464Z"
-    },
-    "updatedAt": {
-      "$date": "2026-03-02T14:39:35.035469Z"
-    },
+    "stock": { "$numberLong": "242" },
+    "totalSales": { "$numberLong": "131" },
+    "shopId": { "$oid": "69910d83793e24b1ee575966" },
+    "createdAt": { "$date": "2026-03-02T14:39:35.035464Z" },
+    "updatedAt": { "$date": "2026-03-02T14:39:35.035469Z" },
     "ratings": 3
   },
-
   {
-    "_id": {
-      "$oid": "93fa6ddb751a4554c07a3988"
-    },
+    "_id": { "$oid": "93fa6ddb751a4554c07a3988" },
     "title": "Samsung Galaxy S23",
     "short_Description": "Samsung Galaxy S23 delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Samsung Galaxy S23</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/red_sneakers_rGjK9zCMCc.avif?updatedAt=1772459991090\" alt=\"Samsung Galaxy S23\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1903,35 +1479,18 @@
     "regular_price": 1149,
     "brand": "JBL",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "samsung"
-    ],
-    "starting_date": {
-      "$date": "2025-11-07T00:00:00Z"
-    },
-    "ending_date": {
-      "$date": "2025-11-06T00:00:00Z"
-    },
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["samsung"],
+    "starting_date": { "$date": "2025-11-07T00:00:00Z" },
+    "ending_date": { "$date": "2025-11-06T00:00:00Z" },
     "video_url": null,
     "category": "Electronics",
     "subCategory": "Gadgets",
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -1944,27 +1503,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "39"
-    },
-    "totalSales": {
-      "$numberLong": "73"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-11-08T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-11-08T00:00:00Z"
-    },
+    "stock": { "$numberLong": "39" },
+    "totalSales": { "$numberLong": "73" },
+    "shopId": { "$oid": "69910d83793e24b1ee575961" },
+    "createdAt": { "$date": "2025-11-08T00:00:00Z" },
+    "updatedAt": { "$date": "2025-11-08T00:00:00Z" },
     "ratings": 5
   },
   {
-    "_id": {
-      "$oid": "c59548aac9fd20fcb26046c9"
-    },
+    "_id": { "$oid": "c59548aac9fd20fcb26046c9" },
     "title": "Apple AirPods Pro 2",
     "short_Description": "Apple AirPods Pro 2 delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Apple AirPods Pro 2</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud-case_YvZ58lFBK.jpg?updatedAt=1771937346257\" alt=\"Apple AirPods Pro 2\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -1973,35 +1520,18 @@
     "regular_price": 1237,
     "brand": "Canon",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "apple"
-    ],
-    "starting_date": {
-      "$date": "2026-01-25T00:00:00Z"
-    },
-    "ending_date": {
-      "$date": "2025-11-12T00:00:00Z"
-    },
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["apple"],
+    "starting_date": { "$date": "2026-01-25T00:00:00Z" },
+    "ending_date": { "$date": "2025-11-12T00:00:00Z" },
     "video_url": null,
     "category": "Electronics",
     "subCategory": "Gadgets",
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2014,27 +1544,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "99"
-    },
-    "totalSales": {
-      "$numberLong": "69"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-12-09T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-12-09T00:00:00Z"
-    },
+    "stock": { "$numberLong": "99" },
+    "totalSales": { "$numberLong": "69" },
+    "shopId": { "$oid": "69910d83793e24b1ee575962" },
+    "createdAt": { "$date": "2025-12-09T00:00:00Z" },
+    "updatedAt": { "$date": "2025-12-09T00:00:00Z" },
     "ratings": 5
   },
   {
-    "_id": {
-      "$oid": "e36098682f835494085f313e"
-    },
+    "_id": { "$oid": "e36098682f835494085f313e" },
     "title": "Sony WH-1000XM5 Headphones",
     "short_Description": "Sony WH-1000XM5 Headphones delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Sony WH-1000XM5 Headphones</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud2_AcpBR7f_a.webp?updatedAt=1771924047822\" alt=\"Sony WH-1000XM5 Headphones\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2043,35 +1561,18 @@
     "regular_price": 1343,
     "brand": "Adidas",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "sony"
-    ],
-    "starting_date": {
-      "$date": "2026-01-19T00:00:00Z"
-    },
-    "ending_date": {
-      "$date": "2025-12-14T00:00:00Z"
-    },
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["sony"],
+    "starting_date": { "$date": "2026-01-19T00:00:00Z" },
+    "ending_date": { "$date": "2025-12-14T00:00:00Z" },
     "video_url": null,
     "category": "Electronics",
     "subCategory": "Gadgets",
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2084,27 +1585,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "36"
-    },
-    "totalSales": {
-      "$numberLong": "64"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-01-25T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2026-01-25T00:00:00Z"
-    },
+    "stock": { "$numberLong": "36" },
+    "totalSales": { "$numberLong": "64" },
+    "shopId": { "$oid": "69910d83793e24b1ee575963" },
+    "createdAt": { "$date": "2026-01-25T00:00:00Z" },
+    "updatedAt": { "$date": "2026-01-25T00:00:00Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "2e3ba70549528a1c75e6c9ec"
-    },
+    "_id": { "$oid": "2e3ba70549528a1c75e6c9ec" },
     "title": "Nike Air  Pegasus 40",
     "short_Description": "Nike Air Zoom Pegasus 40 delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Nike Air Zoom Pegasus 40</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/red_sneakers_rGjK9zCMCc.avif?updatedAt=1772459991090\" alt=\"Nike Air Zoom Pegasus 40\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2113,35 +1602,18 @@
     "regular_price": 1280,
     "brand": "Canon",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "nike"
-    ],
-    "starting_date": {
-      "$date": "2025-11-04T00:00:00Z"
-    },
-    "ending_date": {
-      "$date": "2025-12-24T00:00:00Z"
-    },
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["nike"],
+    "starting_date": { "$date": "2025-11-04T00:00:00Z" },
+    "ending_date": { "$date": "2025-12-24T00:00:00Z" },
     "video_url": null,
     "category": "Electronics",
     "subCategory": "Gadgets",
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2154,27 +1626,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "120"
-    },
-    "totalSales": {
-      "$numberLong": "39"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-12-04T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-12-04T00:00:00Z"
-    },
+    "stock": { "$numberLong": "120" },
+    "totalSales": { "$numberLong": "39" },
+    "shopId": { "$oid": "69910d83793e24b1ee575964" },
+    "createdAt": { "$date": "2025-12-04T00:00:00Z" },
+    "updatedAt": { "$date": "2025-12-04T00:00:00Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "def9cb0cad80c1cd80815b4c"
-    },
+    "_id": { "$oid": "def9cb0cad80c1cd80815b4c" },
     "title": "Canon EOS R50 Camera",
     "short_Description": "Canon EOS R50 Camera delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Canon EOS R50 Camera</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud2_AcpBR7f_a.webp?updatedAt=1771924047822\" alt=\"Canon EOS R50 Camera\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2183,35 +1643,18 @@
     "regular_price": 1223,
     "brand": "Apple",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "canon"
-    ],
-    "starting_date": {
-      "$date": "2026-01-29T00:00:00Z"
-    },
-    "ending_date": {
-      "$date": "2025-11-14T00:00:00Z"
-    },
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["canon"],
+    "starting_date": { "$date": "2026-01-29T00:00:00Z" },
+    "ending_date": { "$date": "2025-11-14T00:00:00Z" },
     "video_url": null,
     "category": "Electronics",
     "subCategory": "Gadgets",
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2224,27 +1667,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "47"
-    },
-    "totalSales": {
-      "$numberLong": "37"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-01-04T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2026-01-04T00:00:00Z"
-    },
+    "stock": { "$numberLong": "47" },
+    "totalSales": { "$numberLong": "37" },
+    "shopId": { "$oid": "69910d83793e24b1ee575965" },
+    "createdAt": { "$date": "2026-01-04T00:00:00Z" },
+    "updatedAt": { "$date": "2026-01-04T00:00:00Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "62d53a68bd33d17edde0d92e"
-    },
+    "_id": { "$oid": "62d53a68bd33d17edde0d92e" },
     "title": "Dell XPS 14 Laptop",
     "short_Description": "Dell XPS 13 Laptop delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Dell XPS 13 Laptop</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/omid-armin-B2w4rdIihEo-unsplash__1__RDomWFQhD.avif?updatedAt=1772461797613\" alt=\"Dell XPS 13 Laptop\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2253,35 +1684,18 @@
     "regular_price": 1308,
     "brand": "Samsung",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "dell"
-    ],
-    "starting_date": {
-      "$date": "2025-12-11T00:00:00Z"
-    },
-    "ending_date": {
-      "$date": "2026-01-28T00:00:00Z"
-    },
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["dell"],
+    "starting_date": { "$date": "2025-12-11T00:00:00Z" },
+    "ending_date": { "$date": "2026-01-28T00:00:00Z" },
     "video_url": null,
     "category": "Electronics",
     "subCategory": "Gadgets",
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2294,27 +1708,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "48"
-    },
-    "totalSales": {
-      "$numberLong": "29"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-01-14T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2026-01-14T00:00:00Z"
-    },
+    "stock": { "$numberLong": "48" },
+    "totalSales": { "$numberLong": "29" },
+    "shopId": { "$oid": "69910d83793e24b1ee575966" },
+    "createdAt": { "$date": "2026-01-14T00:00:00Z" },
+    "updatedAt": { "$date": "2026-01-14T00:00:00Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "4e3bf3191292eeeaf9b71607"
-    },
+    "_id": { "$oid": "4e3bf3191292eeeaf9b71607" },
     "title": "Apple Watch Series 9",
     "short_Description": "Apple Watch Series 9 delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Apple Watch Series 9</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/omid-armin-B2w4rdIihEo-unsplash__1__RDomWFQhD.avif?updatedAt=1772461797613\" alt=\"Apple Watch Series 9\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2323,35 +1725,18 @@
     "regular_price": 1548,
     "brand": "Apple",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "apple"
-    ],
-    "starting_date": {
-      "$date": "2025-12-27T00:00:00Z"
-    },
-    "ending_date": {
-      "$date": "2025-11-23T00:00:00Z"
-    },
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["apple"],
+    "starting_date": { "$date": "2025-12-27T00:00:00Z" },
+    "ending_date": { "$date": "2025-11-23T00:00:00Z" },
     "video_url": null,
     "category": "Electronics",
     "subCategory": "Gadgets",
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2364,27 +1749,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "29"
-    },
-    "totalSales": {
-      "$numberLong": "79"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-11-06T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-11-06T00:00:00Z"
-    },
+    "stock": { "$numberLong": "29" },
+    "totalSales": { "$numberLong": "79" },
+    "shopId": { "$oid": "69910d83793e24b1ee575961" },
+    "createdAt": { "$date": "2025-11-06T00:00:00Z" },
+    "updatedAt": { "$date": "2025-11-06T00:00:00Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "0f6f2b66615e14d7c921546b"
-    },
+    "_id": { "$oid": "0f6f2b66615e14d7c921546b" },
     "title": "JBL Charge 5 Speaker",
     "short_Description": "JBL Charge 5 Speaker delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>JBL Charge 5 Speaker</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/thom-bradley-A6qNzfJXRGQ-unsplash__1__rj4NhCBxo.avif?updatedAt=1772461245935\" alt=\"JBL Charge 5 Speaker\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2393,35 +1766,18 @@
     "regular_price": 1829,
     "brand": "Adidas",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "jbl"
-    ],
-    "starting_date": {
-      "$date": "2026-01-13T00:00:00Z"
-    },
-    "ending_date": {
-      "$date": "2026-01-14T00:00:00Z"
-    },
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["jbl"],
+    "starting_date": { "$date": "2026-01-13T00:00:00Z" },
+    "ending_date": { "$date": "2026-01-14T00:00:00Z" },
     "video_url": null,
     "category": "Electronics",
     "subCategory": "Gadgets",
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2434,27 +1790,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "114"
-    },
-    "totalSales": {
-      "$numberLong": "79"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-01-06T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2026-01-06T00:00:00Z"
-    },
+    "stock": { "$numberLong": "114" },
+    "totalSales": { "$numberLong": "79" },
+    "shopId": { "$oid": "69910d83793e24b1ee575962" },
+    "createdAt": { "$date": "2026-01-06T00:00:00Z" },
+    "updatedAt": { "$date": "2026-01-06T00:00:00Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "162062566202fa4cab309dd2"
-    },
+    "_id": { "$oid": "162062566202fa4cab309dd2" },
     "title": "Logitech MX Master 3S Mouse",
     "short_Description": "Logitech MX Master 3S Mouse delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Logitech MX Master 3S Mouse</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/thom-bradley-A6qNzfJXRGQ-unsplash__1__rj4NhCBxo.avif?updatedAt=1772461245935\" alt=\"Logitech MX Master 3S Mouse\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2463,35 +1807,18 @@
     "regular_price": 1913,
     "brand": "Adidas",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "logitech"
-    ],
-    "starting_date": {
-      "$date": "2025-11-19T00:00:00Z"
-    },
-    "ending_date": {
-      "$date": "2025-12-27T00:00:00Z"
-    },
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["logitech"],
+    "starting_date": { "$date": "2025-11-19T00:00:00Z" },
+    "ending_date": { "$date": "2025-12-27T00:00:00Z" },
     "video_url": null,
     "category": "Electronics",
     "subCategory": "Gadgets",
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2504,27 +1831,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "116"
-    },
-    "totalSales": {
-      "$numberLong": "6"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-11-30T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-11-30T00:00:00Z"
-    },
+    "stock": { "$numberLong": "116" },
+    "totalSales": { "$numberLong": "6" },
+    "shopId": { "$oid": "69910d83793e24b1ee575963" },
+    "createdAt": { "$date": "2025-11-30T00:00:00Z" },
+    "updatedAt": { "$date": "2025-11-30T00:00:00Z" },
     "ratings": 5
   },
   {
-    "_id": {
-      "$oid": "2f031ca51abeccecd5acb9b2"
-    },
+    "_id": { "$oid": "2f031ca51abeccecd5acb9b2" },
     "title": "GoPro Hero 12",
     "short_Description": "GoPro Hero 12 delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>GoPro Hero 12</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud-case_YvZ58lFBK.jpg?updatedAt=1771937346257\" alt=\"GoPro Hero 12\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2533,35 +1848,18 @@
     "regular_price": 1631,
     "brand": "Dell",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "gopro"
-    ],
-    "starting_date": {
-      "$date": "2025-12-19T00:00:00Z"
-    },
-    "ending_date": {
-      "$date": "2025-12-28T00:00:00Z"
-    },
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["gopro"],
+    "starting_date": { "$date": "2025-12-19T00:00:00Z" },
+    "ending_date": { "$date": "2025-12-28T00:00:00Z" },
     "video_url": null,
     "category": "Electronics",
     "subCategory": "Gadgets",
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2574,27 +1872,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "85"
-    },
-    "totalSales": {
-      "$numberLong": "54"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-12-24T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-12-24T00:00:00Z"
-    },
+    "stock": { "$numberLong": "85" },
+    "totalSales": { "$numberLong": "54" },
+    "shopId": { "$oid": "69910d83793e24b1ee575964" },
+    "createdAt": { "$date": "2025-12-24T00:00:00Z" },
+    "updatedAt": { "$date": "2025-12-24T00:00:00Z" },
     "ratings": 5
   },
   {
-    "_id": {
-      "$oid": "21914c3c24d9e15c2ede444b"
-    },
+    "_id": { "$oid": "21914c3c24d9e15c2ede444b" },
     "title": "HP Pavilion Gaming Laptop",
     "short_Description": "HP Pavilion Gaming Laptop delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>HP Pavilion Gaming Laptop</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/omid-armin-B2w4rdIihEo-unsplash__1__RDomWFQhD.avif?updatedAt=1772461797613\" alt=\"HP Pavilion Gaming Laptop\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2603,19 +1889,9 @@
     "regular_price": 994,
     "brand": "Nike",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "hp"
-    ],
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["hp"],
     "starting_date": null,
     "ending_date": null,
     "video_url": null,
@@ -2624,10 +1900,7 @@
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2640,27 +1913,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "105"
-    },
-    "totalSales": {
-      "$numberLong": "65"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-01-18T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2026-01-18T00:00:00Z"
-    },
+    "stock": { "$numberLong": "105" },
+    "totalSales": { "$numberLong": "65" },
+    "shopId": { "$oid": "69910d83793e24b1ee575965" },
+    "createdAt": { "$date": "2026-01-18T00:00:00Z" },
+    "updatedAt": { "$date": "2026-01-18T00:00:00Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "b241eae09930590d95c6d942"
-    },
+    "_id": { "$oid": "b241eae09930590d95c6d942" },
     "title": "Adidas Ultraboost 25",
     "short_Description": "Adidas Ultraboost 22 delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Adidas Ultraboost 22</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud-case_YvZ58lFBK.jpg?updatedAt=1771937346257\" alt=\"Adidas Ultraboost 22\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2669,19 +1930,9 @@
     "regular_price": 1399,
     "brand": "Samsung",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "adidas"
-    ],
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["adidas"],
     "starting_date": null,
     "ending_date": null,
     "video_url": null,
@@ -2690,10 +1941,7 @@
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2706,27 +1954,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "94"
-    },
-    "totalSales": {
-      "$numberLong": "65"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-11-04T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-11-04T00:00:00Z"
-    },
+    "stock": { "$numberLong": "94" },
+    "totalSales": { "$numberLong": "65" },
+    "shopId": { "$oid": "69910d83793e24b1ee575966" },
+    "createdAt": { "$date": "2025-11-04T00:00:00Z" },
+    "updatedAt": { "$date": "2025-11-04T00:00:00Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "b3f54bc4d78c65a3aa328f02"
-    },
+    "_id": { "$oid": "b3f54bc4d78c65a3aa328f02" },
     "title": "Lenovo ThinkPad X1 Carbon",
     "short_Description": "Lenovo ThinkPad X1 Carbon delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Lenovo ThinkPad X1 Carbon</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__aRPWAovYP.avif?updatedAt=1772461080934\" alt=\"Lenovo ThinkPad X1 Carbon\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2735,19 +1971,9 @@
     "regular_price": 1112,
     "brand": "Sony",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "lenovo"
-    ],
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["lenovo"],
     "starting_date": null,
     "ending_date": null,
     "video_url": null,
@@ -2756,10 +1982,7 @@
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2772,27 +1995,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "32"
-    },
-    "totalSales": {
-      "$numberLong": "47"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-11-13T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-11-13T00:00:00Z"
-    },
+    "stock": { "$numberLong": "32" },
+    "totalSales": { "$numberLong": "47" },
+    "shopId": { "$oid": "69910d83793e24b1ee575961" },
+    "createdAt": { "$date": "2025-11-13T00:00:00Z" },
+    "updatedAt": { "$date": "2025-11-13T00:00:00Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "921f7bd155a385a9b371c636"
-    },
+    "_id": { "$oid": "921f7bd155a385a9b371c636" },
     "title": "Samsung Galaxy Buds 2",
     "short_Description": "Samsung Galaxy Buds 2 delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Samsung Galaxy Buds 2</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/omid-armin-B2w4rdIihEo-unsplash__1__RDomWFQhD.avif?updatedAt=1772461797613\" alt=\"Samsung Galaxy Buds 2\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2801,19 +2012,9 @@
     "regular_price": 1714,
     "brand": "Canon",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "samsung"
-    ],
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["samsung"],
     "starting_date": null,
     "ending_date": null,
     "video_url": null,
@@ -2822,10 +2023,7 @@
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2838,27 +2036,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "74"
-    },
-    "totalSales": {
-      "$numberLong": "71"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-12-05T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-12-05T00:00:00Z"
-    },
+    "stock": { "$numberLong": "74" },
+    "totalSales": { "$numberLong": "71" },
+    "shopId": { "$oid": "69910d83793e24b1ee575962" },
+    "createdAt": { "$date": "2025-12-05T00:00:00Z" },
+    "updatedAt": { "$date": "2025-12-05T00:00:00Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "ee11ab24b90ce3fa77ea9bf2"
-    },
+    "_id": { "$oid": "ee11ab24b90ce3fa77ea9bf2" },
     "title": "Bose QuietComfort Earbuds",
     "short_Description": "Bose QuietComfort Earbuds delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Bose QuietComfort Earbuds</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/red_sneakers_rGjK9zCMCc.avif?updatedAt=1772459991090\" alt=\"Bose QuietComfort Earbuds\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2867,19 +2053,9 @@
     "regular_price": 989,
     "brand": "Apple",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "bose"
-    ],
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["bose"],
     "starting_date": null,
     "ending_date": null,
     "video_url": null,
@@ -2888,10 +2064,7 @@
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2904,27 +2077,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "69"
-    },
-    "totalSales": {
-      "$numberLong": "36"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2026-01-22T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2026-01-22T00:00:00Z"
-    },
+    "stock": { "$numberLong": "69" },
+    "totalSales": { "$numberLong": "36" },
+    "shopId": { "$oid": "69910d83793e24b1ee575963" },
+    "createdAt": { "$date": "2026-01-22T00:00:00Z" },
+    "updatedAt": { "$date": "2026-01-22T00:00:00Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "a07078f72a6d4c9893d51e04"
-    },
+    "_id": { "$oid": "a07078f72a6d4c9893d51e04" },
     "title": "Asus ROG Strix Laptop",
     "short_Description": "Asus ROG Strix Laptop delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Asus ROG Strix Laptop</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/thom-bradley-A6qNzfJXRGQ-unsplash__1__rj4NhCBxo.avif?updatedAt=1772461245935\" alt=\"Asus ROG Strix Laptop\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2933,19 +2094,9 @@
     "regular_price": 1498,
     "brand": "Dell",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "asus"
-    ],
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["asus"],
     "starting_date": null,
     "ending_date": null,
     "video_url": null,
@@ -2954,10 +2105,7 @@
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -2970,27 +2118,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "100"
-    },
-    "totalSales": {
-      "$numberLong": "41"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-11-17T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-11-17T00:00:00Z"
-    },
+    "stock": { "$numberLong": "100" },
+    "totalSales": { "$numberLong": "41" },
+    "shopId": { "$oid": "69910d83793e24b1ee575964" },
+    "createdAt": { "$date": "2025-11-17T00:00:00Z" },
+    "updatedAt": { "$date": "2025-11-17T00:00:00Z" },
     "ratings": 4
   },
   {
-    "_id": {
-      "$oid": "15edde2343d3241ef3639166"
-    },
+    "_id": { "$oid": "15edde2343d3241ef3639166" },
     "title": "Fitbit Charge 6",
     "short_Description": "Fitbit Charge 6 delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Fitbit Charge 6</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/omid-armin-B2w4rdIihEo-unsplash__1__RDomWFQhD.avif?updatedAt=1772461797613\" alt=\"Fitbit Charge 6\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -2999,19 +2135,9 @@
     "regular_price": 1746,
     "brand": "Samsung",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "fitbit"
-    ],
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["fitbit"],
     "starting_date": null,
     "ending_date": null,
     "video_url": null,
@@ -3020,10 +2146,7 @@
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -3036,27 +2159,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "47"
-    },
-    "totalSales": {
-      "$numberLong": "35"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-11-06T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-11-06T00:00:00Z"
-    },
+    "stock": { "$numberLong": "47" },
+    "totalSales": { "$numberLong": "35" },
+    "shopId": { "$oid": "69910d83793e24b1ee575965" },
+    "createdAt": { "$date": "2025-11-06T00:00:00Z" },
+    "updatedAt": { "$date": "2025-11-06T00:00:00Z" },
     "ratings": 5
   },
   {
-    "_id": {
-      "$oid": "33977e5a8dfc5a37dff449d1"
-    },
+    "_id": { "$oid": "33977e5a8dfc5a37dff449d1" },
     "title": "DJI Mini 3 Drone",
     "short_Description": "DJI Mini 3 Drone delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>DJI Mini 3 Drone</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__aRPWAovYP.avif?updatedAt=1772461080934\" alt=\"DJI Mini 3 Drone\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -3065,19 +2176,9 @@
     "regular_price": 1190,
     "brand": "JBL",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "dji"
-    ],
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["dji"],
     "starting_date": null,
     "ending_date": null,
     "video_url": null,
@@ -3086,10 +2187,7 @@
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -3102,27 +2200,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "75"
-    },
-    "totalSales": {
-      "$numberLong": "65"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-12-04T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-12-04T00:00:00Z"
-    },
+    "stock": { "$numberLong": "75" },
+    "totalSales": { "$numberLong": "65" },
+    "shopId": { "$oid": "69910d83793e24b1ee575966" },
+    "createdAt": { "$date": "2025-12-04T00:00:00Z" },
+    "updatedAt": { "$date": "2025-12-04T00:00:00Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "9ffc5b63a4ff48f1ac2f89da"
-    },
+    "_id": { "$oid": "9ffc5b63a4ff48f1ac2f89da" },
     "title": "Microsoft Surface Pro 9",
     "short_Description": "Microsoft Surface Pro 9 delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Microsoft Surface Pro 9</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/earbud2_AcpBR7f_a.webp?updatedAt=1771924047822\" alt=\"Microsoft Surface Pro 9\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -3131,19 +2217,9 @@
     "regular_price": 1135,
     "brand": "Dell",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "microsoft"
-    ],
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["microsoft"],
     "starting_date": null,
     "ending_date": null,
     "video_url": null,
@@ -3152,10 +2228,7 @@
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -3168,27 +2241,15 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "108"
-    },
-    "totalSales": {
-      "$numberLong": "33"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-12-12T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-12-12T00:00:00Z"
-    },
+    "stock": { "$numberLong": "108" },
+    "totalSales": { "$numberLong": "33" },
+    "shopId": { "$oid": "69910d83793e24b1ee575961" },
+    "createdAt": { "$date": "2025-12-12T00:00:00Z" },
+    "updatedAt": { "$date": "2025-12-12T00:00:00Z" },
     "ratings": 3
   },
   {
-    "_id": {
-      "$oid": "e742cbb66c5cae4d9167647b"
-    },
+    "_id": { "$oid": "e742cbb66c5cae4d9167647b" },
     "title": "Razer BlackWidow Keyboard",
     "short_Description": "Razer BlackWidow Keyboard delivers premium quality, modern design, and reliable performance for everyday use.",
     "detailed_description": "<p><strong>Razer BlackWidow Keyboard</strong></p><p>Experience superior craftsmanship and performance with this premium product. Designed for durability, style, and everyday functionality.</p><img src=\"https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__aRPWAovYP.avif?updatedAt=1772461080934\" alt=\"Razer BlackWidow Keyboard\" /><ul><li>High-quality materials</li><li>Modern ergonomic design</li><li>Reliable long-term performance</li></ul>",
@@ -3197,19 +2258,9 @@
     "regular_price": 1383,
     "brand": "Nike",
     "warranty": "1 Year",
-    "colors": [
-      "#000000",
-      "#0000ff"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "tags": [
-      "razer"
-    ],
+    "colors": ["#000000", "#0000ff"],
+    "sizes": ["S", "M", "L", "XL"],
+    "tags": ["razer"],
     "starting_date": null,
     "ending_date": null,
     "video_url": null,
@@ -3218,10 +2269,7 @@
     "custom_properties": [
       {
         "name": "Material",
-        "values": [
-          "Premium Build",
-          "Durable"
-        ]
+        "values": ["Premium Build", "Durable"]
       }
     ],
     "custom_specification": [
@@ -3234,23 +2282,11 @@
     "discount_code": [],
     "status": "Active",
     "isDeleted": false,
-    "stock": {
-      "$numberLong": "42"
-    },
-    "totalSales": {
-      "$numberLong": "80"
-    },
-    "shopId": {
-      "$oid": "69890d83793e24b1ee575956"
-    },
-    "createdAt": {
-      "$date": "2025-11-21T00:00:00Z"
-    },
-    "updatedAt": {
-      "$date": "2025-11-21T00:00:00Z"
-    },
+    "stock": { "$numberLong": "42" },
+    "totalSales": { "$numberLong": "80" },
+    "shopId": { "$oid": "69910d83793e24b1ee575962" },
+    "createdAt": { "$date": "2025-11-21T00:00:00Z" },
+    "updatedAt": { "$date": "2025-11-21T00:00:00Z" },
     "ratings": 3
   }
-
 ]
-
