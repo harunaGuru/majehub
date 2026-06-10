@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Confirmation</title>
+  </head>
+
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    "
+  >
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="center">
+          <table
+            width="600"
+            style="
+              background: #ffffff;
+              margin: 20px 0;
+              border-radius: 8px;
+              overflow: hidden;
+            "
+          >
+            <!-- Header -->
+            <tr>
+              <td style="background: #000; padding: 20px; text-align: center">
+                <h1 style="color: #fff; margin: 0">Majehub</h1>
+                <p style="color: #ccc; margin: 5px 0 0">🛒Order Confirmation</p>
+              </td>
+            </tr>
+
+            <!-- Greeting -->
+            <tr>
+              <td style="padding: 20px">
+                <h2>Hi <%= name %>,</h2>
+                <p style="color: #555">
+                  Your order has been successfully placed 🎉
+                </p>
+                <p><strong>Order ID:</strong> <%= orderId %></p>
+              </td>
+            </tr>
+
+            <!-- Products -->
+            <tr>
+              <td style="padding: 20px">
+                <table width="100%">
+                  <tr>
+                    <th align="left" style="border-bottom: 1px solid #ddd">
+                      Product
+                    </th>
+                    <th align="center" style="border-bottom: 1px solid #ddd">
+                      Qty
+                    </th>
+                    <th align="right" style="border-bottom: 1px solid #ddd">
+                      Price
+                    </th>
+                  </tr>
+
+                  <% let calculatedTotal = 0; %> <% items.forEach(item => {
+                  const price = item.product.sale_price || item.product.price;
+                  const qty = item.product.quantity; const itemTotal = price *
+                  qty; let itemDiscount = 0; if (discountedProductId &&
+                  item.product.id === discountedProductId) { itemDiscount =
+                  discountAmount || 0; } const finalPrice = itemTotal -
+                  itemDiscount; calculatedTotal += finalPrice; %>
+
+                  <tr>
+                    <td style="padding: 15px 0; border-bottom: 1px solid #eee">
+                      <table>
+                        <tr>
+                          <td>
+                            <img
+                              src="<%= item.product.image %>"
+                              width="60"
+                              style="border-radius: 6px"
+                            />
+                          </td>
+                          <td style="padding-left: 10px">
+                            <p style="margin: 0; font-weight: bold">
+                              <%= item.product.title %>
+                            </p>
+
+                            <% if(item.product.selectedOption) { %>
+                            <p style="font-size: 12px; color: #777">
+                              <% if(item.product.selectedOption.colors?.length)
+                              { %> Color: <%=
+                              item.product.selectedOption.colors.join(', ')
+                              %><br />
+                              <% } %> <%
+                              if(item.product.selectedOption.sizes?.length) { %>
+                              Size: <%=
+                              item.product.selectedOption.sizes.join(', ') %> <%
+                              } %>
+                            </p>
+                            <% } %> <% if(itemDiscount > 0) { %>
+                            <p style="color: green; font-size: 12px">
+                              Discount Applied: -$<%=
+                              itemDiscount.toLocaleString() %>
+                            </p>
+                            <% } %>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+
+                    <td align="center" style="border-bottom: 1px solid #eee">
+                      <%= qty %>
+                    </td>
+
+                    <td align="right" style="border-bottom: 1px solid #eee">
+                      ₦<%= finalPrice.toLocaleString() %>
+                    </td>
+                  </tr>
+
+                  <% }) %>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Summary -->
+            <tr>
+              <td style="padding: 20px; border-top: 1px solid #eee">
+                <table width="100%">
+                  <% if (discountAmount && discountAmount > 0) { %>
+                  <tr>
+                    <td style="color: #555">Discount</td>
+                    <td align="right" style="color: green">
+                      -₦<%= discountAmount.toLocaleString() %>
+                    </td>
+                  </tr>
+                  <% } %>
+
+                  <tr>
+                    <td style="padding-top: 10px; font-weight: bold">Total</td>
+                    <td
+                      align="right"
+                      style="padding-top: 10px; font-weight: bold"
+                    >
+                      ₦<%= calculatedTotal.toLocaleString() %>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- CTA -->
+            <tr>
+              <td align="center" style="padding: 20px">
+                <a
+                  href="<%= trackingLink %>"
+                  style="
+                    display: inline-block;
+                    padding: 12px 20px;
+                    background: #000;
+                    color: #fff;
+                    text-decoration: none;
+                    border-radius: 6px;
+                  "
+                >
+                  Track Your Order
+                </a>
+              </td>
+            </tr>
+
+            <!-- Support -->
+            <tr>
+              <td
+                style="
+                  padding: 20px;
+                  text-align: center;
+                  font-size: 13px;
+                  color: #555;
+                "
+              >
+                <p>
+                  Need help? Contact us at
+                  <a
+                    href="mailto:haruna.dauda123@gmail.com"
+                    style="color: #000"
+                  >
+                    haruna.dauda123@gmail.com
+                  </a>
+                </p>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td
+                style="
+                  background: #f9f9f9;
+                  padding: 15px;
+                  text-align: center;
+                  font-size: 12px;
+                  color: #777;
+                "
+              >
+                © <%= new Date().getFullYear() %> Majehub. All rights reserved.
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
