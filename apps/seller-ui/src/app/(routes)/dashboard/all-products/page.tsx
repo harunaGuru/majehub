@@ -5,6 +5,7 @@ import {
   PlusIcon,
   Search,
   SignalHigh,
+  Star,
 } from 'lucide-react';
 import Link from 'next/link';
 import { axiosInstance } from '@/utils/axiosInstance';
@@ -20,24 +21,26 @@ import {
   flexRender,
   createColumnHelper,
 } from '@tanstack/react-table';
-import {  Product } from '@/config/types';
+import { Product } from '@/config/types';
 import Image from 'next/image';
-import {EditProductModal} from "@/shared/components/Modals/EditProductModal";
-import {DeleteRestoreModal} from "@/shared/components/Modals/DeleteRestoreModal";
-import {Spinner} from "@/shared/components/Spinner";
+import { EditProductModal } from "@/shared/components/Modals/EditProductModal";
+import { DeleteRestoreModal } from "@/shared/components/Modals/DeleteRestoreModal";
+import { Spinner } from "@/shared/components/Spinner";
+import { ProductAnalyticsModal } from "@/shared/components/Modals/ProductAnalyticsModal";
+import toast from 'react-hot-toast';
 
 const getProducts = async (
   page: number,
   limit: number,
   search?: string
 ) => {
-  const { data } = await axiosInstance.get(`/product/api/get-all-products`,{
-      params: {
-          page,
-          limit,
-          ...(search && { search }),
-      },
-      });
+  const { data } = await axiosInstance.get(`/product/api/get-all-products`, {
+    params: {
+      page,
+      limit,
+      ...(search && { search }),
+    },
+  });
   console.log(data);
   return data;
 };
@@ -57,40 +60,99 @@ const Page = () => {
   const searchParam = searchParams.get("search") || "";
   const [localSearch, setLocalSearch] = useState(searchParam);
   const router = useRouter();
-  const [modalType, setModalType] = useState<'edit' | 'view' | 'delete' | null>(null);
+  const [modalType, setModalType] = useState<'edit' | 'analytics' | 'delete' | null>(null);
   const queryClient = useQueryClient();
   const page = Number(searchParams.get('page')) || 1;
   const limit = Number(searchParams.get("limit")) || 10;
 
   const isServerSearch = searchParam.length >= 3;
-    const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['products', page, limit, searchParam],
     queryFn: () => getProducts(page, limit, isServerSearch ? searchParam : undefined),
   });
 
-    const deleteMutation = useMutation({
-        mutationFn: softDeleteProduct,
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
-    });
+  const editProductMutation = useMutation({
+    mutationFn: async ({
+      productId,
+      data,
+    }: {
+      productId: string;
+      data: any;
+    }) => {
+      const response = await axiosInstance.put(
+        `/product/api/edit-product/${productId}`,
+        data
+      );
 
-    const restoreMutation = useMutation({
-        mutationFn: restoreProduct,
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
-    });
+      return response.data;
+    },
 
-    const updateUrl = (newParams: Record<string, string | number | null>) => {
-      const params = new URLSearchParams(searchParams.toString());
+    onSuccess: (data) => {
+      toast.success(data.message || 'Product updated successfully');
 
-      Object.entries(newParams).forEach(([key, value]) => {
-        if (value === null) {
-          params.delete(key);
-        } else {
-          params.set(key, String(value));
-        }
+      // Refetch products table
+      queryClient.invalidateQueries({
+        queryKey: ['products'],
       });
 
-      router.push(`?${params.toString()}`);
-    };
+      setModalType(null);
+      setSelectedProduct(null);
+    },
+
+    onError: (error: any) => {
+      toast.error(
+        error?.response?.data?.message ||
+        'Failed to update product'
+      );
+    },
+  });
+
+  const handleEditProduct = async (formData: any) => {
+    if (!selectedProduct?.id) return;
+
+    editProductMutation.mutate({
+      productId: selectedProduct.id,
+      data: formData,
+    });
+  };
+
+  const deleteMutation = useMutation({
+    mutationFn: softDeleteProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      setModalType(null);
+      setSelectedProduct(null);
+    },
+    onError: (error) => {
+      console.error('Failed to delete product:', error);
+    },
+  });
+
+  const restoreMutation = useMutation({
+    mutationFn: restoreProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      setModalType(null);
+      setSelectedProduct(null);
+    },
+    onError: (error) => {
+      console.error('Failed to restore product:', error);
+    },
+  });
+
+  const updateUrl = (newParams: Record<string, string | number | null>) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    Object.entries(newParams).forEach(([key, value]) => {
+      if (value === null) {
+        params.delete(key);
+      } else {
+        params.set(key, String(value));
+      }
+    });
+
+    router.push(`?${params.toString()}`);
+  };
 
   const columns = useMemo(
     () => [
@@ -115,8 +177,8 @@ const Page = () => {
       }),
       columnHelper.accessor('title', {
         header: 'Product Name',
-        cell: ({ getValue }) => (
-          <div className="w-full max-w-full truncate">{getValue()}</div>
+        cell: (info) => (
+          <Link href={`${process.env.NEXT_PUBLIC_USER_URL}/product/${info.row.original.slug}`} className="w-full text-blue-500 hover:text-blue-400 max-w-full truncate">{info.getValue()}</Link>
         ),
       }),
       columnHelper.accessor('sale_price', {
@@ -125,8 +187,19 @@ const Page = () => {
       }),
       columnHelper.accessor('stock', { header: 'Stock' }),
       columnHelper.accessor('category', { header: 'Category' }),
-      columnHelper.accessor('ratings', { header: 'Rating' }),
+      columnHelper.accessor('ratings', {
+        header: 'Rating',
+        cell: ({ getValue }) => {
+          const rating = getValue() ?? 0;
 
+          return (
+            <div className="flex items-center gap-1">
+              <Star className="w-4 h-4 text-yellow-200 fill-yellow-200" />
+              <span className="text-sm">{rating}</span>
+            </div>
+          );
+        },
+      }),
       columnHelper.display({
         id: 'actions',
         header: 'Actions',
@@ -156,7 +229,7 @@ const Page = () => {
                 className="w-4 h-4 cursor-pointer hover:text-blue-400 transition"
                 onClick={() => {
                   setSelectedProduct(product);
-                  setModalType('view');
+                  setModalType('analytics');
                 }}
               />
 
@@ -241,43 +314,43 @@ const Page = () => {
           }}
         />
       </div>
-        <div className="text white bg-slate-700 w-full px-6 py-2 text-white/80 text-sm rounded-sm">
-          {/* 📊 Table */}
-          <table className="w-full border-collapse text-white space-y-3.5">
-            <thead>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <th key={header.id} className="text-left">
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
+      <div className="text white bg-slate-700 w-full px-6 py-2 text-white/80 text-sm rounded-sm">
+        {/* 📊 Table */}
+        <table className="w-full border-collapse text-white space-y-3.5">
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th key={header.id} className="text-left">
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
 
-            <tbody>
+          <tbody>
             {isLoading ? (
-                <tr>
-                    <td
-                        colSpan={columns.length}
-                        className="text-center"
-                    >
-                        <Spinner />
-                    </td>
-                </tr>
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="text-center"
+                >
+                  <Spinner />
+                </td>
+              </tr>
             ) : table.getRowModel().rows.length === 0 ? (
-                <tr>
-                    <td
-                        colSpan={columns.length}
-                        className="text-center py-10 text-gray-500"
-                    >
-                        No Product Available yet
-                    </td>
-                </tr>
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="text-center py-10 text-gray-500"
+                >
+                  No Product Available yet
+                </td>
+              </tr>
             ) : (
               table.getRowModel().rows.map((row) => (
                 <tr key={row.id}>
@@ -289,45 +362,49 @@ const Page = () => {
                 </tr>
               ))
             )}
-            </tbody>
-          </table>
-          {/* 🔄 Pagination Controls */}
-          <div className="flex justify-between mt-6">
-            <button
-              disabled={page <= 1}
-              onClick={() => goToPage(page - 1)}
-              className="px-4 py-2 border rounded-md disabled:opacity-50"
-            >
-              Previous
-            </button>
+          </tbody>
+        </table>
+        {/* 🔄 Pagination Controls */}
+        <div className="flex justify-between mt-6">
+          <button
+            disabled={page <= 1}
+            onClick={() => goToPage(page - 1)}
+            className="px-4 py-2 border rounded-md disabled:opacity-50"
+          >
+            Previous
+          </button>
 
-            <span>
-              Page {page} of {data?.meta?.totalPages}
-            </span>
+          <span>
+            Page {page} of {data?.meta?.totalPages}
+          </span>
 
-            <button
-              disabled={page >= (data?.meta?.totalPages ?? 1)}
-              onClick={() => goToPage(page + 1)}
-              className="px-4 py-2 border rounded-md disabled:opacity-50"
-            >
-              Next
-            </button>
-          </div>
+          <button
+            disabled={page >= (data?.meta?.totalPages ?? 1)}
+            onClick={() => goToPage(page + 1)}
+            className="px-4 py-2 border rounded-md disabled:opacity-50"
+          >
+            Next
+          </button>
         </div>
+      </div>
       {/* Modals */}
       {modalType === 'edit' && selectedProduct && (
         <EditProductModal
           product={selectedProduct}
           onClose={() => setModalType(null)}
+          onSave={handleEditProduct}
+          isLoading={editProductMutation.isPending}
         />
       )}
 
-      {/*{modalType === "view" && selectedProduct && (*/}
-      {/*    <ViewProductModal*/}
-      {/*        product={selectedProduct}*/}
-      {/*        onClose={() => setModalType(null)}*/}
-      {/*    />*/}
-      {/*)}*/}
+      {
+        modalType === "analytics" &&
+        selectedProduct && (
+          <ProductAnalyticsModal
+            product={selectedProduct}
+            onClose={() => setModalType(null)}
+          />
+        )}
 
       {modalType === 'delete' && selectedProduct && (
         <DeleteRestoreModal

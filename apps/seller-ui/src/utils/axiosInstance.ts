@@ -67,8 +67,8 @@ axiosInstance.interceptors.response.use(
 
     try {
       await axiosInstance.post(
-        'auth/api/refresh-token-user',
-         {},
+        'auth/api/refresh-token-seller',
+        {}
         // { withCredentials: true }
       );
 

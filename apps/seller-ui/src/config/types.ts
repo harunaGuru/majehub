@@ -31,4 +31,11 @@ export interface GetProductsResponse {
     totalPages: number;
   };
 }
-
+export interface ProductAnalytics {
+  views: number;
+  cartAdds: number;
+  wishlistAdds: number;
+  purchases: number;
+  revenue: number;
+  lastViewAt: string;
+}

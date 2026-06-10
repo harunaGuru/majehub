@@ -14,14 +14,17 @@ import {
   SettingsIcon,
   NotificationsIcon,
   DiscountIcon,
-  LogoutIcon,
 } from '@/assets/icons/sidebar-icons';
 import SidebarMenu from '@/shared/components/sidebar/sidebarMenu';
 import SidebarItem from '@/shared/components/sidebar/sidebarItem';
-
+import SellerLogoutButton from './SellerLogoutButton';
+import { useSeller } from '@/hooks/useSeller';
+import { Loader2 } from 'lucide-react';
+import { getInitials } from '@/utils/getInitials';
 const Sidebar: React.FC = () => {
   const pathname = usePathname();
   const { activeSidebar, setActiveSidebar } = useSidebar();
+  const { seller, isLoading: isLoadingSeller } = useSeller();
 
   useEffect(() => {
     setActiveSidebar(pathname);
@@ -35,15 +38,21 @@ const Sidebar: React.FC = () => {
     <aside className="w-[280px] h-screen bg-[#0a0a0c] text-white fixed left-0 top-0 border-r border-[rgba(255,255,255,0.06)] flex flex-col">
       {/* Header */}
       <div className="p-6 flex items-center gap-3 border-b border-[rgba(255,255,255,0.06)]">
-        <div className="w-12 h-12 bg-gradient-to-br from-[#0085ff] to-[#0066cc] rounded-xl flex items-center justify-center font-bold text-white text-xl shadow-lg shadow-[rgba(0,133,255,0.15)]">
-          DA
+        <div className="w-9 h-9 bg-gradient-to-br from-[#0085ff] to-[#0066cc] rounded-xl flex items-center justify-center font-bold text-white text-xl shadow-lg shadow-[rgba(0,133,255,0.15)]">
+          {getInitials(seller?.name || "")}
         </div>
         <div className="flex flex-col flex-1">
           <span className="font-semibold text-sm text-white">
-            John Anderson
+            {isLoadingSeller ? <Loader2
+              size={30}
+              className="animate-spin text-blue-500"
+            /> : seller?.name}
           </span>
           <span className="text-xs text-[rgba(255,255,255,0.5)]">
-            john.a@company.com
+            {isLoadingSeller ? <Loader2
+              size={30}
+              className="animate-spin text-blue-500"
+            /> : seller?.email}
           </span>
         </div>
       </div>
@@ -63,16 +72,16 @@ const Sidebar: React.FC = () => {
         {/* Main Menu */}
         <SidebarMenu title="Main Menu">
           <SidebarItem
-            title="Order"
-            icon={<OrderIcon fill={getIconColor('/dashboard/order')} />}
-            href="/dashboard/order"
-            isActive={activeSidebar === '/dashboard/order'}
+            title="Orders"
+            icon={<OrderIcon fill={getIconColor('/dashboard/orders')} />}
+            href="/dashboard/orders"
+            isActive={activeSidebar === '/dashboard/orders'}
           />
           <SidebarItem
-            title="Payment"
-            icon={<PaymentIcon fill={getIconColor('/dashboard/payment')} />}
-            href="/dashboard/payment"
-            isActive={activeSidebar === '/dashboard/payment'}
+            title="Payments"
+            icon={<PaymentIcon fill={getIconColor('/dashboard/payments')} />}
+            href="/dashboard/payments"
+            isActive={activeSidebar === '/dashboard/payments'}
           />
         </SidebarMenu>
         <SidebarMenu title="Products">
@@ -96,7 +105,7 @@ const Sidebar: React.FC = () => {
         {/*Events*/}
         <SidebarMenu title="Events">
           <SidebarItem
-            title="Events"
+            title="Create Event"
             icon={<EventsIcon fill={getIconColor('/dashboard/create-event')} />}
             href="/dashboard/create-event"
             isActive={activeSidebar === '/dashboard/create-event'}
@@ -146,12 +155,7 @@ const Sidebar: React.FC = () => {
             href="/dashboard/discount-codes"
             isActive={activeSidebar === '/dashboard/discount-codes'}
           />
-          <SidebarItem
-            title="Logout"
-            icon={<LogoutIcon fill={getIconColor('/logout')} />}
-            href="/logout"
-            isActive={activeSidebar === '/logout'}
-          />
+          <SellerLogoutButton />
         </SidebarMenu>
       </div>
 

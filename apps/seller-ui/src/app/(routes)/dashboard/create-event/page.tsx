@@ -400,15 +400,15 @@ const CreateProduct = () => {
                 </p>
               )}
             </div>
-            <CustomColors name="colors" control={control} />
+            <CustomColors name="colors" control={control as any} />
             <div>
               <CustomSpecifications
                 name="custom_specification"
-                control={control}
+                control={control as any}
                 register={register}
               />
             </div>
-            <CustomProperties control={control} setValue={setValue} />
+            <CustomProperties control={control as any} setValue={setValue as any} />
             {/* Starting Date */}
             <div>
               <label className="mb-1 block text-sm font-semibold !text-gray-300 ">
@@ -722,10 +722,9 @@ const CreateProduct = () => {
                                   () => toggleDiscount(discount.id) //changed discountCode
                                 }
                                 className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 border
-                                  ${
-                                    isSelected
-                                      ? 'bg-blue-600 border-blue-600 text-white'
-                                      : 'bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700'
+                                  ${isSelected
+                                    ? 'bg-blue-600 border-blue-600 text-white'
+                                    : 'bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700'
                                   }`}
                               >
                                 {discount.public_name}

@@ -11,13 +11,22 @@ const nextConfig = {
   // Use this to set Nx-specific options
   // See: https://nx.dev/recipes/next/next-config-setup
   nx: {},
-  images:{
-    remotePatterns:[
+  images: {
+    remotePatterns: [
       {
         hostname: 'ik.imagekit.io',
-      }
-    ]
-  }
+      },
+      {
+        hostname: 'images.unsplash.com',
+      },
+      {
+        hostname: 'api.dicebear.com',
+      },
+      {
+        hostname: 'lh3.googleusercontent.com',
+      },
+    ],
+  },
 };
 
 const plugins = [

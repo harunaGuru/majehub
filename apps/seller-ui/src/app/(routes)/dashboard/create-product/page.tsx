@@ -5,16 +5,16 @@ import { ChevronRight } from 'lucide-react';
 import ImagePlaceHolder from '@/shared/components/imagePlaceHolder';
 import { useForm, Controller } from 'react-hook-form';
 import Input from "@/shared/components/customInput";
-import {CustomColors} from "@/shared/components/CustomColors";
+import { CustomColors } from "@/shared/components/CustomColors";
 import { CustomSpecifications } from '@/shared/components/CustomSpecification';
 import { CustomProperties } from '@/shared/components/CustomProperty';
 import { axiosInstance } from '@/utils/axiosInstance';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { RichTextEditor } from '@/shared/components/RichTextEditor';
-import {SizeSelector} from "@/shared/components/CustomSize";
-import {Spinner} from '@/shared/components/Spinner';
+import { SizeSelector } from "@/shared/components/CustomSize";
+import { Spinner } from '@/shared/components/Spinner';
 
-type FormValues = {
+export type FormValues = {
   title: string;
   short_Description: string;
   detailed_description: string;
@@ -25,25 +25,25 @@ type FormValues = {
   images: {
     url: string,
     fileId: string,
-   }[],
+  }[],
   colors: string[];
   customProperties: {
     name: string;
     values: string[];
   }[];
-custom_specification:{
-  name: string;
-  value: string;
-}[]
-cashOnDelivery: string;
-category: string;
-subCategory: string;
-video_url?: string;
-sale_price: number;
-regular_price?: number;
-sizes?: string[];
-stock: string;
-discount_code?: string[]
+  custom_specification: {
+    name: string;
+    value: string;
+  }[]
+  cashOnDelivery: string;
+  category: string;
+  subCategory: string;
+  video_url?: string;
+  sale_price: number;
+  regular_price?: number;
+  sizes?: string[];
+  stock: string;
+  discount_code?: string[]
 };
 
 type Discount = {
@@ -68,7 +68,7 @@ const fetchCategories = async () => {
   return response.data;
 };
 
-const createProduct = async (data:FormValues)=>{
+const createProduct = async (data: FormValues) => {
   const response = await axiosInstance.post('/product/api/create-product', data);
   return response.data.product;
 }
@@ -81,13 +81,13 @@ const CreateProduct = () => {
     register,
     handleSubmit,
     setValue,
-      getValues,
+    getValues,
     control,
     watch,
     formState: { errors },
   } = useForm<FormValues>({
     mode: 'onChange',
-    defaultValues:{
+    defaultValues: {
       title: '',
       short_Description: '',
       detailed_description: '',
@@ -111,9 +111,9 @@ const CreateProduct = () => {
     }
   });
 
-  const {mutate, isPending} = useMutation({
-    mutationFn:(data:FormValues)=> createProduct(data),
-    onSuccess: ()=>{
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data: FormValues) => createProduct(data),
+    onSuccess: () => {
       console.log('success');
     }
   })
@@ -145,7 +145,7 @@ const CreateProduct = () => {
     },
 
   });
-  const onSubmit = (data:FormValues) => {
+  const onSubmit = (data: FormValues) => {
     console.log(data);
     mutate(data)
   };
@@ -396,15 +396,15 @@ const CreateProduct = () => {
                 </p>
               )}
             </div>
-            <CustomColors name="colors" control={control} />
+            <CustomColors name="colors" control={control as any} />
             <div>
               <CustomSpecifications
                 name="custom_specification"
-                control={control}
+                control={control as any}
                 register={register}
               />
             </div>
-            <CustomProperties control={control} setValue={setValue} />
+            <CustomProperties control={control as any} setValue={setValue} />
             {/*Payment Method*/}
             <div>
               <label className="mb-1 block text-sm font-semibold !text-gray-300">
@@ -658,10 +658,9 @@ const CreateProduct = () => {
                                   () => toggleDiscount(discount.id) //changed discountCode
                                 }
                                 className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 border
-                                  ${
-                                    isSelected
-                                      ? 'bg-blue-600 border-blue-600 text-white'
-                                      : 'bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700'
+                                  ${isSelected
+                                    ? 'bg-blue-600 border-blue-600 text-white'
+                                    : 'bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700'
                                   }`}
                               >
                                 {discount.public_name}

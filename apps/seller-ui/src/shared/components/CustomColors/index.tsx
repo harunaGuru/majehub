@@ -84,15 +84,13 @@ export const CustomColors = ({
               type="button"
               key={color}
               onClick={() => toggleColor(color)}
-              className={`w-6 h-6 rounded-md border-2 transition-all duration-200 ${
-                isSelected
-                  ? ` scale-90 ${
-                      light
-                        ? 'border-gray-500 ring-2 ring-gray-500'
-                        : 'border-white ring-2 ring-white'
-                    }  `
-                  : 'border-gray-500 hover:scale-110'
-              }
+              className={`w-6 h-6 rounded-md border-2 transition-all duration-200 ${isSelected
+                ? ` scale-90 ${light
+                  ? 'border-gray-500 ring-2 ring-gray-500'
+                  : 'border-white ring-2 ring-white'
+                }  `
+                : 'border-gray-500 hover:scale-110'
+                }
                `}
               style={{ backgroundColor: color }}
             />

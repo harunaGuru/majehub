@@ -1,4 +1,4 @@
-import React, {  useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { UseFormGetValues, UseFormSetValue } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { axiosInstance } from '@/utils/axiosInstance';
@@ -26,8 +26,8 @@ const uploadImage = async (base64: string, fileName: string) => {
   return data; // { url, fileId }
 };
 
-const deleteImage= async (fileId:string) => {
-  const response =  await axiosInstance.delete(`/product/api/delete-image/${fileId}`);
+const deleteImage = async (fileId: string) => {
+  const response = await axiosInstance.delete(`/product/api/delete-image/${fileId}`);
   return response.data;
 }
 const ImagePlaceHolder = ({
@@ -44,6 +44,7 @@ const ImagePlaceHolder = ({
   const [showModal, setShowModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [activeEffect, setActiveEffect] = useState<string | null>(null);
+  const [isTransformed, setIsTransformed] = useState(false);
   const [imageKitData, setImageKitData] = useState<{
     fileUrl: string;
     fileId: string;
@@ -125,6 +126,7 @@ const ImagePlaceHolder = ({
   // };
 
   const applyTransformation = async (transformation: string) => {
+    setIsTransformed(false);
     try {
       if (!imageKitData?.fileUrl) {
         throw new Error('No ImageKit URL available');
@@ -145,11 +147,13 @@ const ImagePlaceHolder = ({
 
       setTransformedImage(transformedUrl);
       console.log('transformedUrl', transformedUrl)
+      setIsTransformed(true);
     } catch (error) {
       console.error(error);
       setActiveEffect(null);
+      setIsTransformed(false);
     } finally {
-     console.log('done')
+      console.log('done')
     }
   };
 
@@ -199,17 +203,18 @@ const ImagePlaceHolder = ({
   };
 
   const sizeClass = isMain ? 'w-80 h-80' : 'w-40 h-40';
+  const currentImage = getValues(`images.${slotId}`);
 
   return (
     <>
       <div
         className={`relative ${sizeClass} border-2 border-dashed border-gray-300 rounded-lg overflow-hidden bg-gray-200 flex items-center justify-center`}
       >
-        {image ? (
+        {currentImage ? (
           // Filled placeholder
           <>
             <img
-              src={image}
+              src={currentImage.fileUrl || image}
               alt={`Upload ${slotId}`}
               className="w-full h-full object-cover"
             />
@@ -353,14 +358,13 @@ const ImagePlaceHolder = ({
                       key={effect.value}
                       disabled={activeEffect !== null}
                       onClick={() => applyTransformation(effect.value)}
-                      className={`py-2 rounded text-white ${
-                          activeEffect === effect.value
-                          ? 'bg-gray-400 cursor-not-allowed'
-                          : 'bg-black hover:bg-gray-800'
-                      }`}
+                      className={`py-2 rounded text-white ${activeEffect === effect.value
+                        ? 'bg-gray-400 cursor-not-allowed'
+                        : 'bg-black hover:bg-gray-800'
+                        }`}
                     >
                       {activeEffect === effect.value
-                        ? 'Applying...'
+                        ? isTransformed ? 'Applied' : 'Applying...'
                         : effect.label}
                     </button>
                   ))}

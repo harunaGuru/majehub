@@ -7,7 +7,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 // import { useForm } from 'react-hook-form';
 import { useMemo, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Eye, Pencil, Trash2, RotateCcw } from 'lucide-react';
+import { Eye, Pencil, Trash2, RotateCcw, Star } from 'lucide-react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -20,6 +20,7 @@ import Image from 'next/image';
 import { EditProductModal } from '@/shared/components/Modals/EditProductModal';
 import { DeleteRestoreModal } from '@/shared/components/Modals/DeleteRestoreModal';
 import { Spinner } from '@/shared/components/Spinner';
+import { ProductAnalyticsModal } from '@/shared/components/Modals/ProductAnalyticsModal';
 
 const getAllEvents = async (page: number, limit: number, search?: string) => {
   const { data } = await axiosInstance.get(`/product/api/get-all-events`, {
@@ -48,7 +49,7 @@ const Page = () => {
   const searchParam = searchParams.get('search') || '';
   const [localSearch, setLocalSearch] = useState(searchParam);
   const router = useRouter();
-  const [modalType, setModalType] = useState<'edit' | 'view' | 'delete' | null>(
+  const [modalType, setModalType] = useState<'edit' | 'analytics' | 'delete' | null>(
     null
   );
   const queryClient = useQueryClient();
@@ -64,12 +65,26 @@ const Page = () => {
 
   const deleteMutation = useMutation({
     mutationFn: softDeleteEventProduct,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['Events'] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['Events'] });
+      setModalType(null);
+      setSelectedProduct(null);
+    },
+    onError: (error) => {
+      console.error('Failed to delete event product:', error);
+    },
   });
 
   const restoreMutation = useMutation({
     mutationFn: restoreEventProduct,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['Events'] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['Events'] });
+      setModalType(null);
+      setSelectedProduct(null);
+    },
+    onError: (error) => {
+      console.error('Failed to restore event product:', error);
+    },
   });
 
   const updateUrl = (newParams: Record<string, string | number | null>) => {
@@ -109,8 +124,8 @@ const Page = () => {
       }),
       columnHelper.accessor('title', {
         header: 'Product Name',
-        cell: ({ getValue }) => (
-          <div className="w-full max-w-full truncate">{getValue()}</div>
+        cell: (info) => (
+          <Link href={`${process.env.NEXT_PUBLIC_USER_URL}/product/${info.row.original.slug}`} className="w-full text-blue-500 hover:text-blue-400 max-w-full truncate">{info.getValue()}</Link>
         ),
       }),
       columnHelper.accessor('sale_price', {
@@ -119,7 +134,19 @@ const Page = () => {
       }),
       columnHelper.accessor('stock', { header: 'Stock' }),
       columnHelper.accessor('category', { header: 'Category' }),
-      columnHelper.accessor('ratings', { header: 'Rating' }),
+      columnHelper.accessor('ratings', {
+        header: 'Rating',
+        cell: ({ getValue }) => {
+          const rating = getValue() ?? 0;
+
+          return (
+            <div className="flex items-center gap-1">
+              <Star className="w-4 h-4 text-yellow-200 fill-yellow-200" />
+              <span className="text-sm">{rating}</span>
+            </div>
+          );
+        },
+      }),
 
       columnHelper.display({
         id: 'actions',
@@ -150,7 +177,7 @@ const Page = () => {
                 className="w-4 h-4 cursor-pointer hover:text-blue-400 transition"
                 onClick={() => {
                   setSelectedProduct(product);
-                  setModalType('view');
+                  setModalType('analytics');
                 }}
               />
 
@@ -196,14 +223,14 @@ const Page = () => {
     <div className="h-screen w-full flex flex-col p-4">
       <div className="mt-6 flex items-center justify-between">
         <h1 className="font-poppins text-white font-semibold text-lg tracking-wide">
-          All Products
+          All Events
         </h1>
         <Link
-          href="/dashboard/create-product"
+          href="/dashboard/create-event"
           className="flex items-center text-sm gap-2 bg-blue-600 hover:bg-blue-500 transition p-2 rounded-md font-poppins text-white"
         >
           <PlusIcon size={16} color="white" />
-          Add Product
+          Add Event
         </Link>
       </div>
       {/*BreadCrumbs*/}
@@ -214,12 +241,12 @@ const Page = () => {
         <span className="opacity-80">
           <ChevronRight size={20} />
         </span>
-        <span>All Products</span>
+        <span>All Events</span>
       </div>
       <div className="w-full border border-gray-700 flex items-center p-2 rounded-md my-4">
         <Search size={18} className="text-gray-400 mr-2" />
         <input
-          placeholder="Search Products...."
+          placeholder="Search Events...."
           type="text"
           className="w-full bg-transparent text-white outline-none"
           value={localSearch}
@@ -313,15 +340,18 @@ const Page = () => {
         <EditProductModal
           product={selectedProduct}
           onClose={() => setModalType(null)}
+          onSave={() => { }}
         />
       )}
 
-      {/*{modalType === "view" && selectedProduct && (*/}
-      {/*    <ViewProductModal*/}
-      {/*        product={selectedProduct}*/}
-      {/*        onClose={() => setModalType(null)}*/}
-      {/*    />*/}
-      {/*)}*/}
+      {
+        modalType === "analytics" &&
+        selectedProduct && (
+          <ProductAnalyticsModal
+            product={selectedProduct}
+            onClose={() => setModalType(null)}
+          />
+        )}
 
       {modalType === 'delete' && selectedProduct && (
         <DeleteRestoreModal
