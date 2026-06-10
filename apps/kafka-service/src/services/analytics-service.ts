@@ -1,6 +1,6 @@
-import {prisma} from '../../../../packages/lib/prisma';
+import { prisma } from '../../../../packages/lib/prisma';
 import { getStat } from '../utils/getStat';
-import events = require("node:events");
+import events = require('node:events');
 
 interface DeviceInfo {
   browserName: string;
@@ -44,139 +44,139 @@ function normalizeDevice(
   if (!device) return undefined;
 
   if (typeof device === 'string') {
-    return device; // Already a string
+    return device;
   }
 
-  // It's a DeviceInfo object, convert to string
   return JSON.stringify(device);
 }
 
- async function handleUserAnalytics(event: AnalyticsEvent) {
-   if (!event.userId) return;
-   console.log(`User ID from uerAnalytics: ${event.userId}`);
-   // Normalize device to string for storage
-   const deviceString = normalizeDevice(event.device);
-   const user = await prisma.userAnalytics.upsert({
-     where: { userId: event.userId },
-     update: {
-       lastVisited: new Date(event.timestamp),
-       country: event.country,
-       city: event.city,
-       device: deviceString,
-     },
-     create: {
-       userId: event.userId,
-       lastVisited: new Date(event.timestamp),
-       country: event.country,
-       city: event.city,
-       device: deviceString,
-       actions: [],
-     },
-   });
-   console.log('user found', user);
-   console.log("incoming event", event);
-   if (event.type === 'shop_visit') return;
+async function handleUserAnalytics(event: AnalyticsEvent) {
+  if (!event.userId) return;
+  console.log(`User ID from uerAnalytics: ${event.userId}`);
+  // Normalize device to string for storage
+  const deviceString = normalizeDevice(event.device);
+  const user = await prisma.userAnalytics.upsert({
+    where: { userId: event.userId },
+    update: {
+      lastVisited: new Date(event.timestamp),
+      country: event.country,
+      city: event.city,
+      device: deviceString,
+    },
+    create: {
+      userId: event.userId,
+      lastVisited: new Date(event.timestamp),
+      country: event.country,
+      city: event.city,
+      device: deviceString,
+      actions: [],
+    },
+  });
 
-   let updated: any = user.actions || [];
+  if (event.type === 'shop_visit') return;
 
-   if (event.type === 'product_view') {
-     updated.push({
-       productId: event.productId,
-       shopId: event.shopId,
-       action: 'product_view',
-       timestamp: event.timestamp,
-     });
-   }
+  let updated: any = user.actions || [];
 
-   if (event.type === 'add_to_cart') {
-     console.log('5. Processing add_to_cart for product:', event.productId);
+  if (event.type === 'product_view') {
+    updated.push({
+      productId: event.productId,
+      shopId: event.shopId,
+      action: 'product_view',
+      timestamp: event.timestamp,
+    });
+  }
 
-     // Log before filtering
-     console.log(
-       '5a. Before filter - actions:',
-       JSON.stringify(updated, null, 2)
-     );
+  if (event.type === 'add_to_cart') {
+    // Log before filtering
 
-     const existingCartItem = updated.find(
-       (a: any) => a.productId === event.productId && a.action === 'add_to_cart'
-     );
-     console.log('5b. Existing cart item found:', existingCartItem);
+    const existingCartItem = updated.find(
+      (a: any) => a.productId === event.productId && a.action === 'add_to_cart'
+    );
+    console.log('5b. Existing cart item found:', existingCartItem);
 
-     updated = updated.filter(
-       (a: any) =>
-         !(a.productId === event.productId && a.action === 'add_to_cart')
-     );
-     console.log(
-       '5c. After filter - actions:',
-       JSON.stringify(updated, null, 2)
-     );
+    updated = updated.filter(
+      (a: any) =>
+        !(a.productId === event.productId && a.action === 'add_to_cart')
+    );
+    console.log(
+      '5c. After filter - actions:',
+      JSON.stringify(updated, null, 2)
+    );
 
-     updated.push({
-       productId: event.productId,
-       shopId: event.shopId,
-       action: 'add_to_cart',
-       timestamp: event.timestamp,
-     });
-     console.log('add_to_cart after push', updated);
-   }
+    updated.push({
+      productId: event.productId,
+      shopId: event.shopId,
+      action: 'add_to_cart',
+      timestamp: event.timestamp,
+    });
+    console.log('add_to_cart after push', updated);
+  }
 
-   if (event.type === 'add_to_wishlist') {
-     console.log('5. Processing add_to_wishlist for product:', event.productId);
+  if (event.type === 'add_to_wishlist') {
+    console.log('5. Processing add_to_wishlist for product:', event.productId);
 
-     // Log before filtering
-     console.log(
-         '5a. Before filter - actions:',
-         JSON.stringify(updated, null, 2)
-     );
+    // Log before filtering
+    console.log(
+      '5a. Before filter - actions:',
+      JSON.stringify(updated, null, 2)
+    );
 
-     const existingCartItem = updated.find(
-       (a: any) =>
-         a.productId === event.productId && a.action === 'add_to_wishlist'
-     );
-     console.log('5b. Existing cart item found:', existingCartItem);
+    const existingCartItem = updated.find(
+      (a: any) =>
+        a.productId === event.productId && a.action === 'add_to_wishlist'
+    );
+    console.log('5b. Existing cart item found:', existingCartItem);
 
-     updated = updated.filter(
-       (a: any) =>
-         !(a.productId === event.productId && a.action === 'add_to_wishlist')
-     );
-     console.log(
-       '5c. After filter - actions:',
-       JSON.stringify(updated, null, 2)
-     );
-     updated.push({
-       productId: event.productId,
-       shopId: event.shopId,
-       action: 'add_to_wishlist',
-       timestamp: event.timestamp,
-     });
-     console.log('add_to_wishlist', updated);
-   }
+    updated = updated.filter(
+      (a: any) =>
+        !(a.productId === event.productId && a.action === 'add_to_wishlist')
+    );
+    console.log(
+      '5c. After filter - actions:',
+      JSON.stringify(updated, null, 2)
+    );
+    updated.push({
+      productId: event.productId,
+      shopId: event.shopId,
+      action: 'add_to_wishlist',
+      timestamp: event.timestamp,
+    });
+    console.log('add_to_wishlist', updated);
+  }
 
-   if (event.type === 'remove_from_cart') {
-     updated = updated.filter(
-       (a: any) =>
-         !(a.productId === event.productId && a.action === 'add_to_cart')
-     );
-   }
+  if (event.type === 'remove_from_cart') {
+    updated = updated.filter(
+      (a: any) =>
+        !(a.productId === event.productId && a.action === 'add_to_cart')
+    );
+  }
 
-   if (event.type === 'remove_from_wishlist') {
-     updated = updated.filter(
-       (a: any) =>
-         !(a.productId === event.productId && a.action === 'add_to_wishlist')
-     );
-   }
+  if (event.type === 'remove_from_wishlist') {
+    updated = updated.filter(
+      (a: any) =>
+        !(a.productId === event.productId && a.action === 'add_to_wishlist')
+    );
+  }
+  if (event.type === 'purchases') {
+    updated.push({
+      productId: event.productId,
+      shopId: event.shopId,
+      action: 'purchases',
+      timestamp: event.timestamp,
+    });
+  }
 
-   if (updated.length > 100) {
-     updated.shift();
-   }
+  if (updated.length > 100) {
+    updated.shift();
+  }
 
-   await prisma.userAnalytics.update({
-     where: { userId: event.userId },
-     data: { actions: updated },
-   });
- }
+  await prisma.userAnalytics.update({
+    where: { userId: event.userId },
+    data: { actions: updated },
+  });
+}
 
- async function handleProductAnalytics(event: AnalyticsEvent) {
+async function handleProductAnalytics(event: AnalyticsEvent) {
   if (!event.productId || !event.shopId) return;
 
   const updateData: any = {};
@@ -190,17 +190,17 @@ function normalizeDevice(
     updateData.cartAdds = { increment: 1 };
   }
 
-   if (event.type === 'remove_from_cart') {
-     updateData.cartAdds = { decrement: 1 };
-   }
+  if (event.type === 'remove_from_cart') {
+    updateData.cartAdds = { decrement: 1 };
+  }
 
-   if (event.type === 'add_to_wishlist') {
+  if (event.type === 'add_to_wishlist') {
     updateData.wishlistAdds = { increment: 1 };
   }
 
-   if (event.type === 'remove_from_wishlist') {
-     updateData.wishlistAdds = { decrement: 1 };
-   }
+  if (event.type === 'remove_from_wishlist') {
+    updateData.wishlistAdds = { decrement: 1 };
+  }
 
   if (event.type === 'purchases') {
     updateData.purchases = { increment: 1 };
@@ -284,5 +284,3 @@ export async function handleAnalyticsEvent(event: any) {
     handleShopAnalytics(event),
   ]);
 }
-
-

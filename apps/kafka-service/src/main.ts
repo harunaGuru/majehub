@@ -34,29 +34,28 @@ async function startConsumer() {
   console.log('Starting Kafka consumer...');
   await consumer.connect();
   console.log('✅ Connected to Kafka');
-    await consumer.subscribe({
-      topic: 'user-event',
-      fromBeginning: true,
-    });
+  await consumer.subscribe({
+    topic: 'user-event',
+    fromBeginning: true,
+  });
   console.log('✅ Subscribed to topic: user-event');
-    await consumer.run({
-      eachMessage: async ({ message, topic, partition }) => {
-        console.log(
-          `📥 Received from ${topic} [${partition}] @ offset ${message.offset}`
-        );
-        if (!message.value) return;
-        const event = JSON.parse(message.value.toString());
-        console.log('📦 Raw message:', event);
+  await consumer.run({
+    eachMessage: async ({ message, topic, partition }) => {
+      console.log(
+        `📥 Received from ${topic} [${partition}] @ offset ${message.offset}`
+      );
+      if (!message.value) return;
+      const event = JSON.parse(message.value.toString());
+      console.log('📦 Raw message:', event);
 
-        if(isDuplicate(event)){
-          console.log('⏭️ Duplicate skipped');
-          return;
-        }
+      if (isDuplicate(event)) {
+        console.log('⏭️ Duplicate skipped');
+        return;
+      }
 
-        batch.push(event);
-      },
-    });
-
+      batch.push(event);
+    },
+  });
 }
 // Log consumer status periodically
 // setInterval(async () => {
@@ -77,10 +76,10 @@ async function startConsumer() {
 //   console.log('🔴 Consumer disconnected');
 // });
 
-  startConsumer().catch((err) => {
-    console.error('Consumer failed to start:', err);
-    process.exit(1);
-  });
+startConsumer().catch((err) => {
+  console.error('Consumer failed to start:', err);
+  process.exit(1);
+});
 
 async function shutdown() {
   console.log('Shutting down consumer...');

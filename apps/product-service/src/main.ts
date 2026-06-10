@@ -2,9 +2,10 @@ import express from 'express';
 import cookieparser from 'cookie-parser';
 import cors from 'cors';
 import { errorMiddleware } from '../../../packages/error-handler/error-middleware';
-const app = express();
 import router from './routes/product-router';
-import "./jobs/cron-job"
+import './jobs/cron-job';
+
+const app = express();
 app.use(
   cors({
     origin: ['http://localhost:3001', 'http://localhost:3000'],
@@ -14,7 +15,7 @@ app.use(
   })
 );
 
-app.use(express.json({limit:'10mb'}));
+app.use(express.json({ limit: '10mb' }));
 app.use(cookieparser());
 
 app.get('/product-health', (req, res) => {

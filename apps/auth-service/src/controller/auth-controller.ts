@@ -18,9 +18,10 @@ import {
   setAuthCookies,
 } from '../utils/cookies';
 import Stripe from 'stripe';
+import { sendLog } from '../../../../packages/lib/utils/sendlog';
 
 type RefreshTokenPayload = {
-  role: 'user' | 'seller';
+  role: 'user' | 'seller' | 'Admin';
   email: string;
   userId?: string;
   sellerId?: string;
@@ -83,6 +84,7 @@ export const verifyUser = async (
         email,
         name,
         password: hashedPassword,
+        role: 'User',
       },
     });
 
@@ -143,7 +145,6 @@ export const resetPassword = async (
   res: Response,
   next: NextFunction
 ) => {
-  // Reset password logic here
   try {
     const { email, newPassword } = req.body;
     if (!email || !newPassword) {
@@ -189,18 +190,20 @@ export const loginUser = async (
     });
     if (!user) {
       console.log('no user');
-      // throw new AuthError('Invalid email or password');
       return next(new AuthError('Invalid email or password'));
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       console.log('invalid user');
-      // throw new AuthError('Invalid email or password');
       return next(new AuthError('Invalid email or password'));
     }
 
-    res.clearCookie('seller_access_token');
-    res.clearCookie('seller_refresh_token');
+    // res.clearCookie('seller_access_token');
+    // res.clearCookie('seller_refresh_token');
+    res.clearCookie('admin_access_token');
+    res.clearCookie('admin_refresh_token');
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
 
     const newAccessToken = signAccessToken({
       userId: user.id,
@@ -217,9 +220,6 @@ export const loginUser = async (
       refreshToken,
       isSeller: false,
     });
-    console.log('HEADERS BEFORE SEND:', res.getHeaders());
-    console.log('NODE_ENV:', process.env.NODE_ENV);
-    // setCookie(res, accessToken, next, refreshToken);
     res.status(200).json({ message: 'Login successful' });
   } catch (error) {
     next(error);
@@ -234,7 +234,9 @@ export const refreshToken = async (
 ) => {
   try {
     const refreshToken =
-      req.cookies?.refresh_token || req.cookies?.seller_refresh_token;
+      req.cookies?.refresh_token ||
+      req.cookies?.seller_refresh_token ||
+      req.cookies?.admin_refresh_token;
 
     if (!refreshToken) {
       return next(new AuthError('Unauthorized: no refresh token'));
@@ -258,10 +260,15 @@ export const refreshToken = async (
     }
 
     const isSeller = decoded.role === 'seller';
+    const isAdmin = decoded.role === 'Admin';
 
     const account = isSeller
       ? await prisma.sellers.findUnique({
           where: { id: decoded.sellerId },
+        })
+      : isAdmin
+      ? await prisma.users.findUnique({
+          where: { id: decoded.userId, role: 'Admin' },
         })
       : await prisma.users.findUnique({
           where: { id: decoded.userId },
@@ -289,6 +296,61 @@ export const refreshToken = async (
   }
 };
 
+export const sellerRefreshToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const refreshToken = req.cookies?.seller_refresh_token;
+
+    if (!refreshToken) {
+      return next(new AuthError('Unauthorized: no refresh token'));
+    }
+
+    let decoded: RefreshTokenPayload;
+
+    try {
+      decoded = jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET as string
+      ) as RefreshTokenPayload;
+    } catch (error) {
+      if (error instanceof jwt.TokenExpiredError) {
+        return next(new AuthError('Refresh token has expired'));
+      }
+      if (error instanceof jwt.JsonWebTokenError) {
+        return next(new AuthError('Invalid refresh token'));
+      }
+      return next(error);
+    }
+
+    const account = await prisma.sellers.findUnique({
+      where: { id: decoded.sellerId },
+    });
+
+    if (!account || account.email !== decoded.email) {
+      return next(new AuthError(`Forbidden: Seller not found`));
+    }
+
+    const newAccessToken = signAccessToken({
+      email: account.email,
+      role: decoded.role,
+      sellerId: account.id,
+    });
+
+    setAuthCookies(res, {
+      accessToken: newAccessToken,
+      refreshToken,
+      isSeller: true,
+    });
+
+    res.status(201).json({ success: true });
+  } catch (error) {
+    next(error);
+  }
+};
+
 //get login-user
 export const getUser = async (
   req: Request,
@@ -296,7 +358,35 @@ export const getUser = async (
   next: NextFunction
 ) => {
   const user = req.user;
+  await sendLog({
+    type: 'success',
+    message: `${user?.email} logged in successfully`,
+    source: 'auth-service',
+  });
   return res.status(200).json(user);
+};
+
+export const logoutUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
+    // res.clearCookie('seller_access_token');
+    // res.clearCookie('seller_refresh_token');
+    res.clearCookie('admin_access_token');
+    res.clearCookie('admin_refresh_token');
+    await sendLog({
+      type: 'success',
+      message: `${req.user?.email} logged out successfully`,
+      source: 'auth-service',
+    });
+    res.status(200).json({ message: 'Logout successful' });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const testingEndpoint = async (
@@ -422,8 +512,8 @@ export const loginSeller = async (
     //   path: '/', // important
     // });
 
-    res.clearCookie("access_token");
-    res.clearCookie("refresh_token");
+    // res.clearCookie('access_token');
+    // res.clearCookie('refresh_token');
     const newAccessToken = signAccessToken({
       sellerId: seller.id,
       email: seller.email,
@@ -637,6 +727,24 @@ export const createConnectedAccount = async (
       type: 'account_onboarding',
     });
     res.status(200).json({ url: accountLink.url });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const logoutSeller = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const seller = req.seller;
+    if (!seller) {
+      return next(new AuthError('Unauthorized'));
+    }
+    res.clearCookie('seller_access_token');
+    res.clearCookie('seller_refresh_token');
+    res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
     next(error);
   }

@@ -11,11 +11,8 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
-      // 'http://127.0.0.1:3000',
-      // 'http://127.0.0.1:3001',
       'http://localhost:3001',
-      // 'http://localhost:6001',
-      // 'http://localhost:8080',
+      'http://localhost:3002',
     ],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
@@ -26,8 +23,6 @@ app.use(
 app.use(morgan('dev'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
 app.use(cookieparser());
 app.set('trust proxy', 1); // Trust first proxy
 
@@ -43,10 +38,14 @@ const apiLimiter = rateLimit({
 });
 app.use(apiLimiter);
 
+app.use((req, res, next) => {
+  console.log('Incoming cookies to gateway:', req.headers.cookie);
+  next();
+});
 app.get('/api-gateway', (req, res) => {
   res.send({ message: 'Welcome to api-gateway!' });
 });
-
+//auth service
 app.use(
   '/auth',
   proxy('http://127.0.0.1:6001', {
@@ -87,10 +86,9 @@ app.use(
     },
 
     preserveHostHdr: true,
-  }
-  )
+  })
 );
-
+//product service
 app.use(
   '/product',
   proxy('http://127.0.0.1:6002', {
@@ -98,6 +96,267 @@ app.use(
 
     userResHeaderDecorator: (headers, userReq, userRes) => {
       console.log('Product service response headers:', headers);
+      // Forward ALL headers from the auth service
+      Object.keys(headers).forEach((key) => {
+        if (headers[key] !== undefined && headers[key] !== null) {
+          // Convert to array if needed for set-cookie
+          if (key.toLowerCase() === 'set-cookie') {
+            const cookies = Array.isArray(headers[key])
+              ? headers[key]
+              : [headers[key]];
+            userRes.setHeader('set-cookie', cookies.filter(Boolean));
+            console.log('Cookies set on gateway response:', cookies);
+          } else {
+            userRes.setHeader(key, headers[key] as string | string[]);
+          }
+        }
+      });
+      return headers;
+    },
+
+    // Also forward the host header if needed
+    proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+      // Forward the host
+      proxyReqOpts.headers = proxyReqOpts.headers || {};
+      proxyReqOpts.headers['x-forwarded-host'] = srcReq.headers.host;
+
+      // Forward cookies from client to backend
+      if (srcReq.headers.cookie) {
+        proxyReqOpts.headers.cookie = srcReq.headers.cookie;
+      }
+
+      return proxyReqOpts;
+    },
+
+    preserveHostHdr: true,
+  })
+);
+//seller service
+app.use(
+  '/seller',
+  proxy('http://127.0.0.1:6003', {
+    proxyReqPathResolver: (req) => req.originalUrl.replace('/seller', ''),
+
+    userResHeaderDecorator: (headers, userReq, userRes) => {
+      console.log('Seller service response headers:', headers);
+      // Forward ALL headers from the auth service
+      Object.keys(headers).forEach((key) => {
+        if (headers[key] !== undefined && headers[key] !== null) {
+          // Convert to array if needed for set-cookie
+          if (key.toLowerCase() === 'set-cookie') {
+            const cookies = Array.isArray(headers[key])
+              ? headers[key]
+              : [headers[key]];
+            userRes.setHeader('set-cookie', cookies.filter(Boolean));
+            console.log('Cookies set on gateway response:', cookies);
+          } else {
+            userRes.setHeader(key, headers[key] as string | string[]);
+          }
+        }
+      });
+      return headers;
+    },
+
+    // Also forward the host header if needed
+    proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+      // Forward the host
+      proxyReqOpts.headers = proxyReqOpts.headers || {};
+      proxyReqOpts.headers['x-forwarded-host'] = srcReq.headers.host;
+
+      // Forward cookies from client to backend
+      if (srcReq.headers.cookie) {
+        proxyReqOpts.headers.cookie = srcReq.headers.cookie;
+      }
+
+      return proxyReqOpts;
+    },
+
+    preserveHostHdr: true,
+  })
+);
+//user service
+app.use(
+  '/user',
+  proxy('http://127.0.0.1:6004', {
+    proxyReqPathResolver: (req) => req.originalUrl.replace('/user', ''),
+
+    userResHeaderDecorator: (headers, userReq, userRes) => {
+      console.log('User service response headers:', headers);
+      // Forward ALL headers from the auth service
+      Object.keys(headers).forEach((key) => {
+        if (headers[key] !== undefined && headers[key] !== null) {
+          // Convert to array if needed for set-cookie
+          if (key.toLowerCase() === 'set-cookie') {
+            const cookies = Array.isArray(headers[key])
+              ? headers[key]
+              : [headers[key]];
+            userRes.setHeader('set-cookie', cookies.filter(Boolean));
+            console.log('Cookies set on gateway response:', cookies);
+          } else {
+            userRes.setHeader(key, headers[key] as string | string[]);
+          }
+        }
+      });
+      return headers;
+    },
+
+    // Also forward the host header if needed
+    proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+      // Forward the host
+      proxyReqOpts.headers = proxyReqOpts.headers || {};
+      proxyReqOpts.headers['x-forwarded-host'] = srcReq.headers.host;
+
+      // Forward cookies from client to backend
+      if (srcReq.headers.cookie) {
+        proxyReqOpts.headers.cookie = srcReq.headers.cookie;
+      }
+
+      return proxyReqOpts;
+    },
+
+    preserveHostHdr: true,
+  })
+);
+//order service
+app.use(
+  '/order',
+  proxy('http://127.0.0.1:6005', {
+    proxyReqPathResolver: (req) => req.originalUrl.replace('/order', ''),
+
+    userResHeaderDecorator: (headers, userReq, userRes) => {
+      console.log('Order service response headers:', headers);
+      // Forward ALL headers from the auth service
+      Object.keys(headers).forEach((key) => {
+        if (headers[key] !== undefined && headers[key] !== null) {
+          // Convert to array if needed for set-cookie
+          if (key.toLowerCase() === 'set-cookie') {
+            const cookies = Array.isArray(headers[key])
+              ? headers[key]
+              : [headers[key]];
+            userRes.setHeader('set-cookie', cookies.filter(Boolean));
+            console.log('Cookies set on gateway response:', cookies);
+          } else {
+            userRes.setHeader(key, headers[key] as string | string[]);
+          }
+        }
+      });
+      return headers;
+    },
+
+    // Also forward the host header if needed
+    proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+      // Forward the host
+      proxyReqOpts.headers = proxyReqOpts.headers || {};
+      proxyReqOpts.headers['x-forwarded-host'] = srcReq.headers.host;
+
+      // Forward cookies from client to backend
+      if (srcReq.headers.cookie) {
+        proxyReqOpts.headers.cookie = srcReq.headers.cookie;
+      }
+
+      return proxyReqOpts;
+    },
+
+    preserveHostHdr: true,
+  })
+);
+//admin service
+app.use(
+  '/admin',
+  proxy('http://127.0.0.1:6006', {
+    proxyReqPathResolver: (req) => req.originalUrl.replace('/admin', ''),
+
+    userResHeaderDecorator: (headers, userReq, userRes) => {
+      console.log('Admin service response headers:', headers);
+      // Forward ALL headers from the auth service
+      Object.keys(headers).forEach((key) => {
+        if (headers[key] !== undefined && headers[key] !== null) {
+          // Convert to array if needed for set-cookie
+          if (key.toLowerCase() === 'set-cookie') {
+            const cookies = Array.isArray(headers[key])
+              ? headers[key]
+              : [headers[key]];
+            userRes.setHeader('set-cookie', cookies.filter(Boolean));
+            console.log('Cookies set on gateway response:', cookies);
+          } else {
+            userRes.setHeader(key, headers[key] as string | string[]);
+          }
+        }
+      });
+      return headers;
+    },
+
+    // Also forward the host header if needed
+    proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+      // Forward the host
+      proxyReqOpts.headers = proxyReqOpts.headers || {};
+      proxyReqOpts.headers['x-forwarded-host'] = srcReq.headers.host;
+
+      // Forward cookies from client to backend
+      if (srcReq.headers.cookie) {
+        proxyReqOpts.headers.cookie = srcReq.headers.cookie;
+      }
+
+      return proxyReqOpts;
+    },
+
+    preserveHostHdr: true,
+  })
+);
+//chatting service
+app.use(
+  '/chatting',
+  proxy('http://127.0.0.1:6007', {
+    proxyReqPathResolver: (req) => req.originalUrl.replace('/chatting', ''),
+
+    userResHeaderDecorator: (headers, userReq, userRes) => {
+      console.log('Chatting service response headers:', headers);
+      // Forward ALL headers from the auth service
+      Object.keys(headers).forEach((key) => {
+        if (headers[key] !== undefined && headers[key] !== null) {
+          // Convert to array if needed for set-cookie
+          if (key.toLowerCase() === 'set-cookie') {
+            const cookies = Array.isArray(headers[key])
+              ? headers[key]
+              : [headers[key]];
+            userRes.setHeader('set-cookie', cookies.filter(Boolean));
+            console.log('Cookies set on gateway response:', cookies);
+          } else {
+            userRes.setHeader(key, headers[key] as string | string[]);
+          }
+        }
+      });
+      return headers;
+    },
+
+    // Also forward the host header if needed
+    proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+      // Forward the host
+      proxyReqOpts.headers = proxyReqOpts.headers || {};
+      proxyReqOpts.headers['x-forwarded-host'] = srcReq.headers.host;
+
+      // Forward cookies from client to backend
+      if (srcReq.headers.cookie) {
+        proxyReqOpts.headers.cookie = srcReq.headers.cookie;
+      }
+
+      return proxyReqOpts;
+    },
+
+    preserveHostHdr: true,
+  })
+);
+//logger service-6008
+
+//recommendation-service-6009
+app.use(
+  '/recommendation',
+  proxy('http://127.0.0.1:6009', {
+    proxyReqPathResolver: (req) =>
+      req.originalUrl.replace('/recommendation', ''),
+
+    userResHeaderDecorator: (headers, userReq, userRes) => {
+      console.log('Recommendation service response headers:', headers);
       // Forward ALL headers from the auth service
       Object.keys(headers).forEach((key) => {
         if (headers[key] !== undefined && headers[key] !== null) {
@@ -150,8 +409,8 @@ const port = process.env.PORT || 8080;
 const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/api`);
   try {
-    initializeSiteConfig()
-  }catch (error){
+    initializeSiteConfig();
+  } catch (error) {
     console.error(error);
   }
 });

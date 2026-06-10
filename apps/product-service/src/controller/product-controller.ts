@@ -1,17 +1,20 @@
 import { NextFunction, Request, Response } from 'express';
 import { imagekit } from '../../../../packages/lib/imagekit';
 import { addHours } from 'date-fns';
-import { AuthError, ValidationError } from '../../../../packages/error-handler';
+import {
+  AuthError,
+  NotFoundError,
+  ValidationError,
+} from '../../../../packages/error-handler';
 import { prisma } from '@packages/lib/prisma';
 
 export const uploadImage = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const { file, fileName, folder = '/uploads' } = req.body;
-    console.log(fileName);
 
     if (!file || !fileName) {
       return next(new ValidationError('Missing required field'));
@@ -19,16 +22,14 @@ export const uploadImage = async (
 
     const uploadResponse = await imagekit.upload({
       file, // base64 string
-      fileName, // e.g image.png
+      fileName,
       folder,
     });
-    console.log('uploadResponse', uploadResponse);
     return res.json({
       url: uploadResponse.url,
       fileId: uploadResponse.fileId,
     });
   } catch (error) {
-    console.error(error);
     return next(error);
   }
 };
@@ -36,11 +37,10 @@ export const uploadImage = async (
 export const deleteImage = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const { fileId } = req.params;
-    console.log('deleteImageFileId', fileId);
     if (!fileId) {
       return next(new ValidationError('Missing required field'));
     }
@@ -52,7 +52,6 @@ export const deleteImage = async (
       message: 'Image deleted',
     });
   } catch (error) {
-    console.error('Image delete error:', error);
     next(error);
   }
 };
@@ -60,7 +59,7 @@ export const deleteImage = async (
 export const getCategory = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const config = await prisma.siteConfig.findFirst({
@@ -83,22 +82,14 @@ export const getCategory = async (
 export const createDiscount = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const { discountCode, public_name, discountType, discountValue } = req.body;
-    console.log('discount-content', {
-      discountCode,
-      discountType,
-      discountValue,
-      public_name,
-    });
     if (!discountCode || !discountType || !discountValue || !public_name) {
       return next(new ValidationError('Missing required field'));
     }
-
     const seller = req.seller;
-    console.log(seller?.id);
     if (!seller) {
       return next(new ValidationError('Seller not found'));
     }
@@ -108,8 +99,8 @@ export const createDiscount = async (
     if (existingDiscount) {
       return next(
         new ValidationError(
-          'Discount already exists, please use a different code',
-        ),
+          'Discount already exists, please use a different code'
+        )
       );
     }
     const discount = await prisma.discount_code.create({
@@ -133,11 +124,10 @@ export const createDiscount = async (
 export const deleteDiscount = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const { id } = req.params;
-    console.log('deleteDiscount', id);
     if (!id) {
       return next(new ValidationError('Missing required field'));
     }
@@ -172,7 +162,7 @@ export const deleteDiscount = async (
 export const getShopDiscounts = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const existingDiscount = await prisma.discount_code.findMany({
@@ -193,7 +183,7 @@ export const getShopDiscounts = async (
 export const createProduct = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const {
@@ -221,8 +211,6 @@ export const createProduct = async (
       video_url,
     } = req.body;
     const seller = req.seller;
-    console.log('seller', seller);
-    console.log('seller shop id', seller?.shop.id);
     if (
       !title ||
       !sale_price ||
@@ -240,7 +228,7 @@ export const createProduct = async (
     // Ensure at least one image is uploaded
     if (!images || !Array.isArray(images) || images.length === 0) {
       return next(
-        new ValidationError('At least one product image is required'),
+        new ValidationError('At least one product image is required')
       );
     }
 
@@ -258,8 +246,8 @@ export const createProduct = async (
     if ((hasStart && !hasEnd) || (!hasStart && hasEnd)) {
       return next(
         new ValidationError(
-          'Both starting_date and ending_date must be provided for an event product',
-        ),
+          'Both starting_date and ending_date must be provided for an event product'
+        )
       );
     }
 
@@ -277,7 +265,7 @@ export const createProduct = async (
 
       if (parsedStart >= parsedEnd) {
         return next(
-          new ValidationError('ending_date must be after starting_date'),
+          new ValidationError('ending_date must be after starting_date')
         );
       }
 
@@ -338,7 +326,220 @@ export const createProduct = async (
       product,
     });
   } catch (error: any) {
-    console.error(error);
+    next(error);
+  }
+};
+
+export const editProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { productId } = req.params;
+
+    const seller = req.seller;
+
+    const existingProduct = await prisma.products.findFirst({
+      where: {
+        id: productId,
+        shopId: seller?.shop.id,
+      },
+      include: {
+        images: true,
+      },
+    });
+
+    if (!existingProduct) {
+      return next(new NotFoundError('Product not found'));
+    }
+
+    const {
+      title,
+      short_Description,
+      detailed_description,
+      slug,
+      sale_price,
+      regular_price,
+      brand,
+      warranty,
+      // images,
+      colors,
+      sizes,
+      tags,
+      category,
+      subCategory,
+      customProperties,
+      custom_specification,
+      cashOnDelivery,
+      discount_code,
+      starting_date,
+      ending_date,
+      stock,
+      video_url,
+    } = req.body;
+
+    // Nothing sent
+    if (!Object.keys(req.body).length) {
+      return res.status(200).json({
+        success: true,
+        message: 'No changes provided',
+        product: existingProduct,
+      });
+    }
+
+    if (slug && slug !== existingProduct.slug) {
+      const slugExists = await prisma.products.findUnique({
+        where: { slug },
+      });
+
+      if (slugExists) {
+        return next(new ValidationError('Product slug already exists'));
+      }
+    }
+
+    if (
+      sale_price !== undefined &&
+      (isNaN(Number(sale_price)) || Number(sale_price) < 0)
+    ) {
+      return next(new ValidationError('Invalid sale price'));
+    }
+
+    if (
+      regular_price !== undefined &&
+      (isNaN(Number(regular_price)) || Number(regular_price) < 0)
+    ) {
+      return next(new ValidationError('Invalid regular price'));
+    }
+
+    if (stock !== undefined && (isNaN(Number(stock)) || Number(stock) < 0)) {
+      return next(new ValidationError('Invalid stock value'));
+    }
+
+    const hasStart = starting_date !== undefined;
+    const hasEnd = ending_date !== undefined;
+
+    let parsedStart = undefined;
+    let parsedEnd = undefined;
+
+    if (hasStart || hasEnd) {
+      const startDate = starting_date
+        ? new Date(starting_date)
+        : existingProduct.starting_date;
+
+      const endDate = ending_date
+        ? new Date(ending_date)
+        : existingProduct.ending_date;
+
+      if (!startDate || !endDate) {
+        return next(
+          new ValidationError('Both starting_date and ending_date are required')
+        );
+      }
+
+      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        return next(new ValidationError('Invalid date format'));
+      }
+
+      if (startDate >= endDate) {
+        return next(
+          new ValidationError('ending_date must be after starting_date')
+        );
+      }
+
+      parsedStart = startDate;
+      parsedEnd = endDate;
+    }
+
+    const updateData: any = {};
+
+    if (title !== undefined) updateData.title = title;
+    if (short_Description !== undefined)
+      updateData.short_Description = short_Description;
+
+    if (detailed_description !== undefined)
+      updateData.detailed_description = detailed_description;
+
+    if (slug !== undefined) updateData.slug = slug;
+
+    if (sale_price !== undefined) updateData.sale_price = Number(sale_price);
+
+    if (regular_price !== undefined)
+      updateData.regular_price =
+        regular_price === null ? null : Number(regular_price);
+
+    if (brand !== undefined) updateData.brand = brand;
+    if (warranty !== undefined) updateData.warranty = warranty;
+
+    if (colors !== undefined)
+      updateData.colors = Array.isArray(colors) ? colors : [];
+
+    if (sizes !== undefined)
+      updateData.sizes = Array.isArray(sizes) ? sizes : [];
+
+    if (tags !== undefined) updateData.tags = Array.isArray(tags) ? tags : [];
+
+    if (category !== undefined) updateData.category = category;
+    if (subCategory !== undefined) updateData.subCategory = subCategory;
+
+    if (customProperties !== undefined)
+      updateData.custom_properties = customProperties;
+
+    if (custom_specification !== undefined)
+      updateData.custom_specification = custom_specification;
+
+    if (cashOnDelivery !== undefined)
+      updateData.cashOnDelivery = cashOnDelivery;
+
+    if (discount_code !== undefined)
+      updateData.discount_code = Array.isArray(discount_code)
+        ? discount_code
+        : [];
+
+    if (video_url !== undefined) updateData.video_url = video_url;
+
+    if (stock !== undefined) updateData.stock = Number(stock);
+
+    if (parsedStart !== undefined) updateData.starting_date = parsedStart;
+
+    if (parsedEnd !== undefined) updateData.ending_date = parsedEnd;
+
+    const updatedProduct = await prisma.$transaction(async (tx: any) => {
+      // if (images !== undefined) {
+      //   await tx.productImage.deleteMany({
+      //     where: {
+      //       productId: productId,
+      //     },
+      //   });
+
+      //   if (Array.isArray(images) && images.length) {
+      //     await tx.productImage.createMany({
+      //       data: images.map((img: any) => ({
+      //         productId,
+      //         fileUrl: img.fileUrl,
+      //         fileId: img.fileId,
+      //       })),
+      //     });
+      //   }
+      // }
+
+      return tx.products.update({
+        where: {
+          id: productId,
+        },
+        data: updateData,
+        // include: {
+        //   images: true,
+        // },
+      });
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: 'Product updated successfully',
+      product: updatedProduct,
+    });
+  } catch (error) {
     next(error);
   }
 };
@@ -346,7 +547,7 @@ export const createProduct = async (
 export const getLatestAndTopProducts = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const page = Number(req.query.page) || 1;
@@ -359,7 +560,7 @@ export const getLatestAndTopProducts = async (
       shop: {
         isDeleted: false,
       },
-      // OR: [{ starting_date: null }, { ending_date: null }],
+      OR: [{ starting_date: null }, { ending_date: null }],
     };
     let orderBy = {};
 
@@ -403,19 +604,71 @@ export const getLatestAndTopProducts = async (
     next(error);
   }
 };
+export const getLatestOffers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    const whereCondition = {
+      isDeleted: false,
+      shop: {
+        isDeleted: false,
+      },
+      OR: [{ starting_date: { not: null } }, { ending_date: { not: null } }],
+    };
+    const [products, totalCount] = await Promise.all([
+      prisma.products.findMany({
+        where: whereCondition,
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+        include: {
+          images: {
+            select: {
+              id: true,
+              fileUrl: true,
+            },
+          },
+          shop: true,
+        },
+      }),
+      prisma.products.count({
+        where: whereCondition,
+      }),
+    ]);
+    res.status(200).json({
+      success: true,
+      products,
+      pagination: {
+        total: totalCount,
+        page,
+        limit,
+        totalPages: Math.ceil(totalCount / limit),
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 export const getAllShopProducts = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
+    const seller = req.seller;
+    const shopId = seller?.shop.id;
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 10;
     const skip = (page - 1) * limit;
     const search = (req.query.search as string) || '';
 
     const whereCondition: any = {
-      // isDeleted: false,
+      shopId,
       AND: [
         {
           OR: [{ starting_date: null }, { ending_date: null }],
@@ -470,17 +723,19 @@ export const getAllShopProducts = async (
 export const getAllShopEvents = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
+    const seller = req.seller;
+    const shopId = seller?.shop.id;
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 10;
     const skip = (page - 1) * limit;
     const search = (req.query.search as string) || '';
-    const now = new Date();
+    // const now = new Date();
 
     const whereCondition = {
-      // isDeleted: false,
+      shopId,
       ...(search && {
         OR: [
           { title: { contains: search, mode: 'insensitive' } },
@@ -488,10 +743,7 @@ export const getAllShopEvents = async (
           { brand: { contains: search, mode: 'insensitive' } },
         ],
       }),
-      AND: [
-        { starting_date: { not: null, lte: now } },
-        { ending_date: { not: null, gte: now } },
-      ],
+      AND: [{ starting_date: { not: null } }, { ending_date: { not: null } }],
     };
 
     const [totalProducts, products] = await Promise.all([
@@ -529,7 +781,7 @@ export const getAllShopEvents = async (
 export const softDelete = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const seller = req.seller;
@@ -539,7 +791,7 @@ export const softDelete = async (
     }
     if (!seller) {
       return next(
-        new ValidationError('Authentication and Authorization required'),
+        new ValidationError('Authentication and Authorization required')
       );
     }
     const product = await prisma.products.findUnique({
@@ -562,7 +814,7 @@ export const softDelete = async (
 
     if (product.isDeleted) {
       return next(
-        new ValidationError('Product already scheduled for deletion'),
+        new ValidationError('Product already scheduled for deletion')
       );
     }
     const deletionDate = addHours(new Date(), 24);
@@ -586,7 +838,7 @@ export const softDelete = async (
 export const restoreProduct = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const seller = req.seller;
@@ -628,8 +880,8 @@ export const restoreProduct = async (
     if (product.deletedAt <= now) {
       return next(
         new ValidationError(
-          'Restore window has expired. Product cannot be restored.',
-        ),
+          'Restore window has expired. Product cannot be restored.'
+        )
       );
     }
 
@@ -652,7 +904,7 @@ export const restoreProduct = async (
 export const getProduct = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const { slug } = req.params;
@@ -672,6 +924,7 @@ export const getProduct = async (
             name: true,
             avatar: true,
             address: true,
+            sellerId: true,
             ratings: true,
             reviews: true,
           },
@@ -693,12 +946,13 @@ export const getProduct = async (
 export const getAllProducts = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const {
       PriceRange,
       category,
+      subcategory,
       color,
       size,
       page = '1',
@@ -735,10 +989,23 @@ export const getAllProducts = async (
         .toLowerCase()
         .split(',')
         .map((c) => c.trim());
-      console.log('categories', categories);
       where.AND.push({
         OR: categories.map((c: string) => ({
           category: {
+            equals: c,
+            mode: 'insensitive',
+          },
+        })),
+      });
+    }
+    if (subcategory) {
+      const subCategories = (subcategory as string)
+        .toLowerCase()
+        .split(',')
+        .map((c) => c.trim());
+      where.AND.push({
+        OR: subCategories.map((c: string) => ({
+          subCategory: {
             equals: c,
             mode: 'insensitive',
           },
@@ -788,7 +1055,7 @@ export const getAllProducts = async (
 export const getAllOffers = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const {
@@ -826,7 +1093,6 @@ export const getAllOffers = async (
         .toLowerCase()
         .split(',')
         .map((c) => c.trim());
-      console.log('categories', categories);
       where.AND.push({
         OR: categories.map((c: string) => ({
           category: {
@@ -871,6 +1137,149 @@ export const getAllOffers = async (
         limit: pageSize,
       },
     });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const getTopShops = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const aggregatedShops = await prisma.orders.aggregateRaw({
+      pipeline: [
+        {
+          $match: {
+            shopId: {
+              $exists: true,
+              $ne: null,
+            },
+          },
+        },
+        {
+          $group: {
+            _id: '$shopId',
+            totalOrders: {
+              $sum: 1,
+            },
+          },
+        },
+        {
+          $sort: {
+            totalOrders: -1,
+          },
+        },
+        {
+          $limit: 10,
+        },
+      ],
+    });
+    if (!aggregatedShops.length) {
+      return res.status(200).json({
+        success: true,
+        data: [],
+      });
+    }
+
+    // const shopIds = aggregatedShops.map((shop: any) => shop._id as string);
+
+    const aggregatedResults = (aggregatedShops as any[]).map((item) => ({
+      shopId: typeof item._id === 'string' ? item._id : item._id.$oid,
+      totalOrders: Number(item.totalOrders),
+    }));
+
+    const shopIds = aggregatedResults.map((item) => item.shopId);
+
+    const shops = await prisma.shops.findMany({
+      where: {
+        id: {
+          in: shopIds,
+        },
+        isDeleted: false,
+      },
+      select: {
+        id: true,
+        name: true,
+        avatar: true,
+        coverBanner: true,
+        ratings: true,
+        address: true,
+        category: true,
+        followers: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+
+    const shopMap = new Map(
+      shops.map((shop: any) => [
+        shop.id,
+        {
+          id: shop.id,
+          name: shop.name,
+          avatar: shop.avatar,
+          coverBanner: shop.coverBanner,
+          ratings: shop.ratings,
+          address: shop.address,
+          category: shop.category,
+          followers: shop.followers.length,
+        },
+      ])
+    );
+
+    const topShops = aggregatedResults
+      .map((item: any) => {
+        const shop = shopMap.get(item.shopId);
+
+        if (!shop) return null;
+
+        return {
+          ...shop,
+          totalOrders: Number(item.totalOrders),
+        };
+      })
+      .filter(Boolean);
+
+    return res.status(200).json({
+      success: true,
+      data: topShops,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const searchProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const query = req.query.q as string;
+    if (!query || query.trim().length === 0) {
+      return next(new ValidationError('search field is required'));
+    }
+    const products = await prisma.products.findMany({
+      where: {
+        OR: [
+          { title: { contains: query, mode: 'insensitive' } },
+          { short_Description: { contains: query, mode: 'insensitive' } },
+        ],
+        isDeleted: false,
+      },
+      select: {
+        slug: true,
+        id: true,
+        title: true,
+      },
+      take: 10,
+      orderBy: { createdAt: 'desc' },
+    });
+    return res.json({ products });
   } catch (error) {
     return next(error);
   }

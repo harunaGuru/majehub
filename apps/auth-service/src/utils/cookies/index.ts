@@ -25,13 +25,13 @@ export function setAuthCookies(
 
   const refreshName = isSeller ? 'seller_refresh_token' : 'refresh_token';
   const isProd = process.env.NODE_ENV === 'production';
-  console.log("isprod", isProd);
+  console.log('isprod', isProd);
   res.cookie(accessName, accessToken, {
     httpOnly: true,
     secure: isProd,
     sameSite: isProd ? 'none' : 'lax',
     maxAge: 15 * 60 * 1000, // 15 min
-    path: '/'
+    path: '/',
   });
 
   res.cookie(refreshName, refreshToken, {
@@ -41,5 +41,4 @@ export function setAuthCookies(
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     path: '/',
   });
-  console.log("i am here")
 }

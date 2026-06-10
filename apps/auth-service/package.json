@@ -43,6 +43,7 @@
         "continuous": true,
         "executor": "@nx/js:node",
         "defaultConfiguration": "development",
+        "watch": true,
         "dependsOn": [
           "build"
         ],

@@ -14,6 +14,11 @@ enum productStatus {
   Draft
 }
 
+enum notificationStatus {
+  Unread
+  Read
+}
+
 enum Role {
   User
   Admin
@@ -98,6 +103,7 @@ model products {
   warranty             String?
   createdAt            DateTime      @default(now())
   updatedAt            DateTime      @updatedAt
+  @@index([shopId])
 }
 
 model sellers {
@@ -145,11 +151,12 @@ model shops {
   imageId       String?
   sellerId      String        @unique @db.ObjectId
   sellers       sellers       @relation(fields: [sellerId], references: [id])
-  socialLinks   Json[]
+  socialLinks   Json
   order         orders[]
-  website       String?       @db.ObjectId
+  website       String?       
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
+  @@index([isDeleted, deletedAt])
 }
 
 model users {
@@ -160,6 +167,8 @@ model users {
   avatar     images?       @relation(fields: [imagesId], references: [id])
   email      String        @unique
   name       String
+  isDeleted  Boolean       @default(false)
+  deletedAt  DateTime?
   password   String
   orders     orders[]
   shopReview shopReviews[]
@@ -177,11 +186,12 @@ model orders {
   deliveryStatus    String      @default("ordered")
   userId            String      @db.ObjectId
   user              users       @relation(fields: [userId], references: [id])
-  shopId            String      @db.ObjectId
-  shop              shops       @relation(fields: [shopId], references: [id])
+  shopId            String?      @db.ObjectId
+  shop              shops?       @relation(fields: [shopId], references: [id])
   Items             orderItem[] @relation("oderItem relation")
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt
+  @@index([shopId])
 }
 
 model orderItem {
@@ -252,8 +262,56 @@ model notifications {
   creatorId     String   @db.ObjectId
   receiverId    String
   redirect_link String?
+  status        notificationStatus @default(Unread)
   title         String
   message       String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+}
+
+model ConversationGroup {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  participants  String[]  @db.ObjectId
+  lastMessage   String?
+  participantsRelation Participant[]
+  lastMessageAt DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  messages      Message[] @relation("ConversationMessages")
+  @@index([participants])
+}
+
+model Message {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  conversationId  String
+  senderId        String
+  receiverId      String
+  senderRole      String
+  receiverRole    String
+  content         String?
+  attachments     String[] // 👈 URLs (image, file, etc)
+  status          String   // sent | delivered | read
+  createdAt       DateTime @default(now())
+  conversation    ConversationGroup @relation("ConversationMessages", fields: [conversationId], references: [id])
+  @@index([conversationId, createdAt])
+  @@unique([conversationId, senderId, content, createdAt])
+}
+
+model Participant {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String?  @db.ObjectId
+  sellerId        String?  @db.ObjectId
+  role            String   // "USER" | "SELLER"
+  lastSeen        DateTime?
+  lastRead        DateTime? // last time participant read messages in the conversation group
+  muted           Boolean  @default(false)
+  conversationId  String  @db.ObjectId
+  joinedAt        DateTime @default(now())
+  conversation    ConversationGroup @relation(fields: [conversationId], references: [id])
+  @@index([conversationId])
+  @@index([userId])
+  @@index([sellerId])
+  @@index([conversationId, userId])
+  @@index([conversationId, sellerId])
 }
