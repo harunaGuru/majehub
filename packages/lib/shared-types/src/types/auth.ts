@@ -3,7 +3,7 @@ export type User = {
   email: string;
   password: string;
   name: string;
-  avatar?: any; // adjust to your images type
+  avatar?: any;
   createdAt: Date;
   updatedAt: Date;
   role: 'user';

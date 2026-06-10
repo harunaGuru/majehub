@@ -1,6 +1,6 @@
 import { Kafka } from 'kafkajs';
 import fs from 'fs';
-import path from "path";
+import path from 'path';
 import 'dotenv/config';
 
 function getCertsPath(): string {
@@ -17,10 +17,22 @@ function getCertsPath(): string {
   return fallbackPath;
 }
 
-// console.log("working directory", process.cwd());
-// const certsPath = path.join(process.cwd(), '../../avienCertificate');
 const certsPath = getCertsPath();
 console.log('Loading certificates from:', certsPath);
+try {
+  const content = fs.readFileSync(path.join(certsPath, 'ca.pem'), 'utf8');
+  console.log('✅ Certificate found! Length:', content.length);
+  console.log('First 100 chars:', content.substring(0, 100));
+} catch (err: any) {
+  console.error('❌ Error:', err.message);
+  // Check if directory exists
+  const dir = 'C:/Users/User/sul-ecom/majehub/avienCertificate';
+  if (fs.existsSync(dir)) {
+    console.log('Directory exists. Contents:', fs.readdirSync(dir));
+  } else {
+    console.log('Directory does NOT exist!');
+  }
+}
 // console.log(certsPath)
 export const kafka = new Kafka({
   clientId: 'kafka-service',
@@ -30,7 +42,11 @@ export const kafka = new Kafka({
     ca: [fs.readFileSync(path.join(certsPath, 'ca.pem'), 'utf8')],
     cert: [fs.readFileSync(path.join(certsPath, 'service.cert'), 'utf8')],
     key: [fs.readFileSync(path.join(certsPath, 'service.key'), 'utf8')],
-    // connectionTimeout: 10000, // Increase if connection is slow
-    // authenticationTimeout: 10000,
+  },
+  connectionTimeout: 5000,
+  authenticationTimeout: 5000,
+  retry: {
+    initialRetryTime: 100,
+    retries: 10,
   },
 });
