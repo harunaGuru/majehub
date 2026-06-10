@@ -26,38 +26,38 @@ graph TD
 %% CLIENT LAYER
 %% =========================
 subgraph Clients["Client Applications"]
-    U_UI["User UI (Next.js) :3000"]
-    S_UI["Seller UI (Next.js) :3001"]
-    A_UI["Admin UI (Next.js) :3002"]
+U_UI["User UI - Next.js :3000"]
+S_UI["Seller UI - Next.js :3001"]
+A_UI["Admin UI - Next.js :3002"]
 end
 
 %% =========================
-%% EDGE LAYER
+%% API GATEWAY
 %% =========================
-GW["API Gateway (Express) :8080"]
+GW["API Gateway - Express :8080"]
 
 %% =========================
-%% MICROSERVICES LAYER
+%% MICROSERVICES
 %% =========================
 subgraph Services["Microservices Layer"]
-    Auth_Svc["Auth Service :6001"]
-    Prod_Svc["Product Service :6002"]
-    Sell_Svc["Seller Service :6003"]
-    User_Svc["User Service :6004"]
-    Order_Svc["Order Service :6005"]
-    Admin_Svc["Admin Service :6006"]
-    Chat_Svc["Chat Service (WS) :6007"]
-    Log_Svc["Logger Service :6008"]
-    Rec_Svc["Recommendation Service :6009"]
+Auth_Svc["Auth Service :6001"]
+Prod_Svc["Product Service :6002"]
+Sell_Svc["Seller Service :6003"]
+User_Svc["User Service :6004"]
+Order_Svc["Order Service :6005"]
+Admin_Svc["Admin Service :6006"]
+Chat_Svc["Chat Service :6007"]
+Log_Svc["Logger Service :6008"]
+Rec_Svc["Recommendation Service :6009"]
 end
 
 %% =========================
 %% EVENT STREAMING
 %% =========================
 subgraph Kafka["Kafka Event Streaming"]
-    Topic_Log["log topic"]
-    Topic_Event["user-event topic"]
-    Topic_Chat["messages topic"]
+Topic_Log["log topic"]
+Topic_Event["user-event topic"]
+Topic_Chat["messages topic"]
 end
 
 K_Worker["Kafka Analytics Worker"]
@@ -66,8 +66,8 @@ K_Worker["Kafka Analytics Worker"]
 %% DATA LAYER
 %% =========================
 subgraph Data["Data Layer"]
-    MongoDB[("MongoDB")]
-    Redis[("Redis Cache")]
+MongoDB[("MongoDB")]
+Redis[("Redis")]
 end
 
 %% =========================
@@ -78,7 +78,7 @@ S_UI --> GW
 A_UI --> GW
 
 %% =========================
-%% GATEWAY ROUTING
+%% GATEWAY ROUTES
 %% =========================
 GW --> Auth_Svc
 GW --> Prod_Svc
@@ -90,14 +90,14 @@ GW --> Rec_Svc
 GW --> Chat_Svc
 
 %% =========================
-%% REAL-TIME COMMUNICATION
+%% REALTIME CONNECTIONS
 %% =========================
 U_UI <-->|WebSocket Chat| Chat_Svc
 S_UI <-->|WebSocket Chat| Chat_Svc
 A_UI <-->|WebSocket Logs| Log_Svc
 
 %% =========================
-%% EVENT STREAMING FLOWS
+%% KAFKA PRODUCERS
 %% =========================
 Auth_Svc --> Topic_Log
 Prod_Svc --> Topic_Log
@@ -128,7 +128,7 @@ Chat_Svc --> Topic_Chat
 K_Worker --> MongoDB
 
 %% =========================
-%% DATABASE ACCESS
+%% DATABASE CONNECTIONS
 %% =========================
 Auth_Svc --> MongoDB
 Prod_Svc --> MongoDB
