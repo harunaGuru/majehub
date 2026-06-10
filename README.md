@@ -21,78 +21,128 @@ Below is the high-level system architecture illustrating the user flows, API rou
 
 ```mermaid
 graph TD
-    %% Portals / Clients
-    subgraph Portals ["Client Portals"]
-        U_UI["User UI (Next.js)<br/>Port 3000"]
-        S_UI["Seller UI (Next.js)<br/>Port 3001"]
-        A_UI["Admin UI (Next.js)<br/>Port 3002"]
-    end
 
-    %% Gateway
-    GW["API Gateway (Express)<br/>Port 8080"]
+%% =========================
+%% CLIENT LAYER
+%% =========================
+subgraph Clients["Client Applications"]
+    U_UI["User UI (Next.js) :3000"]
+    S_UI["Seller UI (Next.js) :3001"]
+    A_UI["Admin UI (Next.js) :3002"]
+end
 
-    %% Backend Services
-    subgraph Microservices ["Microservices Cluster"]
-        Auth_Svc["Auth Service (Express)<br/>Port 6001"]
-        Prod_Svc["Product Service (Express)<br/>Port 6002"]
-        Sell_Svc["Seller Service (Express)<br/>Port 6003"]
-        User_Svc["User Service (Express)<br/>Port 6004"]
-        Order_Svc["Order Service (Express)<br/>Port 6005"]
-        Admin_Svc["Admin Service (Express)<br/>Port 6006"]
-        Chat_Svc["Chatting Service (Express/WS)<br/>Port 6007"]
-        Log_Svc["Logger Service (Express/WS)<br/>Port 6008"]
-        Rec_Svc["Recommendation Service (Express)<br/>Port 6009"]
-    end
+%% =========================
+%% EDGE LAYER
+%% =========================
+GW["API Gateway (Express) :8080"]
 
-    %% Message Bus / Event Streaming
-    subgraph EventBus ["Aiven Kafka Event Streaming"]
-        Topic_Log["'log' Topic"]
-        Topic_Event["'user-event' Topic"]
-        Topic_Chat["'messages' Topic"]
-    end
+%% =========================
+%% MICROSERVICES LAYER
+%% =========================
+subgraph Services["Microservices Layer"]
+    Auth_Svc["Auth Service :6001"]
+    Prod_Svc["Product Service :6002"]
+    Sell_Svc["Seller Service :6003"]
+    User_Svc["User Service :6004"]
+    Order_Svc["Order Service :6005"]
+    Admin_Svc["Admin Service :6006"]
+    Chat_Svc["Chat Service (WS) :6007"]
+    Log_Svc["Logger Service :6008"]
+    Rec_Svc["Recommendation Service :6009"]
+end
 
-    %% Analytics Worker
-    K_Worker["Kafka Analytics Worker<br/>(kafka-service)"]
+%% =========================
+%% EVENT STREAMING
+%% =========================
+subgraph Kafka["Kafka Event Streaming"]
+    Topic_Log["log topic"]
+    Topic_Event["user-event topic"]
+    Topic_Chat["messages topic"]
+end
 
-    %% Storage & Caching Layer
-    subgraph Storage ["Databases & Caching"]
-        Redis[("Upstash Redis Cache")]
-        MongoDB[("MongoDB Database")]
-    end
+K_Worker["Kafka Analytics Worker"]
 
-    %% Gateway Routing
-    U_UI -->|HTTP / REST| GW
-    S_UI -->|HTTP / REST| GW
-    A_UI -->|HTTP / REST| GW
+%% =========================
+%% DATA LAYER
+%% =========================
+subgraph Data["Data Layer"]
+    MongoDB[("MongoDB")]
+    Redis[("Redis Cache")]
+end
 
-    GW -->|/auth| Auth_Svc
-    GW -->|/product| Prod_Svc
-    GW -->|/seller| Sell_Svc
-    GW -->|/user| User_Svc
-    GW -->|/order| Order_Svc
-    GW -->|/admin| Admin_Svc
-    GW -->|/recommendation| Rec_Svc
-    GW -->|/chatting| Chat_Svc
+%% =========================
+%% CLIENT → GATEWAY
+%% =========================
+U_UI --> GW
+S_UI --> GW
+A_UI --> GW
 
-    %% Real-time Websocket Connections
-    U_UI & S_UI <-->|WebSockets (Live Chat)| Chat_Svc
-    A_UI <-->|WebSockets (Live Logs)| Log_Svc
+%% =========================
+%% GATEWAY ROUTING
+%% =========================
+GW --> Auth_Svc
+GW --> Prod_Svc
+GW --> Sell_Svc
+GW --> User_Svc
+GW --> Order_Svc
+GW --> Admin_Svc
+GW --> Rec_Svc
+GW --> Chat_Svc
 
-    %% Kafka Streaming
-    Microservices -->|Telemetry & Auditing| Topic_Log
-    GW & Microservices -->|Analytics Actions| Topic_Event
-    Chat_Svc -->|Message Delivery| Topic_Chat
+%% =========================
+%% REAL-TIME COMMUNICATION
+%% =========================
+U_UI <-->|WebSocket Chat| Chat_Svc
+S_UI <-->|WebSocket Chat| Chat_Svc
+A_UI <-->|WebSocket Logs| Log_Svc
 
-    %% Background Consumers
-    K_Worker -->|Subscribes to| Topic_Event
-    Log_Svc -->|Subscribes to| Topic_Log
-    Chat_Svc -->|Subscribes & Buffers| Topic_Chat
+%% =========================
+%% EVENT STREAMING FLOWS
+%% =========================
+Auth_Svc --> Topic_Log
+Prod_Svc --> Topic_Log
+Sell_Svc --> Topic_Log
+User_Svc --> Topic_Log
+Order_Svc --> Topic_Log
+Admin_Svc --> Topic_Log
+Chat_Svc --> Topic_Log
 
-    %% Database / Cache Interactions
-    K_Worker -->|Aggregates & Stores| MongoDB
-    Auth_Svc & Prod_Svc & Sell_Svc & User_Svc & Order_Svc & Admin_Svc & Chat_Svc -->|Prisma Client| MongoDB
-    Chat_Svc -->|Session Cache| Redis
-    Rec_Svc -->|Reads Analytics| MongoDB
+GW --> Topic_Event
+Auth_Svc --> Topic_Event
+Prod_Svc --> Topic_Event
+Sell_Svc --> Topic_Event
+User_Svc --> Topic_Event
+Order_Svc --> Topic_Event
+Admin_Svc --> Topic_Event
+Chat_Svc --> Topic_Event
+
+Chat_Svc --> Topic_Chat
+
+%% =========================
+%% CONSUMERS
+%% =========================
+K_Worker --> Topic_Event
+Log_Svc --> Topic_Log
+Chat_Svc --> Topic_Chat
+
+K_Worker --> MongoDB
+
+%% =========================
+%% DATABASE ACCESS
+%% =========================
+Auth_Svc --> MongoDB
+Prod_Svc --> MongoDB
+Sell_Svc --> MongoDB
+User_Svc --> MongoDB
+Order_Svc --> MongoDB
+Admin_Svc --> MongoDB
+Chat_Svc --> MongoDB
+Rec_Svc --> MongoDB
+
+%% =========================
+%% CACHE
+%% =========================
+Chat_Svc --> Redis
 ```
 
 ---
@@ -139,19 +189,19 @@ majehub/
 
 ## 4. Services Overview
 
-| Service Name | Port | Description | Primary Dependencies |
-|:---|:---:|:---|:---|
-| **api-gateway** | `8080` | Single entrypoint; provides rate-limiting, CORS handling, cookie routing, and forwards requests to underlying microservices. | `express`, `express-http-proxy`, `express-rate-limit` |
-| **auth-service** | `6001` | Handles signups, logins, token issuance (Access & Refresh JWT), and session invalidation. Generates API Swagger documentation. | `express`, `jsonwebtoken`, `bcrypt`, `swagger-ui-express` |
-| **product-service** | `6002` | Manages products, categories, catalogs, inventory stocks, search tags, reviews, and detailed attributes. | `express`, Prisma client |
-| **seller-service** | `6003` | Manages merchant registrations, shop details, opening hours, merchant profiles, and integrates Stripe onboarding. | `express`, `stripe` |
-| **user-service** | `6004` | Handles customer account configurations, shipping address catalogs, and profile preferences. | `express`, Prisma client |
-| **order-service** | `6005` | Processes order items, tracks shipment status, validates coupon codes, and processes credit card payments via Stripe. | `express`, `stripe` |
-| **chatting-service**| `6007` | Dual-purpose WebSocket and HTTP API server facilitating real-time chat between users and shop sellers. Messages are published to Kafka for async batch database writes. | `ws`, `express`, `kafkajs` |
-| **logger-service** | `6008` | WebSocket-enabled service subscribing to the Kafka `log` topic and broadcasting system logs to connected Admin UI dashboards. | `ws`, `express`, `kafkajs` |
-| **recommendation-service**| `6009` | Collects customer analytics data and trains an embedding-based neural network model to calculate personalized shopping recommendations. | `@tensorflow/tfjs` |
-| **kafka-service** | *N/A* | Background event consumer parsing messages from the `user-event` topic and aggregating analytics metrics across shops and products. | `kafkajs`, Prisma client |
-| **admin-service** | `6006` | Provides administrative overrides, platform configuration adjustments, and user/seller moderation. | `express`, Prisma client |
+| Service Name               |  Port  | Description                                                                                                                                                             | Primary Dependencies                                      |
+| :------------------------- | :----: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------- |
+| **api-gateway**            | `8080` | Single entrypoint; provides rate-limiting, CORS handling, cookie routing, and forwards requests to underlying microservices.                                            | `express`, `express-http-proxy`, `express-rate-limit`     |
+| **auth-service**           | `6001` | Handles signups, logins, token issuance (Access & Refresh JWT), and session invalidation. Generates API Swagger documentation.                                          | `express`, `jsonwebtoken`, `bcrypt`, `swagger-ui-express` |
+| **product-service**        | `6002` | Manages products, categories, catalogs, inventory stocks, search tags, reviews, and detailed attributes.                                                                | `express`, Prisma client                                  |
+| **seller-service**         | `6003` | Manages merchant registrations, shop details, opening hours, merchant profiles, and integrates Stripe onboarding.                                                       | `express`, `stripe`                                       |
+| **user-service**           | `6004` | Handles customer account configurations, shipping address catalogs, and profile preferences.                                                                            | `express`, Prisma client                                  |
+| **order-service**          | `6005` | Processes order items, tracks shipment status, validates coupon codes, and processes credit card payments via Stripe.                                                   | `express`, `stripe`                                       |
+| **chatting-service**       | `6007` | Dual-purpose WebSocket and HTTP API server facilitating real-time chat between users and shop sellers. Messages are published to Kafka for async batch database writes. | `ws`, `express`, `kafkajs`                                |
+| **logger-service**         | `6008` | WebSocket-enabled service subscribing to the Kafka `log` topic and broadcasting system logs to connected Admin UI dashboards.                                           | `ws`, `express`, `kafkajs`                                |
+| **recommendation-service** | `6009` | Collects customer analytics data and trains an embedding-based neural network model to calculate personalized shopping recommendations.                                 | `@tensorflow/tfjs`                                        |
+| **kafka-service**          | _N/A_  | Background event consumer parsing messages from the `user-event` topic and aggregating analytics metrics across shops and products.                                     | `kafkajs`, Prisma client                                  |
+| **admin-service**          | `6006` | Provides administrative overrides, platform configuration adjustments, and user/seller moderation.                                                                      | `express`, Prisma client                                  |
 
 ---
 
@@ -199,36 +249,47 @@ Majehub packages are stored under the `/packages` folder and compiled directly a
 ## 7. Local Development Setup
 
 ### Prerequisites
+
 - Install **Bun** on your operating system.
 - Prepare a **MongoDB Connection URI**.
 - Provide **Aiven Kafka Certificates** (`ca.pem`, `service.cert`, `service.key`) and keep them inside a directory.
 
 ### Step 1: Install Dependencies
+
 Run the following command in the root folder to download all required modules:
+
 ```bash
 bun install
 ```
 
 ### Step 2: Configure Environment Files
+
 Copy the `.env` configuration file to the root of your workspace:
+
 ```bash
 cp .env.example .env
 ```
+
 Ensure you update the configuration settings (refer to [Section 8](#8-environment-variables)).
 
 ### Step 3: Generate Prisma Client
+
 Majehub uses a custom output location for the Prisma ORM. Build the client using:
+
 ```bash
 bunx prisma generate
 ```
 
 ### Step 4: Launch Dev Servers
+
 To start the entire backend service cluster at once:
+
 ```bash
 bun run dev
 ```
 
 To run individual frontend portals, execute the specific portal scripts:
+
 ```bash
 # Customer Frontend (Next.js)
 bun run user-ui
@@ -327,6 +388,7 @@ bunx nx dev admin-ui
 Since there is no default Dockerfile in the repository, you can containerize Majehub using standard Dockerfiles.
 
 ### Multi-Stage Dockerfile for Express Backend Services
+
 Create a `Dockerfile` under the service directory (e.g., `apps/auth-service/Dockerfile`):
 
 ```dockerfile
@@ -350,6 +412,7 @@ CMD ["node", "dist/main.js"]
 ```
 
 ### Multi-Stage Dockerfile for Next.js Frontends
+
 Create a `Dockerfile` under the UI folder (e.g., `apps/user-ui/Dockerfile`):
 
 ```dockerfile
@@ -373,6 +436,7 @@ CMD ["bun", "run", "start"]
 ```
 
 ### Root Docker Compose Configuration
+
 You can spin up local support services (like MongoDB and Kafka) using a root `docker-compose.yml`:
 
 ```yaml
@@ -382,14 +446,14 @@ services:
   mongodb:
     image: mongo:6.0
     ports:
-      - "27017:27017"
+      - '27017:27017'
     volumes:
       - mongo_data:/data/db
 
   redis:
     image: redis:7-alpine
     ports:
-      - "6379:6379"
+      - '6379:6379'
 
 volumes:
   mongo_data:
@@ -473,15 +537,19 @@ In staging/production, Majehub uses a microservices deployment topology:
 ## 16. Troubleshooting
 
 ### 1. Kafka Certificate Resolution Error
+
 **Symptom**: Services crash during startup with `ENOENT: no such file or directory, open '.../avienCertificate/ca.pem'`.
 **Solution**:
+
 1. Check that the folder path exists on your workspace.
 2. In the `.env` file, specify the absolute path for the directory using forward slashes (e.g., `KAFKA_CERTS_PATH="C:/Users/User/sul-ecom/majehub/avienCertificate"`).
 
 ### 2. Prisma Model Imports Failing in IDE
+
 **Symptom**: VS Code displays red lines under imports pointing to `@packages/lib/prisma`.
 **Solution**:
 Uncomment the path configuration mappings inside the [tsconfig.base.json](file:///c:/Users/User/sul-ecom/majehub/tsconfig.base.json) compiler options:
+
 ```json
 "paths": {
   "@packages/*": ["packages/*"]
@@ -489,6 +557,7 @@ Uncomment the path configuration mappings inside the [tsconfig.base.json](file:/
 ```
 
 ### 3. Upstash Redis Connection Intermittent Drops
+
 **Symptom**: System logs show Redis connectivity failures.
 **Solution**:
 Upstash URIs use the SSL secure protocol (`rediss://`). Ensure your Node runtime supports TLS connections and check that your local firewall permits outbound connections on port `6379`.
