@@ -305,37 +305,448 @@ bun run admin-ui
 
 ## 8. Environment Variables
 
-Create a `.env` file in the root workspace. Below are the required values:
+Create a `.env` file in the project root and add the following variables:
 
 ```env
-# Database Credentials
-DATABASE_URL="mongodb+srv://<user>:<password>@cluster.mongodb.net/majehub_db?retryWrites=true&w=majority"
+# MongoDB Atlas
+DATABASE_URL="mongodb+srv://<username>:<password>@cluster.mongodb.net/majehub_db?retryWrites=true&w=majority"
 
-# ImageKit Configuration (for avatar/product image uploads)
+# ImageKit
 IMAGEKIT_PUBLIC_KEY="public_xxx"
 IMAGEKIT_PRIVATE_KEY="private_xxx"
 IMAGEKIT_URL_ENDPOINT="https://ik.imagekit.io/xxx"
 
-# Kafka Client Configurations
-KAFKA_CERTS_PATH="C:/Users/User/sul-ecom/majehub/avienCertificate"
+# Aiven Kafka
+KAFKA_CERTS_PATH="./avienCertificate"
 
-# Payment Gateways (Stripe Setup)
+# Stripe
 STRIPE_SECRET_KEY="sk_test_xxx"
 STRIPE_WEBHOOK_SECRET="whsec_xxx"
 
-# Token Verification Secrets
-ACCESS_TOKEN_SECRET="supersecret_access_token_key"
-REFRESH_TOKEN_SECRET="supersecret_refresh_token_key"
+# JWT Secrets
+ACCESS_TOKEN_SECRET="your_access_token_secret"
+REFRESH_TOKEN_SECRET="your_refresh_token_secret"
 
-# SMTP Email Configurations (Nodemailer Setup)
+# SMTP / Nodemailer
 SMTP_HOST="smtp.gmail.com"
 SMTP_PORT="587"
 SMTP_SERVICE="gmail"
-SMTP_USER="example@gmail.com"
-SMTP_PASSWORD="app-specific-password"
+SMTP_USER="your-email@gmail.com"
+SMTP_PASSWORD="your-app-password"
 
-# Nx Engine Tweaks
+# Nx
 NX_REJECT_UNKNOWN=0
+```
+
+### MongoDB Atlas (`DATABASE_URL`)
+
+1. Create a free MongoDB Atlas account.
+2. Create a new project.
+3. Click **Build a Database** and select the **Free Tier** cluster.
+4. Choose your preferred cloud provider and region.
+5. Once the cluster is deployed, click **Connect** → **Drivers**.
+6. Copy the provided connection string.
+7. Replace `<username>` and `<password>` with your database credentials.
+8. Replace the database name with `majehub_db` (or any preferred name).
+
+Example:
+
+```env
+DATABASE_URL="mongodb+srv://johndoe:mypassword@cluster0.mongodb.net/majehub_db?retryWrites=true&w=majority"
+```
+
+---
+
+### ImageKit Configuration
+
+ImageKit is used for product images, shop banners, avatars, and other media uploads.
+
+1. Create an ImageKit account.
+2. Create a new project.
+3. Navigate to **Developer Options**.
+4. Copy:
+
+   - Public Key
+   - Private Key
+   - URL Endpoint
+
+5. Add them to your `.env` file.
+
+Example:
+
+```env
+IMAGEKIT_PUBLIC_KEY="public_xxxxxxxxx"
+IMAGEKIT_PRIVATE_KEY="private_xxxxxxxxx"
+IMAGEKIT_URL_ENDPOINT="https://ik.imagekit.io/your-id"
+```
+
+---
+
+### Aiven Kafka Configuration
+
+Kafka powers:
+
+- User analytics tracking
+- Logging and monitoring
+- Chat message streaming
+- Event-driven communication between services
+
+#### Step 1: Create an Aiven Account
+
+1. Create an Aiven account.
+2. Create a new Kafka service.
+3. Wait for the service to finish provisioning.
+
+#### Step 2: Download SSL Certificates
+
+1. Open your Kafka service dashboard.
+2. Navigate to **Service Settings** → **Authentication**.
+3. Download:
+
+   - `ca.pem`
+   - `service.cert`
+   - `service.key`
+
+#### Step 3: Create Certificate Folder
+
+Create a folder in the project root:
+
+```bash
+avienCertificate/
+```
+
+Place the downloaded files inside:
+
+```text
+avienCertificate/
+├── ca.pem
+├── service.cert
+└── service.key
+```
+
+#### Step 4: Configure Path
+
+```env
+KAFKA_CERTS_PATH="./avienCertificate"
+```
+
+> Ensure the `avienCertificate` directory is included in `.gitignore` and never committed to GitHub.
+
+---
+
+### Stripe Configuration
+
+Stripe is used for payment processing.
+
+#### Step 1: Create a Stripe Account
+
+1. Create a Stripe account.
+2. Open the Developers section.
+3. Navigate to **API Keys**.
+4. Copy your **Secret Key**.
+
+```env
+STRIPE_SECRET_KEY="sk_test_xxxxxxxxx"
+```
+
+#### Step 2: Install Stripe CLI
+
+```bash
+stripe login
+```
+
+#### Step 3: Generate Webhook Secret
+
+Run:
+
+```bash
+stripe listen --forward-to localhost:6005/api/create-order
+```
+
+Stripe CLI will return:
+
+```text
+Ready! Your webhook signing secret is:
+
+whsec_xxxxxxxxx
+```
+
+Add it to:
+
+```env
+STRIPE_WEBHOOK_SECRET="whsec_xxxxxxxxx"
+```
+
+---
+
+### JWT Secrets
+
+Used for access token and refresh token generation.
+
+Generate secure random values:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+Example:
+
+```env
+ACCESS_TOKEN_SECRET="9b2f5d..."
+REFRESH_TOKEN_SECRET="2ac9e8..."
+```
+
+---
+
+### SMTP Configuration (Gmail)
+
+Used for:
+
+- Email verification
+- Password reset emails
+- Notifications
+
+#### Step 1: Enable Two-Factor Authentication
+
+Enable 2FA on your Google account.
+
+#### Step 2: Generate an App Password
+
+1. Go to Google Account Settings.
+2. Open **Security**.
+3. Select **App Passwords**.
+4. Generate a new password for Mail.
+5. Copy the generated password.
+
+Example:
+
+```env
+SMTP_HOST="smtp.gmail.com"
+SMTP_PORT="587"
+SMTP_SERVICE="gmail"
+SMTP_USER="your-email@gmail.com"
+SMTP_PASSWORD="your-app-password"
+```
+
+---
+
+### Upstash Redis (`REDIS_DATABASE_URL`)
+
+Redis is used for:
+
+- Session management
+- Caching frequently accessed data
+- Real-time chat support
+- Rate limiting and performance optimization
+
+#### Step 1: Create an Upstash Account
+
+1. Create a free Upstash account.
+2. Create a new Redis database.
+3. Choose your preferred region.
+4. Wait for the database to finish provisioning.
+
+#### Step 2: Obtain the Redis Connection String
+
+1. Open your Redis database dashboard.
+2. Navigate to the **Details** section.
+3. Copy the **Redis URL** (sometimes labeled **UPSTASH_REDIS_REST_URL** or **Redis Connection String**, depending on the dashboard version).
+
+Example:
+
+```env
+REDIS_DATABASE_URL="rediss://default:your-password@your-database.upstash.io:6379"
+```
+
+#### Step 3: Add to Environment Variables
+
+```env
+REDIS_DATABASE_URL="rediss://default:your-password@your-database.upstash.io:6379"
+```
+
+> **Note:** Upstash Redis uses TLS by default, so the connection string should typically begin with `rediss://` rather than `redis://`.
+
+---
+
+## 8.1 Frontend Environment Variables
+
+Each frontend application has its own environment configuration.
+
+Create a `.env` file inside each application directory:
+
+```text
+apps/
+├── user-ui/
+│   └── .env
+├── seller-ui/
+│   └── .env
+└── admin-ui/
+    └── .env
+```
+
+---
+
+### User UI (`apps/user-ui/.env`)
+
+```env
+NEXT_PUBLIC_AUTH_URL="http://localhost:8080"
+NODE_ENV="development"
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=""
+NEXT_PUBLIC_WS_URL="ws://localhost:6007"
+NEXT_PUBLIC_SELLER_URL="http://localhost:3001"
+
+NEXT_PUBLIC_FIREBASE_API_KEY=""
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=""
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=""
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=""
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=""
+NEXT_PUBLIC_FIREBASE_APP_ID=""
+```
+
+#### Variable Explanation
+
+| Variable                             | Description                                                  |
+| ------------------------------------ | ------------------------------------------------------------ |
+| `NEXT_PUBLIC_AUTH_URL`               | Authentication service URL                                   |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key used on the frontend                  |
+| `NEXT_PUBLIC_WS_URL`                 | WebSocket server URL for real-time chat and notifications    |
+| `NEXT_PUBLIC_SELLER_URL`             | Seller dashboard URL                                         |
+| Firebase variables                   | Required for Google Authentication and Firebase integrations |
+
+#### Stripe Publishable Key
+
+1. Log in to your Stripe Dashboard.
+2. Navigate to **Developers → API Keys**.
+3. Copy the **Publishable Key**.
+
+Example:
+
+```env
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="pk_test_xxxxxxxxxxxxxxxxx"
+```
+
+> This is different from the backend `STRIPE_SECRET_KEY`. Never expose your secret key in frontend applications.
+
+#### Firebase Configuration
+
+Firebase is used for Google Authentication.
+
+##### Step 1: Create a Firebase Project
+
+1. Visit Firebase Console.
+2. Click **Create Project**.
+3. Follow the setup wizard.
+
+##### Step 2: Register a Web App
+
+1. Open your Firebase project.
+2. Click **Project Settings**.
+3. Under **Your Apps**, click **Add App**.
+4. Select **Web App**.
+5. Register the application.
+
+##### Step 3: Copy Firebase SDK Configuration
+
+Firebase will generate a configuration similar to:
+
+```javascript
+const firebaseConfig = {
+  apiKey: 'AIza...',
+  authDomain: 'your-project.firebaseapp.com',
+  projectId: 'your-project-id',
+  storageBucket: 'your-project.appspot.com',
+  messagingSenderId: '123456789',
+  appId: '1:123456789:web:abcdef123456',
+};
+```
+
+Map those values to your `.env` file:
+
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY="AIza..."
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="your-project.firebaseapp.com"
+NEXT_PUBLIC_FIREBASE_PROJECT_ID="your-project-id"
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="your-project.appspot.com"
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="123456789"
+NEXT_PUBLIC_FIREBASE_APP_ID="1:123456789:web:abcdef123456"
+```
+
+---
+
+### Seller UI (`apps/seller-ui/.env`)
+
+```env
+NEXT_PUBLIC_AUTH_URL="http://localhost:8080"
+NODE_ENV="development"
+NEXT_PUBLIC_WS_URL="ws://localhost:6007"
+NEXT_PUBLIC_USER_URL="http://localhost:3000"
+```
+
+#### Variable Explanation
+
+| Variable               | Description                |
+| ---------------------- | -------------------------- |
+| `NEXT_PUBLIC_AUTH_URL` | Authentication service URL |
+| `NEXT_PUBLIC_WS_URL`   | WebSocket server URL       |
+| `NEXT_PUBLIC_USER_URL` | User storefront URL        |
+
+For local development, the default values above should work without modification.
+
+---
+
+### Admin UI (`apps/admin-ui/.env`)
+
+```env
+NEXT_PUBLIC_AUTH_URL="http://localhost:8080"
+NODE_ENV="development"
+NEXT_PUBLIC_WS_SERVER="ws://localhost:6008"
+```
+
+#### Variable Explanation
+
+| Variable                | Description                |
+| ----------------------- | -------------------------- |
+| `NEXT_PUBLIC_AUTH_URL`  | Authentication service URL |
+| `NEXT_PUBLIC_WS_SERVER` | Admin WebSocket server URL |
+
+For local development, the default values above should work without modification.
+
+---
+
+### Production Deployment Notes
+
+When deploying to production:
+
+1. Replace all localhost URLs with your production domains.
+2. Use production Stripe keys.
+3. Use your production Firebase project credentials.
+4. Ensure frontend applications can communicate with backend services through the configured URLs.
+5. Never commit `.env` files to GitHub.
+
+Add the following entries to your `.gitignore` if they do not already exist:
+
+```gitignore
+.env
+.env.local
+.env.production
+.env.development
+```
+
+---
+
+### Admin Credentials
+
+The project seeds a default administrator account during setup.
+
+```text
+Email: superadmin@gmail.com
+Password: admin123
+```
+
+> Change the default password immediately after first login when deploying to production.
+
+```
+
 ```
 
 ---
@@ -346,34 +757,34 @@ Nx allows you to target individual projects. You do not need to run everything a
 
 ```bash
 # Start API Gateway
-bunx nx serve api-gateway
+bunx nx serve api-gateway --verbose
 
 # Start Authentication Service
-bunx nx serve auth-service
+bunx nx serve auth-service --verbose
 
 # Start Product Service
-bunx nx serve product-service
+bunx nx serve product-service --verbose
 
 # Start Seller Service
-bunx nx serve seller-service
+bunx nx serve seller-service --verbose
 
 # Start User Service
-bunx nx serve user-service
+bunx nx serve user-service --verbose
 
 # Start Order Service
-bunx nx serve order-service
+bunx nx serve order-service --verbose
 
 # Start Chatting Service
-bunx nx serve chatting-service
+bunx nx serve chatting-service --verbose
 
 # Start Logging Service
-bunx nx serve logger-service
+bunx nx serve logger-service --verbose
 
 # Start Recommendation Service
-bunx nx serve recommendation-service
+bunx nx serve recommendation-service --verbose
 
 # Start background Kafka worker
-bunx nx serve kafka-service
+bunx nx serve kafka-service --verbose
 
 # Start UI Portals individually
 bunx nx dev user-ui

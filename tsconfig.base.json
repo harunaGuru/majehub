@@ -24,6 +24,7 @@
 //    }
   },
   "include": [
-    "packages/**/*.d.ts"
+    "packages/**/*.d.ts",
+    "generated/**/*.ts"
   ]
 }
