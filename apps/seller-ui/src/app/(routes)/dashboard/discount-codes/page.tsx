@@ -1,10 +1,10 @@
 "use client"
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { axiosInstance } from '@/utils/axiosInstance';
 import { ChevronRight, PlusIcon, Trash } from 'lucide-react';
 import Link from 'next/link';
-import {Spinner} from '@/shared/components/Spinner';
+import { Spinner } from '@/shared/components/Spinner';
 import CreateDiscountModal from '@/shared/components/Modals/CreateDiscountModal';
 
 type DiscountType = 'Percentage' | 'Flat';
@@ -31,19 +31,19 @@ const DiscountPage = () => {
     },
   });
 
-  const handleDelete =  () => {
-    if(!selectedId) return
-    deleteMutation.mutate(selectedId,{
+  const handleDelete = () => {
+    if (!selectedId) return
+    deleteMutation.mutate(selectedId, {
       onSuccess: () => {
         setSelectedId(null);
       }
     })
 
   };
-  const handleModal = ()=>{
+  const handleModal = () => {
     setOpenModal(true);
   }
-  const {data=[], isLoading, error} = useQuery({
+  const { data = [], isLoading, error } = useQuery({
     queryKey: ['shop-discount'],
     queryFn: async () => {
       const response = await axiosInstance.get(
@@ -55,8 +55,8 @@ const DiscountPage = () => {
 
   return (
     <div className="min-h-screen w-full flex flex-col p-4">
-      <div className="mt-6 flex items-center justify-between">
-        <h1 className="font-poppins text-white font-semibold text-lg tracking-wide">
+      <div className="flex items-center justify-between">
+        <h1 className="font-poppins text-white font-semibold text-lg tracking-wide pl-10 lg:pl-0">
           Discount Codes
         </h1>
         <button onClick={handleModal} className="flex items-center text-sm gap-2 bg-blue-600 hover:bg-blue-500 transition p-2 rounded-md font-poppins text-white">
@@ -65,7 +65,7 @@ const DiscountPage = () => {
         </button>
       </div>
       {/*BreadCrumbs*/}
-      <div className="flex items-center text-white mb-6">
+      <div className="flex items-center text-white mb-6 pl-10 lg:pl-0 -mt-2">
         <Link href="/dashboard" className="text-blue-500 opacity-80">
           Dashboard
         </Link>
@@ -94,12 +94,12 @@ const DiscountPage = () => {
                 </td>
               </tr>
             ) : isLoading ? (
-                <tr>
-                  <td colSpan={5} className="p-2 text-center text-gray-400">
-                    <Spinner />
-                  </td>
-                </tr>
-            ): (
+              <tr>
+                <td colSpan={5} className="p-2 text-center text-gray-400">
+                  <Spinner />
+                </td>
+              </tr>
+            ) : (
               data && !error && data.map((discount: Discount) => (
                 <tr key={discount.id} className="text-center">
                   <td className="text-left font-normal py-3">{discount.public_name}</td>
@@ -109,7 +109,7 @@ const DiscountPage = () => {
                   <td className="text-left font-normal py-3">
                     <button
                       onClick={() => setSelectedId(discount.id)}
-                      // className="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded"
+                    // className="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded"
                     >
                       <Trash size={16} className='text-red-600 hover:text-red-700' />
                     </button>

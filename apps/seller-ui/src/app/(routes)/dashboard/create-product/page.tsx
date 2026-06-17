@@ -13,6 +13,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { RichTextEditor } from '@/shared/components/RichTextEditor';
 import { SizeSelector } from "@/shared/components/CustomSize";
 import { Spinner } from '@/shared/components/Spinner';
+import toast from 'react-hot-toast';
 
 export type FormValues = {
   title: string;
@@ -42,7 +43,7 @@ export type FormValues = {
   sale_price: number;
   regular_price?: number;
   sizes?: string[];
-  stock: string;
+  stock: number;
   discount_code?: string[]
 };
 
@@ -69,6 +70,7 @@ const fetchCategories = async () => {
 };
 
 const createProduct = async (data: FormValues) => {
+  console.log("dfhsgdfhgdf", data)
   const response = await axiosInstance.post('/product/api/create-product', data);
   return response.data.product;
 }
@@ -106,7 +108,7 @@ const CreateProduct = () => {
       sale_price: undefined,
       regular_price: undefined,
       sizes: [],
-      stock: '',
+      stock: 0,
       discount_code: [],
     }
   });
@@ -115,6 +117,28 @@ const CreateProduct = () => {
     mutationFn: (data: FormValues) => createProduct(data),
     onSuccess: () => {
       console.log('success');
+      toast.success("Product created successfully")
+      setValue("title", "")
+      setValue("short_Description", "")
+      setValue("detailed_description", "")
+      setValue("tags", [])
+      setValue("warranty", "")
+      setValue("slug", "")
+      setValue("brand", "")
+      setValue("images", [])
+      setValue("colors", [])
+      setValue("customProperties", [])
+      setValue("custom_specification", [])
+      setValue("cashOnDelivery", "")
+      setValue("category", "")
+      setValue("subCategory", "")
+      setValue("video_url", "")
+      setValue("sale_price", 0)
+      setValue("regular_price", 0)
+      setValue("sizes", [])
+      setValue("stock", 0)
+      setValue("discount_code", [])
+      setImages([])
     }
   })
   const selectedCategory = watch('category');
@@ -201,13 +225,13 @@ const CreateProduct = () => {
 
 
   return (
-    <div className="w-full min-h-screen p-4">
-      <h1 className="font-poppins text-white ny-6 font-semibold text-lg tracking-wide mb-4">
+    <div className="w-full min-h-screen p-4 bg-black">
+      <h1 className="font-poppins text-white ny-6 font-semibold text-lg tracking-wide pl-10 lg:pl-0">
         Create Product
       </h1>
 
       {/*BreadCrumbs*/}
-      <div className="flex items-center text-white">
+      <div className="flex items-center text-white pl-10 lg:pl-0">
         <Link href="/dashboard" className="text-blue-600">
           Dashboard
         </Link>
@@ -218,10 +242,10 @@ const CreateProduct = () => {
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex gap-3 mb-4"
+        className="w-full flex flex-col lg:flex-row gap-3 mb-4 overflow-auto"
       >
         {/*upload images*/}
-        <div className="w-[21rem] mt-2 pl-2 ">
+        <div className="w-full lg:w-[21rem] mt-2 pl-2 ">
           <div className="flex flex-wrap gap-4 items-start">
             {Array.from({ length: MAX_IMAGES }, (_, slotId) => {
               const image = images.find((img) => img.slotId === slotId);
@@ -254,9 +278,9 @@ const CreateProduct = () => {
           </div>
         </div>
         {/*product specifications*/}
-        <div className="w-full  flex gap-3 h-full px-2">
+        <div className="w-full lg:flex gap-3 h-full px-2">
           {/*Left Column*/}
-          <div className="w-1/2  flex flex-col gap-2">
+          <div className="flex-1 min-w-0 flex flex-col gap-2">
             {/*Title*/}
             <div>
               <label className="mb-1 block text-sm font-semibold !text-gray-300 ">
@@ -427,7 +451,7 @@ const CreateProduct = () => {
             </div>
           </div>
           {/*Right Column*/}
-          <div className="w-1/2 flex flex-col gap-2">
+          <div className="flex-1 min-w-0 flex flex-col gap-2 bg-black">
             {/*Category*/}
             <div>
               <label className="mb-1 block text-sm font-semibold !text-gray-300">
@@ -647,7 +671,7 @@ const CreateProduct = () => {
                         <div className="flex flex-wrap gap-2">
                           {discounts.map((discount: Discount) => {
                             const isSelected = selectedCodes.includes(
-                              discount.id //changed discountCode
+                              discount.id
                             );
 
                             return (
@@ -655,7 +679,7 @@ const CreateProduct = () => {
                                 type="button"
                                 key={discount.id}
                                 onClick={
-                                  () => toggleDiscount(discount.id) //changed discountCode
+                                  () => toggleDiscount(discount.id)
                                 }
                                 className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 border
                                   ${isSelected

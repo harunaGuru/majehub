@@ -221,7 +221,7 @@ const Page = () => {
   };
   return (
     <div className="h-screen w-full flex flex-col p-4">
-      <div className="mt-6 flex items-center justify-between">
+      <div className=" flex items-center justify-between pl-10 lg:pl-0">
         <h1 className="font-poppins text-white font-semibold text-lg tracking-wide">
           All Events
         </h1>
@@ -234,7 +234,7 @@ const Page = () => {
         </Link>
       </div>
       {/*BreadCrumbs*/}
-      <div className="flex items-center text-white mb-3">
+      <div className="flex items-center text-white mb-3 pl-10 lg:pl-0 -mt-2">
         <Link href="/dashboard" className="text-blue-500 opacity-80">
           Dashboard
         </Link>

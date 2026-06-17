@@ -206,12 +206,12 @@ const CreateProduct = () => {
 
   return (
     <div className="w-full min-h-screen p-4">
-      <h1 className="font-poppins text-white ny-6 font-semibold text-lg tracking-wide mb-4">
+      <h1 className="font-poppins text-white ny-6 font-semibold text-lg tracking-wide pl-10 lg:pl-0">
         Create Event
       </h1>
 
       {/*BreadCrumbs*/}
-      <div className="flex items-center text-white">
+      <div className="flex items-center text-white pl-10 lg:pl-0">
         <Link href="/dashboard" className="text-blue-600">
           Dashboard
         </Link>
@@ -222,10 +222,10 @@ const CreateProduct = () => {
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex gap-3 mb-4"
+        className="w-full flex flex-col lg:flex-row gap-3 mb-4 overflow-auto"
       >
         {/*upload images*/}
-        <div className="w-[21rem] mt-2 pl-2 ">
+        <div className="w-full lg:w-[21rem] mt-2 pl-2 ">
           <div className="flex flex-wrap gap-4 items-start">
             {Array.from({ length: MAX_IMAGES }, (_, slotId) => {
               const image = images.find((img) => img.slotId === slotId);
@@ -258,9 +258,9 @@ const CreateProduct = () => {
           </div>
         </div>
         {/*product specifications*/}
-        <div className="w-full  flex gap-3 h-full px-2">
+        <div className="w-full  lg:flex gap-3 h-full px-2">
           {/*Left Column*/}
-          <div className="w-1/2  flex flex-col gap-2">
+          <div className="flex-1 min-w-0 flex flex-col gap-2">
             {/*Title*/}
             <div>
               <label className="mb-1 block text-sm font-semibold !text-gray-300 ">
@@ -456,7 +456,7 @@ const CreateProduct = () => {
             </div>
           </div>
           {/*Right Column*/}
-          <div className="w-1/2 flex flex-col gap-2">
+          <div className="flex-1 min-w-0 flex flex-col gap-2 bg-black">
             {/*Category*/}
             <div>
               <label className="mb-1 block text-sm font-semibold !text-gray-300">

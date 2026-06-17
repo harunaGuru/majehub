@@ -79,13 +79,13 @@ const SettingsPage = () => {
   return (
     <div className="min-h-screen w-full bg-black px-4 py-6 text-white">
       {/* Header */}
-      <div className="mt-4">
-        <h1 className="font-poppins text-2xl font-semibold tracking-wide">
+      <div className="">
+        <h1 className="font-poppins text-2xl font-semibold tracking-wide pl-10 lg:pl-0">
           Settings
         </h1>
 
         {/* Breadcrumb */}
-        <div className="mt-1 flex items-center text-sm text-zinc-400">
+        <div className="flex items-center text-sm text-zinc-400 pl-10 lg:pl-0">
           <Link
             href="/dashboard"
             className="text-blue-500 transition hover:opacity-80"
@@ -110,8 +110,8 @@ const SettingsPage = () => {
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`relative pb-4 text-sm font-medium transition ${activeTab === tab
-                      ? 'text-white'
-                      : 'text-zinc-500 hover:text-zinc-300'
+                    ? 'text-white'
+                    : 'text-zinc-500 hover:text-zinc-300'
                     }`}
                 >
                   {tab}
@@ -393,8 +393,8 @@ const SettingsPage = () => {
                 onClick={handleDeleteRestoreShop}
                 disabled={loadingDeleteAction}
                 className={`flex min-w-[150px] items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-60 ${isShopDeleted
-                    ? 'bg-green-600 hover:bg-green-700'
-                    : 'bg-red-600 hover:bg-red-700'
+                  ? 'bg-green-600 hover:bg-green-700'
+                  : 'bg-red-600 hover:bg-red-700'
                   }`}
               >
                 {loadingDeleteAction ? (

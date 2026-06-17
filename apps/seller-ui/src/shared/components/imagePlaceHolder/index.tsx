@@ -3,6 +3,7 @@ import { UseFormGetValues, UseFormSetValue } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { axiosInstance } from '@/utils/axiosInstance';
 import { fileToBase64 } from '@/utils/convertToBase64';
+import toast from 'react-hot-toast';
 
 interface ImagePlaceholderProps {
   slotId: number;
@@ -107,11 +108,15 @@ const ImagePlaceHolder = ({
 
       // ensure modal uses CDN url not blob
       setTransformedImage(data.url);
-      // setValue(`images.${slotId}`, {
-      //   fileUrl: data.url,
-      //   fileId: data.fileId,
-      // });
+      toast.success('Image uploaded successfully.');
     },
+    onError: (error, variables) => {
+      const { slotId } = variables;
+      setValue(`images.${slotId}`, undefined);
+      setImageKitData(null);
+      setTransformedImage('');
+      toast.error('Failed to upload image');
+    }
   });
 
   // const applyTransformation = (originalUrl: string, transformation: string) => {
@@ -204,17 +209,18 @@ const ImagePlaceHolder = ({
 
   const sizeClass = isMain ? 'w-80 h-80' : 'w-40 h-40';
   const currentImage = getValues(`images.${slotId}`);
+  console.log("current Image", currentImage)
 
   return (
     <>
       <div
         className={`relative ${sizeClass} border-2 border-dashed border-gray-300 rounded-lg overflow-hidden bg-gray-200 flex items-center justify-center`}
       >
-        {currentImage ? (
+        {image ? (
           // Filled placeholder
           <>
             <img
-              src={currentImage.fileUrl || image}
+              src={currentImage?.fileUrl || image}
               alt={`Upload ${slotId}`}
               className="w-full h-full object-cover"
             />
@@ -415,7 +421,8 @@ const ImagePlaceHolder = ({
                 type="button"
                 onClick={() => {
                   onDeleteImage(slotId);
-                  setShowModal(false);
+                  // setShowModal(false);
+                  setDeleteModal(false);
                 }}
                 className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
               >

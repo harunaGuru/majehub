@@ -30,13 +30,13 @@ const NotificationsPage = () => {
 
   return (
     <div className="min-h-screen w-full bg-black px-4 py-6 text-white">
-      <div className="mt-4">
-        <h1 className="font-poppins text-white font-semibold text-lg tracking-wide">
+      <div className="">
+        <h1 className="font-poppins text-white font-semibold text-lg tracking-wide pl-10 lg:pl-0">
           Notifications
         </h1>
 
         {/* Breadcrumb */}
-        <div className="mt-1 flex items-center text-sm text-zinc-400">
+        <div className="flex items-center text-sm text-zinc-400 pl-10 lg:pl-0">
           <Link
             href="/dashboard"
             className="text-blue-500 transition hover:opacity-80"

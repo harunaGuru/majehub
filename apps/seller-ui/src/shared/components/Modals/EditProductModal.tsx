@@ -112,7 +112,7 @@ export const EditProductModal = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
+    <div className="fixed inset-0 bg-black/40 flex items-center lg:pl-20 justify-center z-30">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -219,9 +219,11 @@ export const EditProductModal = ({
               {...register('short_Description', {
                 validate: (value) => {
                   const wordCount = value
-                    .trim()
-                    .split(/\s+/)
-                    .filter(Boolean).length;
+                    ? value
+                      .trim()
+                      .split(/\s+/)
+                      .filter(Boolean).length
+                    : 0;
                   return wordCount <= 150 || 'Maximum of 150 words allowed';
                 },
               })}

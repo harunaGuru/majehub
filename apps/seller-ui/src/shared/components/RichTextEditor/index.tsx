@@ -70,7 +70,7 @@ export function RichTextEditor<T extends FieldValues>({
   ];
 
   return (
-    <div className="w-full space-y-2">
+    <div className="w-full space-y-2 bg-black">
       {label && (
         <label className="block text-sm font-medium text-white">{label}</label>
       )}
