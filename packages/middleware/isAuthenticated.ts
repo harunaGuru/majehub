@@ -8,6 +8,7 @@ interface AccessTokenPayload extends JwtPayload {
   email?: string;
   role: 'user' | 'seller' | 'admin';
 }
+
 export const isAuthenticated =
   (role: 'user' | 'seller' | 'admin') =>
   async (
@@ -15,18 +16,6 @@ export const isAuthenticated =
     res: Response,
     next: NextFunction
   ): Promise<Response | void> => {
-    // const authHeader = req.header('Authorization');
-    // let token: string | undefined;
-    // if (req.cookies?.access_token) {
-    //   token = req.cookies.access_token;
-    // } else if (req.cookies?.seller_access_token) {
-    //   token = req.cookies.seller_access_token;
-    // } else if (req.cookies?.admin_access_token) {
-    //   token = req.cookies.admin_access_token;
-    // } else if (authHeader?.toLowerCase().startsWith('bearer ')) {
-    //   token = authHeader.split(' ')[1];
-    // }
-
     let token;
 
     switch (role) {
