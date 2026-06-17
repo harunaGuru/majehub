@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { sendKafkaEvent } from '@/actions/track-user';
 
-interface Product {
+export interface Product {
   id: string;
   title: string;
   price?: number;

@@ -60,4 +60,5 @@ out
 /avienCertificate/
 node_modules
 firebase/
+serve.log
 firebase/serviceAccountKey.json

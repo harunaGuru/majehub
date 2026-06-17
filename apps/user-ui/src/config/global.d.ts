@@ -20,6 +20,7 @@ interface ProductCardProps {
   event: boolean;
   starting_date?: string | null;
   ending_date?: string | null;
+  discount_code?: string[];
   stock: number;
   totalSales: number;
   slug: string;
