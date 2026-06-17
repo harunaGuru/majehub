@@ -42,7 +42,7 @@ const PaymentSuccessPage = () => {
         </p>
 
         <button
-          onClick={() => router.push(`/order/${sessionId}`)}
+          onClick={() => router.push(`/profile?tab=orders`)}
           className="px-4 py-2 flex items-center justify-center gap-2 bg-blue-600 text-white rounded-md hover:opacity-90 transition"
         >
           <Truck size={18} />

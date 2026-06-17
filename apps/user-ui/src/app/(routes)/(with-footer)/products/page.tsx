@@ -287,7 +287,7 @@ const ProductPage = () => {
           {/*Right Column*/}
           <div className="flex flex-col gap-2">
             {isLoading ? (
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {Array.from({ length: 10 }).map((_, i) => (
                   <ProductCardSkeleton key={i} />
                 ))}
@@ -296,7 +296,7 @@ const ProductPage = () => {
               <NoProductsFound />
             ) : (
               <>
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {data?.products.map((product: any) => (
                     <ProductCard key={product.id} {...product} />
                   ))}

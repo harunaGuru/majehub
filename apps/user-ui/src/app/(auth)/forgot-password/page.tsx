@@ -206,7 +206,7 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <div className="w-full bg-[#f1f1f1]  pb-4">
+    <div className="w-full h-full min-h-[450px] bg-[#f1f1f1]  pb-4">
       <div className="w-full flex flex-col items-center justify-center h-full py-5">
         <h1 className="text-center font-poppins font-bold mb-2 text-3xl">
           Forgot Password
@@ -226,7 +226,7 @@ const ForgotPasswordPage = () => {
             Login
           </Link>
         </p>
-        <div className="w-[25vw] min-h-[400px] bg-white p-5 rounded-md shadow-md flex flex-col items-center">
+        <div className="w-[25vw] h-fit bg-white p-5 rounded-md shadow-md flex flex-col items-center">
           {/* Login form elements will go here */}
           <h2 className="text-center font-poppins font-semibold text-2xl mb-2">
             Login To Majehub

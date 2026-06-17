@@ -107,21 +107,21 @@ const InboxPage = () => {
     queryKey: ['conversations'],
     queryFn: getConversations,
   });
-
+  console.log("conversations: ", conversations)
   useEffect(() => {
     if (!conversationIdFromUrl || !conversations.length) return;
 
     setSelectedChat((prev: any) => {
       // prevent unnecessary resets
-      if (prev?.conversationId === conversationIdFromUrl) {
-        return prev;
-      }
+      // if (prev?.conversationId === conversationIdFromUrl) {
+      //   return prev;
+      // }
 
       const found = conversations.find(
         (c: any) => c.conversationId === conversationIdFromUrl
       );
-
-      return found || prev;
+      return found;
+      // || prev;
     });
   }, [conversationIdFromUrl, conversations]);
 
@@ -257,6 +257,7 @@ const InboxPage = () => {
 
     router.push(`/inbox?conversationId=${chat.conversationId}`)
   }
+
   return (
     <div className="bg-[#EFEEF1] h-fit py-4">
       <div className="w-[90%] lg:w-[80%] mx-auto ">
@@ -338,6 +339,7 @@ const InboxPage = () => {
                       alt="avatar"
                       fill
                       className="rounded-full object-cover"
+                      sizes='12px'
                     />
                   </div>
 

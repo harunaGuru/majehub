@@ -7,8 +7,9 @@ import Rating from '@/app/shared/components/Rating';
 import { useMemo } from "react";
 import { useUserDevice } from "@/hooks/useDeviceTracking";
 import { useGeoLocation } from "@/hooks/useLocationTracking";
-import { CartWishlistItem, useStore } from '@/store';
+import { CartWishlistItem, useStore, Product } from '@/store';
 import { useAuthUser } from '@/hooks/useAuthUser';
+
 
 const ProductCard = ({
   id,
@@ -18,6 +19,7 @@ const ProductCard = ({
   regular_price,
   slug,
   stock,
+  discount_code,
   shop,
   starting_date = null,
   event,
@@ -43,11 +45,13 @@ const ProductCard = ({
     [wishlist, id]
   );
 
-  const productPayload = {
+  const productPayload: Product = {
     id,
     title,
     sale_price,
     quantity: 1,
+    price: sale_price || regular_price,
+    discount_code,
     image:
       images[0]?.fileUrl ||
       'https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__hQGw2_LW9.avif?updatedAt=1772530464579',

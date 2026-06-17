@@ -50,6 +50,7 @@ export default function Index() {
     queryKey: ['latest-products'],
     queryFn: fetchLatestProduct,
   })
+  console.log("daaaaa", data)
   const { data: latestOffers, isLoading: isLatestOffersLoading } = useQuery({
     queryKey: ['latest-offers'],
     queryFn: fetchLatestOffers,
@@ -72,7 +73,7 @@ export default function Index() {
         <div className="mt-8 pb-6 max-w-7xl mx-auto w-full px-6 space-y-6">
           <div className="space-y-4">
             <SectionTitle title="Latest Products" />
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {isLoading
                 ? Array.from({ length: 10 }).map((_, i) => (
                   <ProductCardSkeleton key={i} />
@@ -85,20 +86,20 @@ export default function Index() {
           </div>
           <div className="space-y-4">
             <SectionTitle title="Top Offers" />
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5  gap-4">
               {isLatestOffersLoading
                 ? Array.from({ length: 10 }).map((_, i) => (
                   <ProductCardSkeleton key={i} />
                 ))
-                : latestOffers.products &&
-                latestOffers.products.map((product: any) => (
+                : latestOffers?.products &&
+                latestOffers?.products?.map((product: any) => (
                   <ProductCard key={product.id} {...product} />
                 ))}
             </div>
           </div>
           <div className="space-y-4">
             <SectionTitle title="Suggested Products" />
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5  gap-4">
               {isRecommendedLoading
                 ? Array.from({ length: 10 }).map((_, i) => (
                   <ProductCardSkeleton key={i} />
@@ -111,7 +112,7 @@ export default function Index() {
           </div>
           <div className='space-y-4'>
             <SectionTitle title="Top Shops" />
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5  gap-4">
               {isTopShopsLoading
                 ? Array.from({ length: 10 }).map((_, i) => (
                   <ShopCardSkeleton key={i} />

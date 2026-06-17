@@ -271,7 +271,7 @@ const OffersList = () => {
           {/*Right Column*/}
           <div className="flex flex-col gap-2">
             {isLoading ? (
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {Array.from({ length: 10 }).map((_, i) => (
                   <ProductCardSkeleton key={i} />
                 ))}
@@ -280,7 +280,7 @@ const OffersList = () => {
               <NoProductsFound />
             ) : (
               <>
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {data.products.map((product: any) => (
                     <ProductCard key={product.id} {...product} />
                   ))}
@@ -291,8 +291,8 @@ const OffersList = () => {
                     <button
                       key={i}
                       className={`px-3 py-1 rounded ${page === i + 1
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-200'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-200'
                         }`}
                       onClick={() => {
                         const params = new URLSearchParams(

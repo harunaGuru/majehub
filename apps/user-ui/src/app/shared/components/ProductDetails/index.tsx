@@ -1,8 +1,6 @@
 "use client"
 import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
-import InnerImageZoom from 'react-inner-image-zoom';
-import 'react-inner-image-zoom/lib/styles.min.css';
 import {
   BriefcaseBusiness,
   Check,
@@ -20,19 +18,25 @@ import dynamic from 'next/dynamic';
 import { Spinner } from '@/app/shared/components/Spinner';
 import { useUserDevice } from '@/hooks/useDeviceTracking';
 import { useGeoLocation } from '@/hooks/useLocationTracking';
-import { buildEvent, CartWishlistItem, useStore } from '@/store';
+import { buildEvent, CartWishlistItem, Product, useStore } from '@/store';
 import { sendKafkaEvent } from '@/actions/track-user';
 import { useRouter } from 'next/navigation';
 import { axiosInstance } from '@/utils/axiosInstance';
 import toast from 'react-hot-toast';
 import { isProtected } from '@/utils/isProtected';
 import { useUser } from '@/hooks/useUser';
-
+import { useQueryClient } from '@tanstack/react-query';
 const ProductDetailedAndReviewTab = dynamic(
   () => import('@/app/shared/components/ProductDetailedAndReviewTab'),
   { ssr: false }
 );
 
+const ProductImageMagnifier = dynamic(
+  () => import('@/app/shared/components/ProductImageMagnifier'),
+  {
+    ssr: false,
+  }
+);
 
 const ProductDetailsPage = ({ product }: { product: any }) => {
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
@@ -43,6 +47,7 @@ const ProductDetailsPage = ({ product }: { product: any }) => {
   const image = product?.images?.[0];
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const queryClient = useQueryClient();
 
   const { user, isLoading: userLoading } = useUser()
   const userInfo = {
@@ -62,7 +67,9 @@ const ProductDetailsPage = ({ product }: { product: any }) => {
         },
         isProtected()
       )
-
+      await queryClient.invalidateQueries({
+        queryKey: ['conversations'],
+      });
       const conversationId = data.conversationId
       router.push(`/inbox?conversationId=${conversationId}`)
     } catch (error) {
@@ -120,12 +127,13 @@ const ProductDetailsPage = ({ product }: { product: any }) => {
       ),
     [wishlist, product]
   );
-  const productPayload = {
+  const productPayload: Product = {
     id: product?.id as string,
     title: product?.title as string,
     price: product?.sale_price,
     sale_price: product?.price,
     quantity: quantity,
+    discount_code: product?.discount_code || [],
     image:
       product?.images[0]?.fileUrl ||
       'https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__hQGw2_LW9.avif?updatedAt=1772530464579',
@@ -240,41 +248,28 @@ const ProductDetailsPage = ({ product }: { product: any }) => {
         <div className="grid lg:grid-cols-[450px_1fr_300px] gap-8 px-4 pb-4 bg-gradient-to-r from-white via-gray-100 to-gray-150 shadow-lg">
           {/*Image Gallery*/}
           <div className="pt-6  space-y-3">
-            <div className="relative w-full aspect-square rounded-sm bg-white">
-              <InnerImageZoom
+            {/* <div className="relative w-full aspect-square rounded-sm overflow-hidden">
+              <Image
                 src={
                   selectedImage ||
                   'https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__hQGw2_LW9.avif?updatedAt=1772530464579'
                 }
-                zoomSrc={
-                  selectedImage
-                    ? `${selectedImage}?tr=w-1600`
-                    : 'https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__hQGw2_LW9.avif?updatedAt=1772530464579'
+                alt="Selected product image"
+                fill
+                className="object-cover"
+                loading="eager"
+                fetchPriority="high"
+                priority
+              />
+            </div> */}
+            <div className="w-full aspect-square rounded-sm bg-white">
+              <ProductImageMagnifier
+                image={
+                  selectedImage ||
+                  'https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__hQGw2_LW9.avif?updatedAt=1772530464579'
                 }
-                zoomType="hover"
-                zoomPreload={true}
-                hideHint={true}
-                hasSpacer={true}
-                zoomScale={1.5}
-                fullscreenOnMobile
-                className="w-full h-full object-cover"
               />
             </div>
-
-            {/*<div className="relative w-full aspect-square rounded-sm overflow-hidden">*/}
-            {/*  <Image*/}
-            {/*    src={*/}
-            {/*      selectedImage ||*/}
-            {/*      'https://ik.imagekit.io/3k74bqena/products/ryan-plomp-jvoZ-Aux9aw-unsplash__1__hQGw2_LW9.avif?updatedAt=1772530464579'*/}
-            {/*    }*/}
-            {/*    alt="Selected product image"*/}
-            {/*    fill*/}
-            {/*    className="object-cover"*/}
-            {/*    loading="eager"*/}
-            {/*    // fetchPriority="high"*/}
-            {/*    // priority*/}
-            {/*  />*/}
-            {/*</div>*/}
             {/*Thumbnails*/}
             {product?.images?.length > 1 && (
               <div className="flex gap-3 overflow-x-auto">

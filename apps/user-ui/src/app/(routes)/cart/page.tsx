@@ -124,11 +124,11 @@ export default function CartPage() {
       }
     }
   }, [addresses, selectedAddress])
-
+  console.log("cart", cart)
   const subtotal = useMemo(() => {
     return cart.reduce(
       (acc, item) =>
-        acc + item.product.sale_price * item.product.quantity,
+        acc + (item?.product?.sale_price || item?.product?.price || 0) * item?.product?.quantity,
       0
     );
   }, [cart]);
@@ -189,7 +189,7 @@ export default function CartPage() {
 
                         {/* PRICE */}
                         <td className="p-3">
-                          ${product?.sale_price?.toFixed(2)}
+                          ${(product?.sale_price || product?.price || 0)?.toFixed(2)}
                         </td>
 
                         {/* QUANTITY */}

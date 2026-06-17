@@ -3,7 +3,6 @@
 import { useParams } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
 import { axiosInstance } from "@/utils/axiosInstance"
-import { isProtected } from "@/utils/isProtected"
 import { Loader2 } from "lucide-react"
 import Image from "next/image"
 
@@ -23,7 +22,6 @@ const OrderPage = () => {
     queryFn: async () => {
       const res = await axiosInstance.get(
         `/order/api/order/${orderId}`,
-        // isProtected()
       )
       return res.data.order
     },
@@ -36,6 +34,7 @@ const OrderPage = () => {
   const truncateId = (id: string) => {
     return id?.slice(0, 6);
   };
+  console.log("order", order)
 
   return (
     <div className="w-full min-h-[70vh] bg-gray-200">
@@ -97,6 +96,9 @@ const OrderPage = () => {
                 </span>
                 <span>
                   <span className="font-semibold">Total:</span> <span className="font-medium text-gray-500">${order?.total}</span>
+                </span>
+                <span>
+                  <span className="font-semibold">Discount:</span> <span className="font-medium text-gray-500">${order?.discountAmount ? order?.discountAmount : 0}</span>
                 </span>
                 <span>
                   <span className="font-semibold">Date:</span> {" "}
