@@ -23,12 +23,18 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useAdmin } from '@/hooks/useAdmin';
 import { getInitials } from '@/utils/getInitials';
+import { Menu, X } from 'lucide-react';
 
 const logout = async () => {
   await axiosInstance.post("/admin/api/logout-admin");
 };
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  sidebarOpen: boolean;
+  setSidebarOpen: (open: boolean) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   const pathname = usePathname();
   const { activeSidebar, setActiveSidebar } = useSidebar();
   const [isLogoutModalOpen, setLogoutModalOpen] = useState(false);
@@ -54,6 +60,12 @@ const Sidebar: React.FC = () => {
       toast.error("Logout failed");
     },
   });
+
+  const handleSidebarCLick = () => {
+    if (window.innerWidth <= 768) {
+      setSidebarOpen(false);
+    }
+  }
 
   const getIconColor = (route: string) => {
     return activeSidebar === route ? '#0085ff' : '#969696';
@@ -96,126 +108,150 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <aside className="w-[280px] h-screen bg-[#0a0a0c] text-white fixed left-0 top-0 border-r border-[rgba(255,255,255,0.06)] flex flex-col">
-      {/* Header */}
-      <div className="p-6 flex items-center gap-3 border-b border-[rgba(255,255,255,0.06)]">
-        <div className="w-9 h-9 bg-gradient-to-br from-[#0085ff] to-[#0066cc] rounded-xl flex items-center justify-center font-bold text-white text-xl shadow-lg shadow-[rgba(0,133,255,0.15)]">
-          {getInitials(admin?.name || "")}
+    <>
+      <button
+        onClick={() => setSidebarOpen(true)}
+        className="md:hidden fixed top-6 left-3 z-40 p-2 bg-slate-400 rounded-md border border-slate-700"
+      >
+        <Menu size={20} />
+      </button>
+      <aside className="w-full md:w-[280px] h-screen bg-[#0a0a0c] text-white border-r border-[rgba(255,255,255,0.06)] flex flex-col relative">
+        <button
+          onClick={() => setSidebarOpen(false)}
+          className="absolute top-4 right-4 md:hidden"
+        >
+          <X size={24} />
+        </button>
+        {/* Header */}
+        <div className="p-6 pl-14 lg:pl-6 flex items-center gap-3 border-b border-[rgba(255,255,255,0.06)]">
+          <div className="w-9 h-9 bg-gradient-to-br from-[#0085ff] to-[#0066cc] rounded-xl flex items-center justify-center font-bold text-white text-xl shadow-lg shadow-[rgba(0,133,255,0.15)]">
+            {getInitials(admin?.name || "")}
+          </div>
+          <div className="flex flex-col flex-1">
+            <span className="font-semibold text-sm text-white">
+              {admin?.name || "Admin"}
+            </span>
+            <span className="text-xs text-[rgba(255,255,255,0.5)]">
+              {admin?.email || "admin"}
+            </span>
+          </div>
         </div>
-        <div className="flex flex-col flex-1">
-          <span className="font-semibold text-sm text-white">
-            {admin?.name || "Admin"}
-          </span>
-          <span className="text-xs text-[rgba(255,255,255,0.5)]">
-            {admin?.email || "admin"}
-          </span>
+
+        {/* Body */}
+        <div className="flex-1 p-6 overflow-y-auto flex flex-col gap-7 custom-scrollbar">
+          {/* Dashboard */}
+          <SidebarMenu>
+            <SidebarItem
+              title="Dashboard"
+              icon={<DashboardIcon fill={getIconColor('/dashboard')} />}
+              href="/dashboard"
+              isActive={activeSidebar === '/dashboard'}
+              onClick={handleSidebarCLick}
+            />
+          </SidebarMenu>
+
+          {/* Main Menu */}
+          <SidebarMenu title="Main Menu">
+            <SidebarItem
+              title="Orders"
+              icon={<OrderIcon fill={getIconColor('/dashboard/orders')} />}
+              href="/dashboard/orders"
+              isActive={activeSidebar === '/dashboard/orders'}
+              onClick={handleSidebarCLick}
+            />
+            <SidebarItem
+              title="Payments"
+              icon={<PaymentIcon fill={getIconColor('/dashboard/payments')} />}
+              href="/dashboard/payments"
+              isActive={activeSidebar === '/dashboard/payments'}
+              onClick={handleSidebarCLick}
+            />
+            <SidebarItem
+              title="Products"
+              icon={
+                <AllProductsIcon fill={getIconColor('/dashboard/products')} />
+              }
+              href="/dashboard/products"
+              isActive={activeSidebar === '/dashboard/products'}
+              onClick={handleSidebarCLick}
+            />
+            <SidebarItem
+              title="Events"
+              icon={
+                <AllEventsIcon fill={getIconColor('/dashboard/events')} />
+              }
+              href="/dashboard/events"
+              isActive={activeSidebar === '/dashboard/events'}
+              onClick={handleSidebarCLick}
+            />
+            <SidebarItem
+              title="Users"
+              icon={<UsersIcon fill={getIconColor('/dashboard/users')} />}
+              href="/dashboard/users"
+              isActive={activeSidebar === '/dashboard/users'}
+              onClick={handleSidebarCLick}
+            />
+            <SidebarItem
+              title="Sellers"
+              icon={<SellersIcon fill={getIconColor('/dashboard/sellers')} />}
+              href="/dashboard/sellers"
+              isActive={activeSidebar === '/dashboard/sellers'}
+              onClick={handleSidebarCLick}
+            />
+          </SidebarMenu>
+          {/* Controllers */}
+          <SidebarMenu title="Controllers">
+            <SidebarItem
+              title="Loggers"
+              icon={<LoggersIcon fill={getIconColor('/dashboard/loggers')} />}
+              href="/dashboard/loggers"
+              isActive={activeSidebar === '/dashboard/loggers'}
+              onClick={handleSidebarCLick}
+            />
+            <SidebarItem
+              title="Management"
+              icon={<ManagementIcon fill={getIconColor('/dashboard/management')} />}
+              href="/dashboard/management"
+              isActive={activeSidebar === '/dashboard/management'}
+              onClick={handleSidebarCLick}
+            />
+            <SidebarItem
+              title="Notifications"
+              icon={
+                <NotificationsIcon
+                  fill={getIconColor('/dashboard/notifications')}
+                />
+              }
+              href="/dashboard/notifications"
+              isActive={activeSidebar === '/dashboard/notifications'}
+              onClick={handleSidebarCLick}
+            />
+          </SidebarMenu>
+
+          {/* Customization */}
+          <SidebarMenu title="Customization">
+            <SidebarItem
+              title="All Customizations"
+              icon={
+                <CustomizationIcon fill={getIconColor('/dashboard/customizations')} />
+              }
+              href="/dashboard/customizations"
+              isActive={activeSidebar === '/dashboard/customizations'}
+              onClick={handleSidebarCLick}
+            />
+          </SidebarMenu>
+          <SidebarMenu title="Extra">
+            <SidebarItem
+              title="Logout"
+              icon={<LogoutIcon fill={getIconColor('/logout')} />}
+              onClick={() => setLogoutModalOpen(true)}
+            // isActive={activeSidebar === '/logout'}
+            />
+          </SidebarMenu>
+          <LogoutModal />
         </div>
-      </div>
 
-      {/* Body */}
-      <div className="flex-1 p-6 overflow-y-auto flex flex-col gap-7 custom-scrollbar">
-        {/* Dashboard */}
-        <SidebarMenu>
-          <SidebarItem
-            title="Dashboard"
-            icon={<DashboardIcon fill={getIconColor('/dashboard')} />}
-            href="/dashboard"
-            isActive={activeSidebar === '/dashboard'}
-          />
-        </SidebarMenu>
-
-        {/* Main Menu */}
-        <SidebarMenu title="Main Menu">
-          <SidebarItem
-            title="Orders"
-            icon={<OrderIcon fill={getIconColor('/dashboard/orders')} />}
-            href="/dashboard/orders"
-            isActive={activeSidebar === '/dashboard/orders'}
-          />
-          <SidebarItem
-            title="Payments"
-            icon={<PaymentIcon fill={getIconColor('/dashboard/payments')} />}
-            href="/dashboard/payments"
-            isActive={activeSidebar === '/dashboard/payments'}
-          />
-          <SidebarItem
-            title="Products"
-            icon={
-              <AllProductsIcon fill={getIconColor('/dashboard/products')} />
-            }
-            href="/dashboard/products"
-            isActive={activeSidebar === '/dashboard/products'}
-          />
-          <SidebarItem
-            title="Events"
-            icon={
-              <AllEventsIcon fill={getIconColor('/dashboard/events')} />
-            }
-            href="/dashboard/events"
-            isActive={activeSidebar === '/dashboard/events'}
-          />
-          <SidebarItem
-            title="Users"
-            icon={<UsersIcon fill={getIconColor('/dashboard/users')} />}
-            href="/dashboard/users"
-            isActive={activeSidebar === '/dashboard/users'}
-          />
-          <SidebarItem
-            title="Sellers"
-            icon={<SellersIcon fill={getIconColor('/dashboard/sellers')} />}
-            href="/dashboard/sellers"
-            isActive={activeSidebar === '/dashboard/sellers'}
-          />
-        </SidebarMenu>
-        {/* Controllers */}
-        <SidebarMenu title="Controllers">
-          <SidebarItem
-            title="Loggers"
-            icon={<LoggersIcon fill={getIconColor('/dashboard/loggers')} />}
-            href="/dashboard/loggers"
-            isActive={activeSidebar === '/dashboard/loggers'}
-          />
-          <SidebarItem
-            title="Management"
-            icon={<ManagementIcon fill={getIconColor('/dashboard/management')} />}
-            href="/dashboard/management"
-            isActive={activeSidebar === '/dashboard/management'}
-          />
-          <SidebarItem
-            title="Notifications"
-            icon={
-              <NotificationsIcon
-                fill={getIconColor('/dashboard/notifications')}
-              />
-            }
-            href="/dashboard/notifications"
-            isActive={activeSidebar === '/dashboard/notifications'}
-          />
-        </SidebarMenu>
-
-        {/* Customization */}
-        <SidebarMenu title="Customization">
-          <SidebarItem
-            title="All Customizations"
-            icon={
-              <CustomizationIcon fill={getIconColor('/dashboard/customizations')} />
-            }
-            href="/dashboard/customizations"
-            isActive={activeSidebar === '/dashboard/customizations'}
-          />
-        </SidebarMenu>
-        <SidebarMenu title="Extra">
-          <SidebarItem
-            title="Logout"
-            icon={<LogoutIcon fill={getIconColor('/logout')} />}
-            onClick={() => setLogoutModalOpen(true)}
-          // isActive={activeSidebar === '/logout'}
-          />
-        </SidebarMenu>
-        <LogoutModal />
-      </div>
-
-      <style>{`
+        <style>{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 4px;
         }
@@ -227,7 +263,8 @@ const Sidebar: React.FC = () => {
           border-radius: 4px;
         }
       `}</style>
-    </aside>
+      </aside>
+    </>
   );
 };
 

@@ -77,7 +77,7 @@ const LoggersPage = () => {
 
   return (
     <div className="min-h-screen w-full flex flex-col p-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pl-4 lg:pl-0">
         <h1 className="font-poppins text-white font-semibold text-lg tracking-wide">
           Application Logs
         </h1>
@@ -89,7 +89,7 @@ const LoggersPage = () => {
           Download Logs
         </button>
       </div>
-      <div className="flex items-center text-white mb-3">
+      <div className="flex items-center text-white mb-3 pl-4 lg:pl-0 -mt-2">
         <Link href="/dashboard" className="text-blue-500 opacity-80">
           Dashboard
         </Link>

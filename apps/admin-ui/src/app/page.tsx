@@ -89,7 +89,7 @@ const Index = () => {
             <div className='w-full'>
               <label
                 htmlFor="email"
-                className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                className="mb-1 block text-sm font-medium text-gray-300 dark:text-gray-300"
               >
                 Email
               </label>
@@ -114,7 +114,7 @@ const Index = () => {
             <div className="w-full relative ">
               <label
                 htmlFor="password"
-                className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                className="mb-1 block text-sm font-medium text-gray-300 dark:text-gray-300"
               >
                 Password
               </label>

@@ -30,10 +30,10 @@ const NotificationsPage = () => {
 
   return (
     <div className="min-h-screen w-full flex flex-col p-4 mb-8">
-      <h1 className="font-poppins text-white font-semibold text-lg tracking-wide">
+      <h1 className="font-poppins text-white font-semibold text-lg tracking-wide pl-4 lg:pl-0">
         Notifications
       </h1>
-      <div className="flex items-center text-white mb-6">
+      <div className="flex items-center text-white mb-6 pl-4 lg:pl-0">
         <Link href="/dashboard" className="text-blue-500 opacity-80">
           Dashboard
         </Link>
