@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { prisma } from '@packages/lib/prisma';
+import { prisma } from '../../../../packages/lib/prisma';
 import { ValidationError } from '../../../../packages/error-handler';
 import { imagekit } from '../../../../packages/lib/imagekit';
 

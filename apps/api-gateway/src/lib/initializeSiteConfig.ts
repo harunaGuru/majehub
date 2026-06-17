@@ -1,9 +1,9 @@
-import {prisma} from '@packages/lib/prisma'
+import { prisma } from '../../../../packages/lib/prisma';
 
 type SubCategoryMap = {
   [key: string]: string[];
 };
-export default async function initializeSiteConfig(){
+export default async function initializeSiteConfig() {
   try {
     const existing = await prisma.siteConfig.findFirst();
 
@@ -39,12 +39,11 @@ export default async function initializeSiteConfig(){
         },
       });
       console.log('🎉 SiteConfig initialized successfully');
-    }else {
+    } else {
       console.log('✅ SiteConfig already initialized');
     }
-  }catch(error){
+  } catch (error) {
     console.error('❌ Failed to initialize SiteConfig:', error);
     throw error;
   }
-
 }

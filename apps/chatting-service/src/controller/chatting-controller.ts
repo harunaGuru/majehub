@@ -1,63 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { prisma } from '@packages/lib/prisma';
-import redis from '@packages/lib/redis';
-
-// export const createConversationGroupId = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   try {
-//     const userId = req.user?.id;
-//     const { sellerId } = req.body;
-
-//     if (!userId || !sellerId) {
-//       return next(new Error('userId and sellerId are required'));
-//     }
-
-//     const existing = await prisma.conversationGroup.findFirst({
-//       where: {
-//         participants: {
-//           hasEvery: [userId, sellerId],
-//         },
-//       },
-//     });
-
-//     if (existing) {
-//       return res.status(200).json({
-//         success: true,
-//         conversationId: existing.id,
-//       });
-//     }
-
-//     const conversation = await prisma.conversationGroup.create({
-//       data: {
-//         participants: [userId, sellerId],
-
-//         participantsRelation: {
-//           create: [
-//             {
-//               userId,
-//               role: 'USER',
-//             },
-//             {
-//               userId: sellerId,
-//               role: 'SELLER',
-//             },
-//           ],
-//         },
-//       },
-//     });
-
-//     return res.status(201).json({
-//       success: true,
-//       conversationId: conversation.id,
-//     });
-//   } catch (error) {
-//     console.error('Create Conversation Group Error:', error);
-//     return next(error);
-//   }
-// };
+import { prisma } from '../../../../packages/lib/prisma';
+import redis from '../../../../packages/lib/redis';
 
 export const createConversationGroupId = async (
   req: Request,
@@ -164,7 +107,7 @@ export const createConversationGroupId = async (
     });
   } catch (error) {
     console.error('Create Conversation Error:', error);
-    next(error);
+    return next(error);
   }
 };
 
@@ -413,7 +356,7 @@ export const getAllUserConversationGroups = async (
     });
   } catch (error) {
     console.error('Get User Conversations Error:', error);
-    next(error);
+    return next(error);
   }
 };
 
@@ -481,7 +424,7 @@ export const getConversationMessages = async (
     });
   } catch (error) {
     console.error('Get Messages Error:', error);
-    next(error);
+    return next(error);
   }
 };
 
@@ -624,7 +567,7 @@ export const getAllSellerConversationGroups = async (
     });
   } catch (error) {
     console.error('Get Seller Conversations Error:', error);
-    next(error);
+    return next(error);
   }
 };
 
@@ -709,6 +652,6 @@ export const getSellerConversationMessages = async (
     });
   } catch (error) {
     console.error('Get Seller Messages Error:', error);
-    next(error);
+    return next(error);
   }
 };

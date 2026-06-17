@@ -45,7 +45,7 @@ app.use((req, res, next) => {
 app.get('/api-gateway', (req, res) => {
   res.send({ message: 'Welcome to api-gateway!' });
 });
-//auth service
+//auth service-6001
 app.use(
   '/auth',
   proxy('http://127.0.0.1:6001', {
@@ -88,7 +88,7 @@ app.use(
     preserveHostHdr: true,
   })
 );
-//product service
+//product service-6002
 app.use(
   '/product',
   proxy('http://127.0.0.1:6002', {
@@ -131,7 +131,7 @@ app.use(
     preserveHostHdr: true,
   })
 );
-//seller service
+//seller service-6003
 app.use(
   '/seller',
   proxy('http://127.0.0.1:6003', {
@@ -174,7 +174,7 @@ app.use(
     preserveHostHdr: true,
   })
 );
-//user service
+//user service-6004
 app.use(
   '/user',
   proxy('http://127.0.0.1:6004', {
@@ -217,7 +217,7 @@ app.use(
     preserveHostHdr: true,
   })
 );
-//order service
+//order service-6005
 app.use(
   '/order',
   proxy('http://127.0.0.1:6005', {
@@ -260,7 +260,7 @@ app.use(
     preserveHostHdr: true,
   })
 );
-//admin service
+//admin service-6006
 app.use(
   '/admin',
   proxy('http://127.0.0.1:6006', {
@@ -303,7 +303,7 @@ app.use(
     preserveHostHdr: true,
   })
 );
-//chatting service
+//chatting service-6007
 app.use(
   '/chatting',
   proxy('http://127.0.0.1:6007', {

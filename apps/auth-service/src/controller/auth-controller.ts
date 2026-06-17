@@ -19,6 +19,8 @@ import {
 } from '../utils/cookies';
 import Stripe from 'stripe';
 import { sendLog } from '../../../../packages/lib/utils/sendlog';
+import { adminAuth } from '../config/firebaseAdmin';
+import crypto from 'crypto';
 
 type RefreshTokenPayload = {
   role: 'user' | 'seller' | 'Admin';
@@ -28,8 +30,93 @@ type RefreshTokenPayload = {
 };
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-01-28.clover',
+  apiVersion: '2026-02-25.clover',
 });
+
+export const googleLogin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { token } = req.body;
+
+    if (!token) {
+      return next(new AuthError('Google token missing'));
+    }
+
+    const decoded = await adminAuth.verifyIdToken(token);
+
+    const { email, name, picture, uid } = decoded;
+
+    if (!email) {
+      return next(new AuthError('Email not found'));
+    }
+
+    let user = await prisma.users.findUnique({
+      where: { email },
+    });
+    const randomPassword = crypto.randomBytes(32).toString('hex');
+    const hashedPassword = await bcrypt.hash(randomPassword, 10);
+
+    if (!user) {
+      user = await prisma.users.create({
+        data: {
+          email,
+          name: name || '',
+          image: picture || '',
+          password: hashedPassword,
+          emailVerified: true,
+          provider: 'google',
+          providerId: uid,
+        },
+      });
+    }
+
+    if (user) {
+      if (user.provider === 'credentials' && user.emailVerified) {
+        user = await prisma.users.update({
+          where: { id: user.id },
+          data: {
+            provider: 'google',
+            providerId: uid,
+            image: picture,
+            emailVerified: true,
+          },
+        });
+      }
+    }
+
+    res.clearCookie('admin_access_token');
+    res.clearCookie('admin_refresh_token');
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
+
+    const accessToken = signAccessToken({
+      userId: user.id,
+      email: user.email,
+      role: 'user',
+    });
+
+    const refreshToken = signRefreshToken({
+      userId: user.id,
+      email: user.email,
+      role: 'user',
+    });
+
+    setAuthCookies(res, {
+      accessToken,
+      refreshToken,
+      isSeller: false,
+    });
+
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const registerUser = async (
   req: Request,

@@ -21,6 +21,7 @@ import {
   logoutUser,
   logoutSeller,
   sellerRefreshToken,
+  googleLogin,
 } from '../controller/auth-controller';
 import { isAuthenticated } from '../../../../packages/middleware/isAuthenticated';
 import { isSeller } from '../../../../packages/middleware/authorizeRole';
@@ -33,6 +34,7 @@ router.post('/forgot-password', forgotPassword);
 router.post('/verify-forgot-password-otp', verifyUserForgotPasswordOtp);
 router.post('/reset-password', isAuthenticated('user'), resetPassword);
 router.post('/user-login', loginUser);
+router.post('/google-login', googleLogin);
 router.post('/refresh-token-user', refreshToken);
 router.post('/refresh-token-seller', sellerRefreshToken);
 router.post('/loginUser', loginUser);

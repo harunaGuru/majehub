@@ -1,6 +1,6 @@
 import { WebSocketServer, WebSocket } from 'ws';
-import redis from '@packages/lib/redis';
-import { prisma } from '@packages/lib/prisma';
+import redis from '../../../packages/lib/redis';
+import { prisma } from '../../../packages/lib/prisma';
 import { sendToKafka } from './kafkaProducer';
 import http from 'http';
 

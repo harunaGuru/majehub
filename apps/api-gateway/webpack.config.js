@@ -11,8 +11,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@packages': resolve(__dirname, "../../packages"),
-    }
+      '@packages': resolve(__dirname, '../../packages'),
+    },
   },
   plugins: [
     new NxAppWebpackPlugin({

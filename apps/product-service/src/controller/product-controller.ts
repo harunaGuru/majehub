@@ -6,7 +6,8 @@ import {
   NotFoundError,
   ValidationError,
 } from '../../../../packages/error-handler';
-import { prisma } from '@packages/lib/prisma';
+import { prisma } from '../../../../packages/lib/prisma';
+import { Prisma } from '../../../../generated/prisma/client';
 
 export const uploadImage = async (
   req: Request,
@@ -281,7 +282,7 @@ export const createProduct = async (
       slug,
 
       sale_price: parseFloat(sale_price),
-      regular_price: regular_price ? parseFloat(regular_price) : null,
+      regular_price: regular_price ? parseFloat(regular_price) : 0,
 
       brand: brand || null,
       warranty: warranty || null,
@@ -313,7 +314,12 @@ export const createProduct = async (
 
       stock: parseInt(stock),
 
-      shopId: seller?.shop.id,
+      // shopId: seller?.shop.id,
+      shop: {
+        connect: {
+          id: seller!.shop.id,
+        },
+      },
     };
 
     const product = await prisma.products.create({
@@ -734,7 +740,7 @@ export const getAllShopEvents = async (
     const search = (req.query.search as string) || '';
     // const now = new Date();
 
-    const whereCondition = {
+    const whereCondition: Prisma.productsWhereInput = {
       shopId,
       ...(search && {
         OR: [
@@ -877,7 +883,7 @@ export const restoreProduct = async (
     }
 
     const now = new Date();
-    if (product.deletedAt <= now) {
+    if (product.deletedAt && product.deletedAt <= now) {
       return next(
         new ValidationError(
           'Restore window has expired. Product cannot be restored.'
@@ -1185,10 +1191,12 @@ export const getTopShops = async (
 
     // const shopIds = aggregatedShops.map((shop: any) => shop._id as string);
 
-    const aggregatedResults = (aggregatedShops as any[]).map((item) => ({
-      shopId: typeof item._id === 'string' ? item._id : item._id.$oid,
-      totalOrders: Number(item.totalOrders),
-    }));
+    const aggregatedResults = (aggregatedShops as unknown as any[]).map(
+      (item) => ({
+        shopId: typeof item._id === 'string' ? item._id : item._id.$oid,
+        totalOrders: Number(item.totalOrders),
+      })
+    );
 
     const shopIds = aggregatedResults.map((item) => item.shopId);
 

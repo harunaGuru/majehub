@@ -1,4 +1,4 @@
-import { kafka } from '@packages/lib/kafka';
+import { kafka } from '../../../packages/lib/kafka';
 
 const producer = kafka.producer();
 let isConnected = false;

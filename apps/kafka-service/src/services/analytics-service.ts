@@ -1,6 +1,5 @@
 import { prisma } from '../../../../packages/lib/prisma';
 import { getStat } from '../utils/getStat';
-import events = require('node:events');
 
 interface DeviceInfo {
   browserName: string;

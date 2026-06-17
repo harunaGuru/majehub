@@ -1,6 +1,5 @@
 import { preProcessedData, Interaction } from '../utils/preProcessedData';
 import { UserActionType, fetchUserAnalytics } from './fetchUserAnalytic';
-// import * as tf from '@tensorflow/tfjs-node';
 import * as tf from '@tensorflow/tfjs';
 
 const EMBEDDING_SIZE = 50;

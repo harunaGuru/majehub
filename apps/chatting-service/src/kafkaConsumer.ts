@@ -1,5 +1,5 @@
-import { kafka } from '@packages/lib/kafka';
-import { prisma } from '@packages/lib/prisma';
+import { kafka } from '../../../packages/lib/kafka';
+import { prisma } from '../../../packages/lib/prisma';
 
 const consumer = kafka.consumer({ groupId: 'chat-group' });
 

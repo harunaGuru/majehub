@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { prisma } from '@packages/lib/prisma';
+import { prisma } from '../../../../packages/lib/prisma';
 import { imagekit } from '../../../../packages/lib/imagekit';
 import { AuthError, ValidationError } from '../../../../packages/error-handler';
 
@@ -124,6 +124,11 @@ export const followShop = async (
   try {
     const userId = req.user?.id;
     const { shopId } = req.body;
+
+    if (!userId) {
+      return next(new AuthError('You are not authorized'));
+    }
+
     if (!shopId) {
       return next(new ValidationError('Shop ID is required'));
     }
@@ -174,6 +179,10 @@ export const unFollowShop = async (
   try {
     const userId = req.user?.id;
     const { shopId } = req.body;
+
+    if (!userId) {
+      return next(new AuthError('You are not authorized'));
+    }
 
     if (!shopId) {
       return next(new ValidationError('Shop ID is required'));
@@ -469,6 +478,10 @@ export const isFollowing = async (
   try {
     const userId = req.user?.id;
     const { shopId } = req.params;
+
+    if (!userId) {
+      return next(new AuthError('You are not authorized'));
+    }
 
     if (!shopId) {
       return next(new ValidationError('Shop ID is required'));

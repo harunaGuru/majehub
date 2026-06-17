@@ -147,10 +147,7 @@ export const paymentIntent = async (
   next: NextFunction
 ) => {
   try {
-    const { sessionId, stripeCustomerId, amount } = req.body;
-    console.log('sessionId', sessionId);
-    console.log('stripeCustomerId', stripeCustomerId);
-    console.log('amount', amount);
+    const { sessionId, amount } = req.body;
     const userId = req?.user?.id;
     if (!userId) {
       return next(new ValidationError('User not found'));
@@ -464,8 +461,7 @@ export const createOrder = async (
           .send('No session found, skipping order creation');
       }
 
-      const { cart, totalAmount, shippingAddressId, coupon } =
-        JSON.parse(sessionData);
+      const { cart, shippingAddressId, coupon } = JSON.parse(sessionData);
 
       const user = await prisma.users.findUnique({
         where: { id: userId },
