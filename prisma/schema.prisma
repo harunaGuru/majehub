@@ -151,7 +151,7 @@ model shops {
   imageId       String?
   sellerId      String        @unique @db.ObjectId
   sellers       sellers       @relation(fields: [sellerId], references: [id])
-  socialLinks   Json
+  socialLinks   Json?
   order         orders[]
   website       String?       
   createdAt     DateTime      @default(now())
@@ -160,20 +160,24 @@ model shops {
 }
 
 model users {
-  id         String        @id @default(auto()) @map("_id") @db.ObjectId
-  role       Role          @default(User)
-  followings followers[]
-  imagesId   String?       @unique @db.ObjectId
-  avatar     images?       @relation(fields: [imagesId], references: [id])
-  email      String        @unique
-  name       String
-  isDeleted  Boolean       @default(false)
-  deletedAt  DateTime?
-  password   String
-  orders     orders[]
-  shopReview shopReviews[]
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  role            Role          @default(User)
+  followings      followers[]
+  imagesId        String?       @unique @db.ObjectId
+  avatar          images?       @relation(fields: [imagesId], references: [id])
+  email           String        @unique
+  name            String
+  isDeleted       Boolean       @default(false)
+  deletedAt       DateTime?
+  password        String
+  orders          orders[]
+  shopReview      shopReviews[]
+  image           String?     // this is for google login image
+  emailVerified   Boolean     @default(false)  // this is for google login email verification
+  provider        String        @default("credentials")
+  providerId      String?     
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
 model orders {
