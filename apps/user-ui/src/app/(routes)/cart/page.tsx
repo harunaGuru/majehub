@@ -29,8 +29,6 @@ export default function CartPage() {
   const [appliedCouponCode, setAppliedCouponCode] = useState("");
   const router = useRouter()
 
-  const userId = cart[0]?.userInfo?.id;
-  const loading = false
 
   const { data: addresses, isLoading } = useQuery({
     queryKey: ["user-address"],

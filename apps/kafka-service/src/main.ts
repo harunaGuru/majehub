@@ -91,30 +91,3 @@ async function shutdown() {
 
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
-// app.get('/api', (req, res) => {
-//   res.send({ message: 'Welcome to kafka-service!' });
-// });
-
-// async function startServer() {
-//   try {
-//     await startConsumer();
-//
-//     const port = process.env.PORT || 3333;
-//
-//     app.listen(port, () => {
-//       console.log(`Listening at http://localhost:${port}/api`);
-//     });
-//   } catch (err) {
-//     console.error('Service startup failed:', err);
-//     process.exit(1);
-//   }
-// }
-//
-// startServer();
-
-// const port = process.env.PORT || 3333;
-// const server = app.listen(port, async () => {
-//   console.log(`Listening at http://localhost:${port}/api`);
-//   await startConsumer();
-// });
-// server.on('error', console.error);

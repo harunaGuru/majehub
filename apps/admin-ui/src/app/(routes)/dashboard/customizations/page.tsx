@@ -98,7 +98,6 @@ const CustomizationsPage = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
   } = useForm();
 
   const {

@@ -23,5 +23,3 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 export default Layout;
-
-// "w-[250px] min-w-[200px] max-w-[300px] border-r border-slate-600 p-4 z-20"

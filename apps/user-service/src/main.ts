@@ -6,13 +6,15 @@ import router from './routes/user-routes';
 
 const app = express();
 
+const allowedOrigins = [
+  process.env.USER_UI_URL,
+  process.env.SELLER_UI_URL,
+  process.env.ADMIN_UI_URL,
+];
+
 app.use(
   cors({
-    origin: [
-      'http://localhost:3001',
-      'http://localhost:3000',
-      'http://localhost:3002',
-    ],
+    origin: allowedOrigins as string[],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
     exposedHeaders: ['set-cookie'],

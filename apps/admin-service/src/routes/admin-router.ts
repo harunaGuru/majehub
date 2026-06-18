@@ -18,12 +18,14 @@ import {
   uploadSiteAsset,
   logoutAdmin,
   getAdminNotifications,
+  refreshToken,
 } from '../controller/admin-controller';
 
 const router: Router = express.Router();
 
 router.post('/add-new-admin', isAuthenticated('admin'), isAdmin, addNewAdmin);
 router.post('/login-admin', loginAdmin);
+router.post('/refresh-token-admin', refreshToken);
 router.get(
   '/get-logged-in-admin',
   isAuthenticated('admin'),

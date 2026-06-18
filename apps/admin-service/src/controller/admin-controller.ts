@@ -3,11 +3,18 @@ import { prisma } from '../../../../packages/lib/prisma';
 import { AuthError, ValidationError } from '../../../../packages/error-handler';
 import { imagekit } from '../../../../packages/lib/imagekit';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import {
   setAuthCookies,
   signAccessToken,
   signRefreshToken,
 } from '../utils/cookies';
+
+type RefreshTokenPayload = {
+  role: 'admin';
+  email: string;
+  userId: string;
+};
 
 export const loginAdmin = async (
   req: Request,
@@ -16,14 +23,10 @@ export const loginAdmin = async (
 ) => {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
-    // console.log(await bcrypt.hash(password, 10));
     const user = await prisma.users.findUnique({
       where: { email, role: 'Admin' },
     });
-    console.log('user', user);
     if (!user) {
-      console.log('no user');
       //   sendLog({
       //     type: 'error',
       //     message: 'No user found',
@@ -74,6 +77,60 @@ export const getLoggedInAdmin = async (
     success: true,
     admin,
   });
+};
+
+export const refreshToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const refreshToken = req.cookies?.admin_refresh_token;
+
+    if (!refreshToken) {
+      return next(new AuthError('Unauthorized: no refresh token'));
+    }
+
+    let decoded: RefreshTokenPayload;
+
+    try {
+      decoded = jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET as string
+      ) as RefreshTokenPayload;
+    } catch (error) {
+      if (error instanceof jwt.TokenExpiredError) {
+        return next(new AuthError('Refresh token has expired'));
+      }
+      if (error instanceof jwt.JsonWebTokenError) {
+        return next(new AuthError('Invalid refresh token'));
+      }
+      return next(error);
+    }
+
+    const account = await prisma.users.findUnique({
+      where: { id: decoded.userId, role: 'Admin' },
+    });
+
+    if (!account || account.email !== decoded.email) {
+      return next(new AuthError('Forbidden: Admin not found'));
+    }
+
+    const newAccessToken = signAccessToken({
+      email: account.email,
+      role: decoded.role,
+      userId: account.id,
+    });
+
+    setAuthCookies(res, {
+      accessToken: newAccessToken,
+      refreshToken,
+    });
+
+    res.status(201).json({ success: true });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const addNewAdmin = async (

@@ -23,7 +23,6 @@ export function setAuthCookies(
   const accessName = 'admin_access_token';
   const refreshName = 'admin_refresh_token';
   const isProd = process.env.NODE_ENV === 'production';
-  console.log('isprod', isProd);
   res.cookie(accessName, accessToken, {
     httpOnly: true,
     secure: isProd,

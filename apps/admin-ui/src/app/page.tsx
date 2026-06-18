@@ -1,9 +1,7 @@
 'use client';
-import Input from '@/shared/components/customInput';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { Eye, EyeOff } from 'lucide-react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useForm } from 'react-hook-form';

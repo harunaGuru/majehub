@@ -4,7 +4,6 @@ import React from 'react';
 import { Jost, Oregano, Poppins, Roboto } from 'next/font/google';
 import QueryProvider from './providers/tanstackWrapper';
 import { Toaster } from "react-hot-toast";
-// import Sidebar from '@/shared/components/sidebar';
 
 export const metadata: Metadata = {
   title: 'Welcome to admin-ui',

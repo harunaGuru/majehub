@@ -63,10 +63,9 @@ axiosInstance.interceptors.response.use(
     }
 
     isRefreshing = true;
-
     try {
       await axiosInstance.post(
-        'auth/api/refresh-token-user',
+        '/admin/api/refresh-token-admin',
         {}
         // { withCredentials: true }
       );

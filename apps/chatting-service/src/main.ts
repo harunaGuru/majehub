@@ -9,9 +9,11 @@ import { errorMiddleware } from '../../../packages/error-handler/error-middlewar
 
 const app = express();
 const server = http.createServer(app);
+
+const allowedOrigins = [process.env.USER_UI_URL, process.env.SELLER_UI_URL];
 app.use(
   cors({
-    origin: ['http://localhost:3001', 'http://localhost:3000'],
+    origin: allowedOrigins as string[],
     credentials: true,
     exposedHeaders: ['set-cookie'],
   })

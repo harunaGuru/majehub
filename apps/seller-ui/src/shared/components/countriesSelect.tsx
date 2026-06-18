@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { Controller, Control } from 'react-hook-form';
-import {countryOptions}  from '@/config/countries';
+import { Controller, Control, FieldValues } from 'react-hook-form';
+import { countryOptions } from '@/config/countries';
 
-type CountrySelectProps = {
+type CountrySelectProps<T extends FieldValues = any> = {
   label?: string;
   name: string;
-  control: Control<any>;
+  control: Control<T>;
   error?: string;
 };
 
-export function CountrySelect({ label, name, control, error, }: CountrySelectProps) {
+export function CountrySelect<T extends FieldValues>({ label, name, control, error, }: CountrySelectProps<T>) {
   const [open, setOpen] = React.useState(false);
 
   const options = React.useMemo(() => countryOptions, []);
@@ -23,7 +23,7 @@ export function CountrySelect({ label, name, control, error, }: CountrySelectPro
       )}
 
       <Controller
-        name={name}
+        name={name as any}
         control={control}
         rules={{ required: 'Country is required' }}
         render={({ field }) => {

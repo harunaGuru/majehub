@@ -614,13 +614,11 @@ export const loginSeller = async (
     console.log(newAccessToken);
     console.log(refreshToken);
 
-    const isSeller = !!seller;
-    console.log(isSeller);
-    // const isProd = process.env.NODE_ENV === 'production';
+    const isProd = process.env.NODE_ENV === 'production';
     res.cookie('seller_access_token', newAccessToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'lax',
       maxAge: 15 * 60 * 1000, // 15 min
       path: '/',
       // domain: 'localhost',
@@ -628,19 +626,12 @@ export const loginSeller = async (
 
     res.cookie('seller_refresh_token', refreshToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       path: '/',
       // domain: 'localhost',
     });
-    // setAuthCookies(res, {
-    //   accessToken: newAccessToken,
-    //   refreshToken,
-    //   isSeller,
-    // });
-    console.log('HEADERS BEFORE SEND:', res.getHeaders());
-    console.log('NODE_ENV:', process.env.NODE_ENV);
     res.status(200).json({ message: 'Login successful' });
   } catch (error) {
     next(error);
@@ -679,16 +670,6 @@ export const verifySellerForgotPasswordOtp = async (
 ) => {
   // Verify OTP logic here
   await handleVerifyForgotPasswordOtp(req, res, next);
-  // try {
-  //   const { email, otp } = req.body;
-  //   if (!email || !otp) {
-  //     return next (new ValidationError('Missing required fields'));
-  //   }
-  //   await verifyOtp(email, otp.toString(), next);
-  //   res.status(200).send('OTP verified successfully.');
-  // } catch (error) {
-  //   next(error);
-  // }
 };
 
 export const resetSellerPassword = async (

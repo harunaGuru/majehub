@@ -10,7 +10,7 @@ import { isProtected } from "@/utils/isProtected";
 export default function ProfileOverview({ user }: any) {
   const [preview, setPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  // const [progress, setProgress] = useState(0);
 
   const MAX_SIZE = 2 * 1024 * 1024; // 2MB
   const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -43,20 +43,20 @@ export default function ProfileOverview({ user }: any) {
         folder: "user",
       }, {
         ...isProtected(),
-        onUploadProgress: (progressEvent) => {
-          if (!progressEvent.total || progressEvent.total <= 0) return;
+        // onUploadProgress: (progressEvent) => {
+        //   if (!progressEvent.total || progressEvent.total <= 0) return;
 
-          const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-          setProgress(percent);
-        },
+        //   const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        //   setProgress(percent);
+        // },
       });
 
-      toast.success("Profile image updated");
+      return toast.success("Profile image updated");
       // refetch();
 
     } catch (error) {
       setPreview(oldImage || null);
-      toast.error("Upload failed. Try again.");
+      return toast.error("Upload failed. Try again.");
     } finally {
       setLoading(false);
     }
