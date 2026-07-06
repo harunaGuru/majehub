@@ -39,7 +39,7 @@ const ProductCard = ({
     <div className=" bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-shadow duration-300 overflow-hidden ">
       {/* IMAGE SECTION */}
       <div className="relative w-full aspect-square bg-gray-100 overflow-hidden">
-        <Link href={`/product/${slug}`} className="block w-full h-full">
+        <Link href={`${process.env.NEXT_PUBLIC_USER_URL}/product/${slug}`} className="block w-full h-full">
           <Image
             src={
               images[0]?.url ||
