@@ -1,5 +1,6 @@
 'use server';
-import { kafka } from '@/packages/lib/kafka';
+
+import { axiosInstance } from '@/utils/axiosInstance';
 import { DeviceInfo } from '@/store';
 interface EventData {
   type: string;
@@ -11,20 +12,11 @@ interface EventData {
   device: DeviceInfo | string;
   timestamp: string;
 }
-const producer = kafka.producer();
+
 export async function sendKafkaEvent(eventData: EventData) {
   try {
-    await producer.connect();
-    await producer.send({
-      topic: 'user-event',
-      messages: [
-        {
-          value: JSON.stringify({ eventData }),
-        },
-      ],
-    });
-  } catch (err) {
-  } finally {
-    await producer.disconnect();
+    await axiosInstance.post('/kafka/api/track', eventData);
+  } catch (error) {
+    console.error('Failed to send analytics event:', error);
   }
 }

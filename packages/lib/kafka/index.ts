@@ -1,7 +1,7 @@
+import 'dotenv/config';
 import { Kafka } from 'kafkajs';
 import fs from 'fs';
 import path from 'path';
-import 'dotenv/config';
 
 function getCertsPath(): string {
   // Use environment variable

@@ -2,8 +2,17 @@
 import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react'
 import { ChevronRight, Download } from "lucide-react"
-import { LogResponse, LogType } from '../../../../../../../packages/lib/utils/types/log';
 
+type LogType = 'info' | 'error' | 'warning' | 'debug' | 'success';
+
+type LogPayload = {
+  type: LogType;
+  message: string;
+  source: string;
+};
+type LogResponse = LogPayload & {
+  timestamp: string;
+}
 const LoggersPage = () => {
   const [logs, setLogs] = useState<LogResponse[]>([]);
   const itemRef = useRef<HTMLDivElement>(null)

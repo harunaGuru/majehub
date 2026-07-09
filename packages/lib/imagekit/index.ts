@@ -1,4 +1,4 @@
-// libs/imagekit.ts
+import 'dotenv/config';
 import ImageKit from 'imagekit';
 
 export const imagekit = new ImageKit({

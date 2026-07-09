@@ -1,6 +1,16 @@
+import express from 'express';
 import { kafka } from '../../../packages/lib/kafka';
 import { handleAnalyticsEvent } from './services/analytics-service';
 import { isDuplicate } from './utils/kafka.helper';
+import analyticsRoutes from './route/analytic-route';
+
+const app = express();
+app.use(express.json());
+app.use('/api', analyticsRoutes);
+
+app.listen(6010, () => {
+  console.log('Kafka service running on port 6010');
+});
 
 let batch: any[] = [];
 const consumer = kafka.consumer({
@@ -57,24 +67,6 @@ async function startConsumer() {
     },
   });
 }
-// Log consumer status periodically
-// setInterval(async () => {
-//   try {
-//     const positions = await consumer.describeGroup();
-//     console.log('📊 Consumer status:', JSON.stringify(positions, null, 2));
-//   } catch (err) {
-//     // Ignore errors here
-//   }
-// }, 10000);
-
-// Handle errors
-// consumer.on('consumer.crash', (error) => {
-//   console.error('💥 Consumer crashed:', error);
-// });
-//
-// consumer.on('consumer.disconnect', () => {
-//   console.log('🔴 Consumer disconnected');
-// });
 
 startConsumer().catch((err) => {
   console.error('Consumer failed to start:', err);

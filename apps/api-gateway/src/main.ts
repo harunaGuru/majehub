@@ -395,6 +395,50 @@ app.use(
   })
 );
 
+//kafka service-6010
+app.use(
+  '/kafka',
+  proxy('http://127.0.0.1:6010', {
+    proxyReqPathResolver: (req) => req.originalUrl.replace('/kafka', ''),
+
+    userResHeaderDecorator: (headers, userReq, userRes) => {
+      console.log('Kafka service response headers:', headers);
+      // Forward ALL headers from the auth service
+      Object.keys(headers).forEach((key) => {
+        if (headers[key] !== undefined && headers[key] !== null) {
+          // Convert to array if needed for set-cookie
+          if (key.toLowerCase() === 'set-cookie') {
+            const cookies = Array.isArray(headers[key])
+              ? headers[key]
+              : [headers[key]];
+            userRes.setHeader('set-cookie', cookies.filter(Boolean));
+            console.log('Cookies set on gateway response:', cookies);
+          } else {
+            userRes.setHeader(key, headers[key] as string | string[]);
+          }
+        }
+      });
+      return headers;
+    },
+
+    // Also forward the host header if needed
+    proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+      // Forward the host
+      proxyReqOpts.headers = proxyReqOpts.headers || {};
+      proxyReqOpts.headers['x-forwarded-host'] = srcReq.headers.host;
+
+      // Forward cookies from client to backend
+      if (srcReq.headers.cookie) {
+        proxyReqOpts.headers.cookie = srcReq.headers.cookie;
+      }
+
+      return proxyReqOpts;
+    },
+
+    preserveHostHdr: true,
+  })
+);
+
 //  add middleware to log outgoing headers
 app.use((req, res, next) => {
   const originalSetHeader = res.setHeader;
