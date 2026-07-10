@@ -3,6 +3,7 @@ import { kafka } from '../../../packages/lib/kafka';
 import { handleAnalyticsEvent } from './services/analytics-service';
 import { isDuplicate } from './utils/kafka.helper';
 import analyticsRoutes from './route/analytic-route';
+import { disconnectProducer } from './controller/analytics-controller';
 
 const app = express();
 app.use(express.json());
@@ -77,6 +78,7 @@ async function shutdown() {
   console.log('Shutting down consumer...');
 
   await consumer.disconnect();
+  await disconnectProducer();
 
   process.exit(0);
 }
