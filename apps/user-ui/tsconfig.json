@@ -20,7 +20,6 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/packages/*": ["../../packages/*"]
     },
     "outDir": "dist",
     "rootDir": "../../",
@@ -33,8 +32,7 @@
     "src/**/*.jsx",
     "../../apps/user-ui/.next/types/**/*.ts",
     "../../dist/apps/user-ui/.next/types/**/*.ts",
-    "next-env.d.ts",
-    "../../packages/**/*.ts"
+    "next-env.d.ts"
   ],
   "exclude": [
     "out-tsc",

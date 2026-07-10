@@ -33,7 +33,6 @@
     "../../apps/admin-ui/.next/types/**/*.ts",
     "../../dist/apps/admin-ui/.next/types/**/*.ts",
     "next-env.d.ts",
-    "../../packages/**/*.ts"
   ],
   "exclude": [
     "out-tsc",

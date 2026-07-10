@@ -32,8 +32,7 @@
     "src/**/*.jsx",
     "../../apps/seller-ui/.next/types/**/*.ts",
     "../../dist/apps/seller-ui/.next/types/**/*.ts",
-    "next-env.d.ts",
-    "../../packages/**/*.ts"
+    "next-env.d.ts"
   ],
   "exclude": [
     "out-tsc",
