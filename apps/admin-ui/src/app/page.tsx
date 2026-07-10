@@ -32,7 +32,8 @@ const Index = () => {
       console.log(`Environment Variable: ${process.env.NEXT_PUBLIC_AUTH_URL}`);
       console.log('Data being sent:', data);
       const response = await axios.post(
-        'http://localhost:8080/admin/api/login-admin',
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/admin/api/login-admin`,
+        // 'http://localhost:8080/admin/api/login-admin',
         data,
         {
           withCredentials: true,

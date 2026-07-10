@@ -32,8 +32,8 @@ const LoginPage = () => {
   const loginMutation = useMutation({
     mutationFn: async (data: FormValues) => {
       const response = await axios.post(
-        "http://localhost:8080/auth/api/user-login",
-        // 'http://127.0.0.1:8080/auth/api/user-login',
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/user-login`,
+        // "http://localhost:8080/auth/api/user-login",
         data,
         {
           withCredentials: true,

@@ -43,7 +43,8 @@ const ForgotPasswordPage = () => {
   const forgotPasswordMutation = useMutation({
     mutationFn: async (data: { email: string }) => {
       const response = await axios.post(
-        'http://localhost:8080/auth/api/forgot-password',
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/forgot-password`,
+        // 'http://localhost:8080/auth/api/forgot-password',
         data
       );
       return response.data;

@@ -35,7 +35,8 @@ const SignUpPage = () => {
   const loginMutation = useMutation({
     mutationFn: async (data: FormValues) => {
       const response = await axios.post(
-        'http://localhost:8080/auth/api/user-registration',
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/user-registration`,
+        // 'http://localhost:8080/auth/api/user-registration',
         data
       );
       return response.data;
@@ -67,7 +68,8 @@ const SignUpPage = () => {
     }) => {
       if (!data.email || !data.name || !data.password || !data.otp) return;
       const response = await axios.post(
-        `http://localhost:8080/auth/api/user-verification`,
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/user-verification`,
+        // 'http://localhost:8080/auth/api/user-verification',
         data
       );
       return response.data;

@@ -34,7 +34,8 @@ const SellerLoginPage = () => {
       console.log(`Environment Variable: ${process.env.NEXT_PUBLIC_AUTH_URL}`);
       console.log('Data being sent:', data);
       const response = await axios.post(
-        'http://localhost:8080/auth/api/seller-login',
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/seller-login`,
+        // 'http://localhost:8080/auth/api/seller-login',
         data,
         {
           withCredentials: true,

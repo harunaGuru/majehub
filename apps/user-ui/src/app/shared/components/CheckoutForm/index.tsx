@@ -24,7 +24,7 @@ const CheckoutForm = ({ sessionId }: { sessionId: string }) => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `http://localhost:3000/payment-success?sessionId=${sessionId}`,
+        return_url: `${process.env.NEXT_PUBLIC_USER_URL}/payment-success?sessionId=${sessionId}`,
         // return_url: `${window.location.origin}/checkout/success`,
       },
     });
