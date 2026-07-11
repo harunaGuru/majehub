@@ -23,7 +23,21 @@ app.use(
 );
 
 app.use(morgan('dev'));
-app.use(express.json({ limit: '10mb' }));
+// app.use(express.json({ limit: '10mb' }));
+// app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Stripe webhook must receive the raw body
+app.use('/order/api/create-order', express.raw({ type: 'application/json' }));
+
+// Parse JSON for every other request
+app.use((req, res, next) => {
+  if (req.originalUrl === '/order/api/create-order') {
+    return next();
+  }
+
+  express.json({ limit: '10mb' })(req, res, next);
+});
+
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieparser());
 app.set('trust proxy', 1); // Trust first proxy
@@ -223,6 +237,7 @@ app.use(
 app.use(
   '/order',
   proxy('http://127.0.0.1:6005', {
+    parseReqBody: false,
     proxyReqPathResolver: (req) => req.originalUrl.replace('/order', ''),
 
     userResHeaderDecorator: (headers, userReq, userRes) => {
