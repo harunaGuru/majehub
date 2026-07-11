@@ -7,6 +7,16 @@ type SetCookieOptions = {
   isSeller: boolean;
 };
 
+export const cookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite:
+    process.env.NODE_ENV === 'production'
+      ? ('none' as const)
+      : ('lax' as const),
+  path: '/',
+};
+
 export const signAccessToken = (payload: object) =>
   jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET as string, {
     expiresIn: '15m',
@@ -27,18 +37,27 @@ export function setAuthCookies(
   const isProd = process.env.NODE_ENV === 'production';
   console.log('isprod', isProd);
   res.cookie(accessName, accessToken, {
-    httpOnly: true,
-    secure: isProd,
-    sameSite: isProd ? 'none' : 'lax',
-    maxAge: 15 * 60 * 1000, // 15 min
-    path: '/',
+    ...cookieOptions,
+    maxAge: 15 * 60 * 1000,
   });
 
   res.cookie(refreshName, refreshToken, {
-    httpOnly: true,
-    secure: isProd,
-    sameSite: isProd ? 'none' : 'lax',
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    path: '/',
+    ...cookieOptions,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
+  // res.cookie(accessName, accessToken, {
+  //   httpOnly: true,
+  //   secure: isProd,
+  //   sameSite: isProd ? 'none' : 'lax',
+  //   maxAge: 15 * 60 * 1000, // 15 min
+  //   path: '/',
+  // });
+
+  // res.cookie(refreshName, refreshToken, {
+  //   httpOnly: true,
+  //   secure: isProd,
+  //   sameSite: isProd ? 'none' : 'lax',
+  //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  //   path: '/',
+  // });
 }

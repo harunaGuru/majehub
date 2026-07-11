@@ -16,6 +16,7 @@ import {
   signAccessToken,
   signRefreshToken,
   setAuthCookies,
+  cookieOptions,
 } from '../utils/cookies';
 import Stripe from 'stripe';
 import { sendLog } from '../../../../packages/lib/utils/sendlog';
@@ -459,17 +460,19 @@ export const logoutUser = async (
   next: NextFunction
 ) => {
   try {
-    res.clearCookie('access_token');
-    res.clearCookie('refresh_token');
-    // res.clearCookie('seller_access_token');
-    // res.clearCookie('seller_refresh_token');
-    res.clearCookie('admin_access_token');
-    res.clearCookie('admin_refresh_token');
+    // res.clearCookie('access_token');
+    // res.clearCookie('refresh_token');
+    // res.clearCookie('admin_access_token');
+    // res.clearCookie('admin_refresh_token');
     await sendLog({
       type: 'success',
       message: `${req.user?.email} logged out successfully`,
       source: 'auth-service',
     });
+    res.clearCookie('access_token', cookieOptions);
+    res.clearCookie('refresh_token', cookieOptions);
+    res.clearCookie('admin_access_token', cookieOptions);
+    res.clearCookie('admin_refresh_token', cookieOptions);
     res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
     next(error);
@@ -614,23 +617,32 @@ export const loginSeller = async (
     console.log(newAccessToken);
     console.log(refreshToken);
 
-    const isProd = process.env.NODE_ENV === 'production';
+    // const isProd = process.env.NODE_ENV === 'production';
+    // res.cookie('seller_access_token', newAccessToken, {
+    //   httpOnly: true,
+    //   secure: isProd,
+    //   sameSite: isProd ? 'none' : 'lax',
+    //   maxAge: 15 * 60 * 1000, // 15 min
+    //   path: '/',
+    //   // domain: 'localhost',
+    // });
+
+    // res.cookie('seller_refresh_token', refreshToken, {
+    //   httpOnly: true,
+    //   secure: isProd,
+    //   sameSite: isProd ? 'none' : 'lax',
+    //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    //   path: '/',
+    //   // domain: 'localhost',
+    // });
     res.cookie('seller_access_token', newAccessToken, {
-      httpOnly: true,
-      secure: isProd,
-      sameSite: isProd ? 'none' : 'lax',
-      maxAge: 15 * 60 * 1000, // 15 min
-      path: '/',
-      // domain: 'localhost',
+      ...cookieOptions,
+      maxAge: 15 * 60 * 1000,
     });
 
     res.cookie('seller_refresh_token', refreshToken, {
-      httpOnly: true,
-      secure: isProd,
-      sameSite: isProd ? 'none' : 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      path: '/',
-      // domain: 'localhost',
+      ...cookieOptions,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.status(200).json({ message: 'Login successful' });
   } catch (error) {
@@ -810,8 +822,10 @@ export const logoutSeller = async (
     if (!seller) {
       return next(new AuthError('Unauthorized'));
     }
-    res.clearCookie('seller_access_token');
-    res.clearCookie('seller_refresh_token');
+    // res.clearCookie('seller_access_token');
+    // res.clearCookie('seller_refresh_token');
+    res.clearCookie('seller_access_token', cookieOptions);
+    res.clearCookie('seller_refresh_token', cookieOptions);
     res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
     next(error);
