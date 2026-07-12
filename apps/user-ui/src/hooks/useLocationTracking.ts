@@ -49,12 +49,20 @@ export const useGeoLocation = () => {
     const fetchGeoData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get('http://ip-api.com/json');
+        // const res = await axios.get('http://ip-api.com/json');
+        // const newLocation = {
+        //   city: res.data.city,
+        //   country: res.data.country,
+        //   lat: res.data.lat,
+        //   lon: res.data.lon,
+        //   timestamp: Date.now(),
+        // };
+        const res = await axios.get('https://ipwho.is');
         const newLocation = {
           city: res.data.city,
           country: res.data.country,
-          lat: res.data.lat,
-          lon: res.data.lon,
+          lat: res.data.latitude,
+          lon: res.data.longitude,
           timestamp: Date.now(),
         };
         setGeoData(newLocation);
