@@ -229,6 +229,10 @@ export const createOrder = async (
     console.log('content-type:', req.headers['content-type']);
     console.log('length:', rawBody?.length);
     console.log(req.headers);
+    console.log(
+      'Webhook secret prefix:',
+      process.env.STRIPE_WEBHOOK_SECRET?.substring(0, 12)
+    );
 
     if (Buffer.isBuffer(rawBody)) {
       console.log('first 100 bytes:', rawBody.toString('utf8', 0, 100));
