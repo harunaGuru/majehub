@@ -218,6 +218,23 @@ export const createOrder = async (
     const rawBody = (req as any).rawBody;
 
     let event;
+    console.log('rawBody type:', typeof rawBody);
+    console.log('is Buffer:', Buffer.isBuffer(rawBody));
+    console.log('constructor:', rawBody?.constructor?.name);
+    console.log('content-type:', req.headers['content-type']);
+    console.log('stripe-signature:', req.headers['stripe-signature']);
+    console.log('rawBody length:', rawBody?.length);
+    console.log('is Buffer:', Buffer.isBuffer(rawBody));
+    console.log('constructor:', rawBody?.constructor?.name);
+    console.log('content-type:', req.headers['content-type']);
+    console.log('length:', rawBody?.length);
+    console.log(req.headers);
+
+    if (Buffer.isBuffer(rawBody)) {
+      console.log('first 100 bytes:', rawBody.toString('utf8', 0, 100));
+    } else {
+      console.log('body:', rawBody);
+    }
 
     try {
       event = stripe.webhooks.constructEvent(
