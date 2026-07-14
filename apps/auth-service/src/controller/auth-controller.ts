@@ -802,8 +802,8 @@ export const createConnectedAccount = async (
     });
     const accountLink = await stripe.accountLinks.create({
       account: account.id,
-      refresh_url: `${process.env.NEXT_FRONTEND_URL}/success`,
-      return_url: `${process.env.NEXT_FRONTEND_URL}/success`,
+      refresh_url: `${process.env.SELLER_UI_URL}/success`,
+      return_url: `${process.env.SELLER_UI_URL}/success`,
       type: 'account_onboarding',
     });
     res.status(200).json({ url: accountLink.url });
