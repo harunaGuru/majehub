@@ -30,7 +30,6 @@ const getAllEvents = async (page: number, limit: number, search?: string) => {
       ...(search && { search }),
     },
   });
-  console.log(data);
   return data;
 };
 const softDeleteEventProduct = async (id: string) => {

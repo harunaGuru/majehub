@@ -12,7 +12,6 @@ const NotificationsPage = () => {
     queryKey: ['sellerNotifications'],
     queryFn: async () => {
       const response = await axiosInstance.get('/seller/api/get-seller-notifications');
-      console.log("seller notifications", response.data);
       return response.data.notifications;
     }
   });
@@ -24,7 +23,6 @@ const NotificationsPage = () => {
       });
       queryClient.invalidateQueries({ queryKey: ['sellerNotifications'] });
     } catch (err) {
-      console.error('Failed to mark as read', err);
     }
   };
 

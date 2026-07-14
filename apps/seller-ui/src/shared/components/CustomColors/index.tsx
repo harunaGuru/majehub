@@ -55,7 +55,7 @@ export const CustomColors = ({
     }
 
     onChange(updated);
-    console.log('updated', updated);
+
   };
 
   const handleAddCustomColor = (e: React.ChangeEvent<HTMLInputElement>) => {

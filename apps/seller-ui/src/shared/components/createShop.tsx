@@ -38,7 +38,6 @@ const CreateShop = ({ sellerId, setActive, setShopData, setServerError }: Shopda
   const createShopMutation = useMutation({
     mutationFn: async (data: FormValues) => {
       const datas: any = { ...data, sellerId: sellerId };
-      console.log('shop data', datas);
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/create-shop`,
         datas
@@ -46,7 +45,6 @@ const CreateShop = ({ sellerId, setActive, setShopData, setServerError }: Shopda
       return response.data;
     },
     onSuccess: (_, value: any) => {
-      console.log('User registered successfully:', value);
       setActive(3)
       handleSeller((value))
 
@@ -56,9 +54,6 @@ const CreateShop = ({ sellerId, setActive, setShopData, setServerError }: Shopda
 
       if (axiosError.response) {
         const apiError = axiosError.response.data;
-
-        console.log(apiError.message);
-        console.log(apiError?.details);
         setServerError(
           apiError.message || 'An error occurred during email verification.'
         );
@@ -68,8 +63,6 @@ const CreateShop = ({ sellerId, setActive, setShopData, setServerError }: Shopda
 
   });
   const onsubmit = (values: FormValues) => {
-    console.log(values);
-    console.log("sellerId", sellerId);
     createShopMutation.mutate(values);
   }
   return (

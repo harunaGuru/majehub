@@ -34,7 +34,6 @@ const OrderPage = () => {
   const truncateId = (id: string) => {
     return id?.slice(0, 6);
   };
-  console.log("order", order)
 
   return (
     <div className="w-full min-h-[70vh] bg-gray-200">

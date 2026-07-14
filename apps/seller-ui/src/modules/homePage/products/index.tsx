@@ -41,7 +41,6 @@ const getProducts = async (
       ...(search && { search }),
     },
   });
-  console.log(data);
   return data;
 };
 const softDeleteProduct = async (id: string) => {

@@ -50,7 +50,6 @@ export default function Index() {
     queryKey: ['latest-products'],
     queryFn: fetchLatestProduct,
   })
-  console.log("daaaaa", data)
   const { data: latestOffers, isLoading: isLatestOffersLoading } = useQuery({
     queryKey: ['latest-offers'],
     queryFn: fetchLatestOffers,
@@ -65,7 +64,6 @@ export default function Index() {
     queryKey: ['recommended-products'],
     queryFn: fetchRecommendedProducts,
   });
-  console.log("recommendedProducts", recommendedProducts)
   return (
     <div className="w-full  bg-gray-100">
       <>

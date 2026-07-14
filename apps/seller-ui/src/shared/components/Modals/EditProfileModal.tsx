@@ -66,7 +66,6 @@ export default function EditProfileModal({
   });
 
   const onSubmit = (data: FormValues) => {
-    console.log("FORM DATA:", data);
     mutation.mutate(data);
   };
 

@@ -29,8 +29,6 @@ const Index = () => {
 
   const loginMutation = useMutation({
     mutationFn: async (data: FormValues) => {
-      console.log(`Environment Variable: ${process.env.NEXT_PUBLIC_AUTH_URL}`);
-      console.log('Data being sent:', data);
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_AUTH_URL}/admin/api/login-admin`,
         // 'http://localhost:8080/admin/api/login-admin',
@@ -45,11 +43,6 @@ const Index = () => {
           xsrfHeaderName: 'X-XSRF-TOKEN',
         }
       );
-      console.log('Response headers:', response.headers);
-      console.log(
-        'Response cookies in header:',
-        response.headers['set-cookie']
-      );
       return response.data;
 
     },
@@ -61,15 +54,11 @@ const Index = () => {
 
       if (axiosError.response) {
         const apiError = axiosError.response.data;
-
-        console.log(apiError.message);
-        console.log(apiError?.details);
         setServerError(apiError.message || 'An error occurred during Login.');
       }
     },
   });
   const onSubmit = (data: FormValues) => {
-    console.log(data);
     loginMutation.mutate(data);
   };
 

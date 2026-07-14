@@ -49,7 +49,6 @@ interface Props {
 
 const fetchCategories = async () => {
   const response = await axiosInstance.get('/product/api/categories');
-  console.log(response.data);
   return response.data;
 };
 

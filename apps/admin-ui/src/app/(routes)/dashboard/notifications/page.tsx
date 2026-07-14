@@ -12,7 +12,6 @@ const NotificationsPage = () => {
     queryKey: ['adminNotifications'],
     queryFn: async () => {
       const response = await axiosInstance.get('/admin/api/get-admin-notifications');
-      console.log("admin notifications", response.data);
       return response.data.notifications;
     }
   });

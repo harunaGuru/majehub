@@ -107,7 +107,6 @@ const InboxPage = () => {
     queryKey: ['conversations'],
     queryFn: getConversations,
   });
-  console.log("conversations: ", conversations)
   useEffect(() => {
     if (!conversationIdFromUrl || !conversations.length) return;
 

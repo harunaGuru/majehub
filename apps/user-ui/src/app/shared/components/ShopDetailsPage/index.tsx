@@ -194,7 +194,6 @@ const ShopDetailsPage: React.FC<Props> = ({ shop, followersCount }: Props) => {
                 ))
               ) : (
                 products?.map((p: any) => {
-                  console.log("product", p);
                   return <ProductCard key={p.id} {...p} />
                 })
               )}

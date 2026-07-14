@@ -122,7 +122,6 @@ export default function CartPage() {
       }
     }
   }, [addresses, selectedAddress])
-  console.log("cart", cart)
   const subtotal = useMemo(() => {
     return cart.reduce(
       (acc, item) =>

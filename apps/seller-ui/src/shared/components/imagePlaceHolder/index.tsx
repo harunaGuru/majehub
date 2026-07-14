@@ -151,10 +151,8 @@ const ImagePlaceHolder = ({
       }
 
       setTransformedImage(transformedUrl);
-      console.log('transformedUrl', transformedUrl)
       setIsTransformed(true);
     } catch (error) {
-      console.error(error);
       setActiveEffect(null);
       setIsTransformed(false);
     } finally {
@@ -180,7 +178,6 @@ const ImagePlaceHolder = ({
       const currentFileId = currentImage?.fileId;
       if (currentFileId) {
         await deleteMutation.mutateAsync(currentFileId);
-        console.log('Old image deleted.');
       }
       if (file) {
         const preview = URL.createObjectURL(file);
@@ -209,7 +206,6 @@ const ImagePlaceHolder = ({
 
   const sizeClass = isMain ? 'w-80 h-80' : 'w-40 h-40';
   const currentImage = getValues(`images.${slotId}`);
-  console.log("current Image", currentImage)
 
   return (
     <>

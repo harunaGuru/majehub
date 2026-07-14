@@ -65,19 +65,16 @@ const MAX_IMAGES = 4;
 
 const fetchCategories = async () => {
   const response = await axiosInstance.get('/product/api/categories');
-  console.log(response.data);
   return response.data;
 };
 
 const createProduct = async (data: FormValues) => {
-  console.log("dfhsgdfhgdf", data)
   const response = await axiosInstance.post('/product/api/create-product', data);
   return response.data.product;
 }
 
 const CreateProduct = () => {
   const [images, setImages] = useState<ImageData[]>([]);
-  console.log(images);
 
   const {
     register,
@@ -116,7 +113,6 @@ const CreateProduct = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: (data: FormValues) => createProduct(data),
     onSuccess: () => {
-      console.log('success');
       toast.success("Product created successfully")
       setValue("title", "")
       setValue("short_Description", "")
@@ -170,7 +166,6 @@ const CreateProduct = () => {
 
   });
   const onSubmit = (data: FormValues) => {
-    console.log(data);
     mutate(data)
   };
 

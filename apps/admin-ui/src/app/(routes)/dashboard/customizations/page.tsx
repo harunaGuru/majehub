@@ -10,7 +10,6 @@ import Image from "next/image";
 
 const getConfig = async () => {
   const { data } = await axiosInstance.get("/admin/api/site-config");
-  console.log("data cat", data);
   return data.data;
 };
 const toBase64 = (file: File): Promise<string> =>
@@ -92,7 +91,6 @@ const CustomizationsPage = () => {
   const categories = data?.categories || [];
   const subCategories = data?.subCategories || {};
   const logo = data?.avatar;
-  console.log("logo", logo);
 
   const {
     register,

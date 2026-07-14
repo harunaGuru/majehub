@@ -14,7 +14,6 @@ import {
 
 const getOrders = async () => {
   const { data } = await axiosInstance.get(`/admin/api/get-all-orders`);
-  console.log(data);
   return data.orders;
 };
 
