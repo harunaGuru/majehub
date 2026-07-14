@@ -46,10 +46,6 @@ const SellerSignupPage = () => {
 
   const loginMutation = useMutation({
     mutationFn: async (data: FormValues) => {
-      console.log(
-        `Environment Variable: ${process.env.NEXT_PUBLIC_AUTH_URL}`
-      );
-      console.log('Data being sent:', data);
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/seller-registration`,
         // 'http://127.0.0.1:8080/auth/api/seller-registration',
@@ -58,7 +54,6 @@ const SellerSignupPage = () => {
       return response.data;
     },
     onSuccess: (_, value: FormValues) => {
-      console.log('User registered successfully:', value);
       setFormValues(value);
       setShowOtpInput(true);
       handleTimer();
@@ -69,9 +64,6 @@ const SellerSignupPage = () => {
 
       if (axiosError.response) {
         const apiError = axiosError.response.data;
-
-        console.log(apiError.message);
-        console.log(apiError?.details);
         setServerError(
           apiError.message || 'An error occurred during email verification.'
         );
@@ -81,7 +73,6 @@ const SellerSignupPage = () => {
   });
 
   const onSubmit = (data: FormValues) => {
-    console.log(data);
     loginMutation.mutate(data);
   };
   const OtpVerificationMutation = useMutation({
@@ -93,7 +84,6 @@ const SellerSignupPage = () => {
       country: string;
       otp: string;
     }) => {
-      console.log(data)
       if (!data.email || !data.name || !data.password || !data.phone_number || !data.country || !data.otp) return;
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/seller-verification`,
@@ -103,8 +93,6 @@ const SellerSignupPage = () => {
       return response.data.seller.id;
     },
     onSuccess: (data, value) => {
-      console.log("returned data", data)
-      console.log('OTP verified successfully:', value);
       // Further actions after successful OTP verification can be added here
       setSellerId(data)
       setOtp(['', '', '', '']);
@@ -118,9 +106,6 @@ const SellerSignupPage = () => {
 
       if (axiosError.response) {
         const apiError = axiosError.response.data;
-
-        console.log(apiError.message); // "Invalid OTP"
-        console.log(apiError?.details);
         // 400
         SetOtpError(
           apiError.message || 'An error occurred during OTP verification.'
@@ -179,7 +164,6 @@ const SellerSignupPage = () => {
   const handleOTP = () => {
     // Logic to verify OTP can be added here
     const otpString = otp.join('');
-    console.log('Verifying OTP:', otpString);
     OtpVerificationMutation.mutate({
       email: formValues?.email!,
       name: formValues?.name!,
@@ -192,9 +176,8 @@ const SellerSignupPage = () => {
 
   const createStripeLink = async () => {
     try {
-      console.log(sellerId)
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_AUTH_URL}/create-stripe-link`,
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/create-stripe-link`,
         { sellerId }
       );
       if (response.data.url) {
