@@ -59,13 +59,9 @@ router.post(
   isSeller,
   logoutSeller
 );
-router.post('/create-shop', isAuthenticated('seller'), createShop);
 router.get('/logged-in-seller', isAuthenticated('seller'), getSeller);
-router.post(
-  '/create-stripe-link',
-  isAuthenticated('seller'),
-  createConnectedAccount
-);
+router.post('/create-shop', createShop);
+router.post('/create-stripe-link', createConnectedAccount);
 router.post('/testing-endpoint', testingEndpoint);
 
 export default router;

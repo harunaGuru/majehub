@@ -1,9 +1,9 @@
 import React from 'react';
 import Input from '@/shared/components/customInput';
 import { useForm } from 'react-hook-form';
-import {shopCategories} from '@/config/categories';
-import {useMutation} from "@tanstack/react-query";
-import axios, {AxiosError} from "axios";
+import { shopCategories } from '@/config/categories';
+import { useMutation } from "@tanstack/react-query";
+import axios, { AxiosError } from "axios";
 
 type FormValues = {
   name: string;
@@ -22,25 +22,25 @@ type ApiError = {
 type ShopdataProps = {
   sellerId: string | null;
   setActive: (active: number) => void;
-  setShopData : (value: FormValues) => void;
+  setShopData: (value: FormValues) => void;
   setServerError: (error: string | null) => void;
 }
 
-const CreateShop = ({sellerId, setActive, setShopData, setServerError}:ShopdataProps) => {
-  if(!sellerId) return;
+const CreateShop = ({ sellerId, setActive, setShopData, setServerError }: ShopdataProps) => {
+  if (!sellerId) return;
 
-  const {register, handleSubmit, formState:{errors}} = useForm<FormValues>();
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
-  const handleSeller = (value: FormValues)=>{
+  const handleSeller = (value: FormValues) => {
     setShopData(value)
   }
 
   const createShopMutation = useMutation({
     mutationFn: async (data: FormValues) => {
-      const datas:any = {...data, sellerId: sellerId};
+      const datas: any = { ...data, sellerId: sellerId };
       console.log('shop data', datas);
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_AUTH_URL}/create-shop`,
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/create-shop`,
         datas
       );
       return response.data;
