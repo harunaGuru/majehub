@@ -51,7 +51,7 @@ const SellerSignupPage = () => {
       );
       console.log('Data being sent:', data);
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_AUTH_URL}/seller-registration`,
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/seller-registration`,
         // 'http://127.0.0.1:8080/auth/api/seller-registration',
         data
       );
@@ -96,7 +96,7 @@ const SellerSignupPage = () => {
       console.log(data)
       if (!data.email || !data.name || !data.password || !data.phone_number || !data.country || !data.otp) return;
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_AUTH_URL}/seller-verification`,
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/seller-verification`,
         // `http://127.0.0.1:8080/auth/api/user-verification`,
         data
       );
