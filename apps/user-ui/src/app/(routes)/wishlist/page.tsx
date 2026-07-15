@@ -5,8 +5,10 @@ import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/store";
 import Link from "next/link";
+import { useAuthUser } from "@/hooks/useAuthUser";
 export default function WishlistPage() {
   const router = useRouter();
+  const { user } = useAuthUser()
 
   const {
     wishlist,
@@ -14,6 +16,7 @@ export default function WishlistPage() {
     removeFromWishlist,
     updateWishlistQuantity,
   } = useStore();
+  const userWishlist = wishlist.filter((item) => item.userInfo.id === user?.id)
 
   return (
     <div className="bg-gray-100 w-full min-h-screen">
@@ -34,7 +37,7 @@ export default function WishlistPage() {
             Wishlist
           </span>
         </div>
-        {wishlist.length === 0 ? (
+        {userWishlist.length === 0 ? (
           <p className="text-gray-500 text-center">Your wishlist is empty</p>
         ) : (
           <>

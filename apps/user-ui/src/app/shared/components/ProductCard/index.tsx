@@ -35,14 +35,17 @@ const ProductCard = ({
     name: user?.name,
     id: user?.id,
   };
+  const userCart = cart.filter((item) => item?.userInfo.id === user?.id)
+  const userWishlist = wishlist.filter((item) => item.userInfo.id === user?.id)
+
   const isInCart = useMemo(
-    () => cart.some((item: CartWishlistItem) => item.product.id === id),
-    [cart, id]
+    () => userCart.some((item: CartWishlistItem) => item.product.id === id),
+    [userCart, id]
   );
 
   const isInWishlist = useMemo(
-    () => wishlist.some((item: CartWishlistItem) => item.product.id === id),
-    [wishlist, id]
+    () => userWishlist.some((item: CartWishlistItem) => item.product.id === id),
+    [userWishlist, id]
   );
 
   const productPayload: Product = {

@@ -113,19 +113,22 @@ const ProductDetailsPage = ({ product }: { product: any }) => {
     removeFromWishlist,
   } = useStore();
 
+  const userCart = cart.filter((item) => item.userInfo.id === user?.id)
+  const userWishlist = wishlist.filter((item) => item.userInfo.id === user?.id)
+
   const isInCart = useMemo(
     () =>
       !!product &&
-      cart.some((item: CartWishlistItem) => item.product.id === product?.id),
-    [cart, product]
+      userCart.some((item: CartWishlistItem) => item.product.id === product?.id),
+    [userCart, product]
   );
   const isInWishlist = useMemo(
     () =>
       !!product &&
-      wishlist.some(
+      userWishlist.some(
         (item: CartWishlistItem) => item.product.id === product?.id
       ),
-    [wishlist, product]
+    [userWishlist, product]
   );
   const productPayload: Product = {
     id: product?.id as string,
