@@ -16,7 +16,8 @@ import { X, Download, ArrowLeft } from 'lucide-react';
 
 const getConversations = async () => {
   const { data } = await axiosInstance.get('/chatting/api/seller/conversations');
-  return data.conversations;
+  console.log("seller conversation", data?.conversations)
+  return data?.conversations;
 };
 const getMessages = async ({ queryKey }: any) => {
   const [_key, conversationId, cursor] = queryKey;

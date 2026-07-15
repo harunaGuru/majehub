@@ -340,7 +340,7 @@ export default function CartPage() {
                 </div>
 
                 {/* CHECKOUT */}
-                <button onClick={handleCreatePaymentSession} disabled={isCreatingPaymentSession || addresses?.length === 0 || selectedAddress === ""} className="w-full bg-black flex gap-2 items-center justify-center text-white py-3 rounded-lg hover:bg-gray-800 transition">
+                <button onClick={handleCreatePaymentSession} disabled={isCreatingPaymentSession || addresses?.length === 0 || selectedAddress === ""} className={`w-full bg-black flex gap-2 items-center justify-center text-white py-3 rounded-lg hover:bg-gray-800 transition ${isCreatingPaymentSession || addresses?.length === 0 || selectedAddress === "" ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-gray-800"}`}>
                   {isCreatingPaymentSession && <Loader2 className="w-5 h-5 animate-spin" />}
                   {isCreatingPaymentSession ? "Redirecting" : "Proceed to Checkout"}
                 </button>
