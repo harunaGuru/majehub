@@ -94,7 +94,7 @@ const LoginPage = () => {
               <Input
                 type="email"
                 label="Email"
-                placeholder="hishow@gmail.com"
+                placeholder="johndoe@gmail.com"
                 {...register('email', {
                   required: 'Email is required',
                   pattern: {

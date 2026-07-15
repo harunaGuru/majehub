@@ -1,5 +1,5 @@
 'use client';
-import Input from '@/app/shared/components/customInput';
+import Input from '@/shared/components/customInput';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { Eye, EyeOff } from 'lucide-react';
@@ -41,10 +41,11 @@ const ForgotPasswordPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<{ email: string }>();
+
   const forgotPasswordMutation = useMutation({
     mutationFn: async (data: { email: string }) => {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/forgot-password`,
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/forgot-seller-password`,
         // 'http://localhost:8080/auth/api/forgot-password',
         data
       );
@@ -70,7 +71,7 @@ const ForgotPasswordPage = () => {
   const resetOtpMutation = useMutation({
     mutationFn: async (data: { email: string; otp: string }) => {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/verify-forgot-password-otp`,
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/verify-forgot-seller-password-otp`,
         data
       );
       return response.data;
@@ -163,7 +164,7 @@ const ForgotPasswordPage = () => {
   const passwordResetMutation = useMutation({
     mutationFn: async (data: { email: string; newPassword: string }) => {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/reset-password`,
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/auth/api/reset-seller-password`,
         data
       );
       return response.data;

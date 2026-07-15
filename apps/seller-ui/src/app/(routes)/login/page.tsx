@@ -84,7 +84,7 @@ const SellerLoginPage = () => {
           <p className="text-gray-600 font-roboto text-center text-sm mb-4">
             Don't have an account?{' '}
             <Link
-              href="/majehub/apps/seller-ui/src/app/(routes)/signup/signup"
+              href="/signup"
               className="text-blue-500 hover:underline"
             >
               Sign Up
@@ -93,7 +93,7 @@ const SellerLoginPage = () => {
           <div className="flex items-center justify-between gap-1 my-6 w-full">
             <div className="flex-1 h-0.5 bg-gray-300 rounded-md" />
             <span className="text-gray-500 text-xs font-semibold">
-              Or Signin with Email
+              Signin with Email
             </span>
             <div className="flex-1 h-0.5 bg-gray-300 rounded-md" />
           </div>
@@ -105,7 +105,7 @@ const SellerLoginPage = () => {
               <Input
                 type="email"
                 label="Email"
-                placeholder="hishow@gmail.com"
+                placeholder="johndoe@gmail.com"
                 {...register('email', {
                   required: 'Email is required',
                   pattern: {

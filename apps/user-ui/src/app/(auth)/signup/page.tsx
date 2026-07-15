@@ -4,7 +4,7 @@ import GoogleButton from '@/app/shared/components/googleButton';
 import { useMutation } from '@tanstack/react-query';
 import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react';
+import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
@@ -31,6 +31,7 @@ const SignUpPage = () => {
   const [OtpError, SetOtpError] = React.useState<string | null>(null);
   const [timer, setTimer] = React.useState(60);
   const router = useRouter();
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const loginMutation = useMutation({
     mutationFn: async (data: FormValues) => {
@@ -98,17 +99,28 @@ const SignUpPage = () => {
     if (!formValues) return;
     loginMutation.mutate(formValues);
   };
+
   const handleTimer = () => {
-    const interval = setInterval(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    setTimer(60);
+
+    intervalRef.current = setInterval(() => {
       setTimer((prev) => {
-        if (prev === 1) {
-          clearInterval(interval);
+        if (prev <= 1) {
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
   };
+
   const {
     register,
     handleSubmit,
