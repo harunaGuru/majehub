@@ -291,12 +291,12 @@ export default function CartPage() {
                 {/* ADDRESS */}
                 <div className="flex flex-col gap-2">
                   <span className="text-sm font-semibold text-gray-900 font-poppins">
-                    Shipping Address
+                    Shipping Address *
                   </span>
                   {isLoading ? (
                     <p className='text-sm text-gray-500'>Loading Addresses...</p>
                   ) : addresses?.length === 0 ? (
-                    <p className='text-sm text-gray-500'>Go to your profile to add an address</p>
+                    <p className='text-sm text-gray-500'>Go to your profile to add an address(required)</p>
                   ) : (
                     <select
                       value={selectedAddress}
@@ -315,7 +315,7 @@ export default function CartPage() {
                 {/* PAYMENT */}
                 <div className="flex flex-col gap-2">
                   <span className="text-sm font-semibold text-gray-900 font-poppins">
-                    Select Payment Method
+                    Select Payment Method *
                   </span>
 
                   <select
@@ -326,10 +326,10 @@ export default function CartPage() {
                     className="border p-2 rounded-md"
                   >
                     {/* <option value="">Select method</option> */}
-                    <option>Credit Card</option>
-                    <option>Paypal</option>
-                    <option>Bank Transfer</option>
-                    <option>Cash On Delivery</option>
+                    <option value="credit_card">Credit Card</option>
+                    <option value="paypal">Paypal</option>
+                    <option value="bank_transfer">Bank Transfer</option>
+                    <option value="cash_on_delivery">Cash On Delivery</option>
                   </select>
                 </div>
 
@@ -340,7 +340,7 @@ export default function CartPage() {
                 </div>
 
                 {/* CHECKOUT */}
-                <button onClick={handleCreatePaymentSession} disabled={isCreatingPaymentSession} className="w-full bg-black flex gap-2 items-center justify-center text-white py-3 rounded-lg hover:bg-gray-800 transition">
+                <button onClick={handleCreatePaymentSession} disabled={isCreatingPaymentSession || addresses?.length === 0 || selectedAddress === ""} className="w-full bg-black flex gap-2 items-center justify-center text-white py-3 rounded-lg hover:bg-gray-800 transition">
                   {isCreatingPaymentSession && <Loader2 className="w-5 h-5 animate-spin" />}
                   {isCreatingPaymentSession ? "Redirecting" : "Proceed to Checkout"}
                 </button>
