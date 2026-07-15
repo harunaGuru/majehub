@@ -90,7 +90,6 @@ const CustomizationsPage = () => {
 
   const categories = data?.categories || [];
   const subCategories = data?.subCategories || {};
-  const logo = data?.avatar;
 
   const {
     register,
