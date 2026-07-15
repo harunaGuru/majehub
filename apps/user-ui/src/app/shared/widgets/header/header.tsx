@@ -47,8 +47,10 @@ const Header = () => {
     queryFn: getSiteConfig,
     staleTime: 1000 * 60 * 10,
   });
-  const cartlength = cart?.length
-  const wishlistLength = wishlist?.length
+  const userCart = cart.filter((item) => item.userInfo.id === user?.id)
+  const userWishlist = wishlist.filter((item) => item.userInfo.id === user?.id)
+  const cartlength = userCart?.length || 0
+  const wishlistLength = userWishlist?.length || 0
 
   // recent searches
   useEffect(() => {

@@ -33,8 +33,10 @@ const HeaderBottom = () => {
   const [isFixed, setIsFixed] = React.useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const { cart, wishlist } = useStore()
-  const cartlength = cart?.length;
-  const wishlistLength = wishlist?.length;
+  const userCart = cart.filter((item) => item.userInfo.id === user?.id)
+  const userWishlist = wishlist.filter((item) => item.userInfo.id === user?.id)
+  const cartlength = userCart?.length || 0
+  const wishlistLength = userWishlist?.length || 0
 
   const { data, isLoading: catLoading } = useQuery({
     queryKey: ["site-config"],

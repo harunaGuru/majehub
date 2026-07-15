@@ -10,15 +10,18 @@ import { axiosInstance } from "@/utils/axiosInstance";
 import { isProtected } from "@/utils/isProtected";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useAuthUser } from "@/hooks/useAuthUser";
 
 
 export default function CartPage() {
+  const { user } = useAuthUser()
   const {
     cart,
     removeFromCart,
     updateCartQuantity,
   } = useStore();
 
+  const userCart = cart.filter((item) => item?.userInfo.id === user?.id)
   const [coupon, setCoupon] = useState("");
   const [selectedAddress, setSelectedAddress] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -42,7 +45,8 @@ export default function CartPage() {
   const { mutateAsync: createPaymentSession, isPending: isCreatingPaymentSession } = useMutation({
     mutationFn: async () => {
       const { data } = await axiosInstance.post("/order/api/create-payment-session", {
-        cart,
+        // cart
+        cart: userCart,
         coupon: {
           code: appliedCouponCode,
           discountPercent: discount,
@@ -69,7 +73,8 @@ export default function CartPage() {
     mutationFn: async () => {
       const { data } = await axiosInstance.post("/order/api/apply-coupon", {
         couponCode: coupon,
-        cart,
+        // cart,
+        cart: userCart,
       }, isProtected())
       return data
     },
@@ -123,12 +128,12 @@ export default function CartPage() {
     }
   }, [addresses, selectedAddress])
   const subtotal = useMemo(() => {
-    return cart.reduce(
+    return userCart.reduce(
       (acc, item) =>
         acc + (item?.product?.sale_price || item?.product?.price || 0) * item?.product?.quantity,
       0
     );
-  }, [cart]);
+  }, [userCart]);
 
   const total = subtotal - discountAmount;
 
@@ -149,7 +154,7 @@ export default function CartPage() {
             Cart
           </span>
         </div>
-        {cart.length === 0 ? (
+        {userCart.length === 0 ? (
           <p className="text-gray-500 text-center">Your cart is empty</p>
         ) : (
           <div className="flex flex-col lg:flex-row gap-6">
@@ -166,7 +171,7 @@ export default function CartPage() {
                 </thead>
 
                 <tbody>
-                  {cart.map((item) => {
+                  {userCart.map((item) => {
                     const { product, userInfo, location, deviceInfo } = item;
 
                     return (
