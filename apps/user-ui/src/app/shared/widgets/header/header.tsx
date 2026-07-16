@@ -128,6 +128,7 @@ const Header = () => {
     }
   };
 
+  console.log("user", user)
 
   return (
     <div className="flex flex-col w-full">
