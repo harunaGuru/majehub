@@ -56,6 +56,9 @@ export const isAuthenticated =
       if (decoded.role === 'user') {
         const user = await prisma.users.findUnique({
           where: { id: decoded.userId },
+          include: {
+            avatar: true,
+          },
         });
         if (!user) {
           return res.status(401).json({

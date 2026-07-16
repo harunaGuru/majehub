@@ -18,6 +18,8 @@ import { useRouter } from 'next/navigation';
 import { useStore } from '@/store';
 import { axiosInstance } from '@/utils/axiosInstance';
 import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+
 
 const getConfig = async () => {
   const { data } = await axiosInstance.get("/admin/api/site-config");
@@ -195,7 +197,9 @@ const HeaderBottom = () => {
                     href="/profile"
                     className="border bg-white border-gray-200 rounded-full cursor-pointer"
                   >
-                    <ProfileIcon width={40} height={40} color="#282828" />
+                    {user?.avatar ?
+                      <Image width={40} height={40} src={user.avatar.fileUrl} alt="avater" className="object-cover p-0.5 rounded-full" /> :
+                      <ProfileIcon width={40} height={40} color="#282828" />}
                   </Link>
 
                   <Link

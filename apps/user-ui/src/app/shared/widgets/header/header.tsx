@@ -41,7 +41,6 @@ const Header = () => {
     queryFn: () => searchProducts(debouncedSearch),
     enabled: !!debouncedSearch,
   });
-
   const { data: siteConfig } = useQuery({
     queryKey: ["site-config"],
     queryFn: getSiteConfig,
@@ -264,7 +263,9 @@ const Header = () => {
                     href="/profile"
                     className=" border bg-white border-gray-200 rounded-full cursor-pointer"
                   >
-                    <ProfileIcon width={40} height={40} color="#282828" />
+                    {user?.avatar ?
+                      <Image width={40} height={40} src={user.avatar.fileUrl} alt="avater" className="object-cover p-0.5 rounded-full" /> :
+                      <ProfileIcon width={40} height={40} color="#282828" />}
                   </Link>
                   <Link
                     href="/profile"

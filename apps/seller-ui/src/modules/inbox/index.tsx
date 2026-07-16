@@ -324,7 +324,7 @@ const InboxPage = () => {
                 >
                   <div className="relative w-10 h-10">
                     <Image
-                      src={chat?.user?.avatar || '/placeholder.png'}
+                      src={chat?.user?.avatar || "/avatar.webp"}
                       alt="avatar"
                       fill
                       className="rounded-full object-cover"
@@ -375,7 +375,7 @@ const InboxPage = () => {
                   </button>
                   <div className="relative w-10 h-10">
                     <Image
-                      src={selectedChat?.user?.avatar || '/placeholder.png'}
+                      src={selectedChat?.user?.avatar || "/avatar.webp"}
                       alt="avatar"
                       fill
                       className="rounded-full object-cover"
