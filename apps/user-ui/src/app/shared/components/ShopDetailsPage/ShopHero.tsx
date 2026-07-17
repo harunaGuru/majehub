@@ -98,8 +98,8 @@ export default function ShopHero({ shopData, followersCount }: { shopData: any, 
                 <span key={tag} className="px-3 py-1 bg-white/10 rounded-full text-sm">#{tag}</span>
               ))}
             </div>
-            <button className="px-4 mt-5 h-8 w-fit cursor-pointer rounded-md text-xs font-normal transition flex items-center justify-center gap-1 bg-[#1DB81D] text-white">
-              Buy now $12
+            <button className="px-4 mt-5 h-8 w-fit cursor-default rounded-md text-xs font-normal transition flex items-center justify-center gap-1 bg-[#1DB81D] text-white">
+              Buy now $112
             </button>
           </div>
         </div>
@@ -110,7 +110,7 @@ export default function ShopHero({ shopData, followersCount }: { shopData: any, 
           {/* LEFT INFO */}
           <div className="flex-1 flex gap-4 bg-white/20 backdrop-blur-xl border border-white/20 shadow-xl p-5 rounded-2xl">
             <div className="relative w-12 h-12">
-              <Image src={shopData?.avatar} sizes="(max-width: 640px) 48px, (max-width: 1024px) 48px, 48px" alt={shopData?.name} fill className="rounded-full object-cover" />
+              <Image src={shopData?.avatar || "/shop-logo.jpg"} sizes="(max-width: 640px) 48px, (max-width: 1024px) 48px, 48px" alt={shopData?.name} fill className="rounded-full object-cover" />
             </div>
 
             <div className="flex flex-1 justify-between">

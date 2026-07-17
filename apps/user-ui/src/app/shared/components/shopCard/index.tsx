@@ -21,7 +21,7 @@ const ShopCard = ({ shop }: ShopCardProps) => {
       {/* Cover Banner */}
       <div className="relative h-32 w-full">
         <Image
-          src={shop.coverBanner}
+          src={shop.coverBanner || "/banner.jpg"}
           alt={shop.name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -31,7 +31,7 @@ const ShopCard = ({ shop }: ShopCardProps) => {
         {/* Avatar */}
         <div className="absolute h-14 w-14 z-10 -bottom-10 left-1/2 -translate-x-1/2">
           <Image
-            src={shop.avatar}
+            src={shop.avatar || "/shop-logo.jpg"}
             alt={shop.name}
             fill
             sizes="(max-width: 640px) 56px, (max-width: 1024px) 50px, 56px"
@@ -62,7 +62,7 @@ const ShopCard = ({ shop }: ShopCardProps) => {
         </div>
 
         {/* Category */}
-        <div className='p-2 w-fit rounded-2xl bg-gray-500/10 mb-2'>
+        <div className='py-2 px-4 w-fit rounded-2xl bg-gray-500/10 mb-2'>
           <p className="text-xs text-blue-600/80 font-semibold uppercase tracking-wider">
             {shop.category}
           </p>
