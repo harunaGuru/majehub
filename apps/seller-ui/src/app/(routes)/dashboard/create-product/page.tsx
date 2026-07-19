@@ -73,6 +73,50 @@ const createProduct = async (data: FormValues) => {
   return response.data.product;
 }
 
+// utils/decodeHtml.ts
+export const decodeHTMLEntities = (html: string): string => {
+  if (!html) return '';
+
+  let decoded = html;
+
+  // Decode HTML entities (run multiple times to catch double-encoding)
+  const entities = [
+    { pattern: /&lt;/g, replacement: '<' },
+    { pattern: /&gt;/g, replacement: '>' },
+    { pattern: /&quot;/g, replacement: '"' },
+    { pattern: /&amp;/g, replacement: '&' },
+    { pattern: /&nbsp;/g, replacement: ' ' },
+    { pattern: /&#39;/g, replacement: "'" },
+    { pattern: /&apos;/g, replacement: "'" },
+    { pattern: /&#x2F;/g, replacement: '/' },
+    { pattern: /&#x3D;/g, replacement: '=' },
+    { pattern: /&lt;/g, replacement: '<' }, // Run again for double-encoded
+    { pattern: /&gt;/g, replacement: '>' },
+  ];
+
+  // Run decode twice to handle double-encoding
+  for (let i = 0; i < 2; i++) {
+    entities.forEach(({ pattern, replacement }) => {
+      decoded = decoded.replace(pattern, replacement);
+    });
+  }
+
+  // Clean up extra <p> tags that Quill might add
+  // Remove empty paragraphs
+  decoded = decoded.replace(/<p>\s*<\/p>/g, '');
+
+  // Remove wrapping <p> tags that contain other block elements
+  // This fixes: <p><ul>...</ul></p> -> <ul>...</ul>
+  decoded = decoded.replace(/<p>\s*<(ul|ol|blockquote|img|h[1-6])/gi, '<$1');
+  decoded = decoded.replace(/<\/(ul|ol|blockquote|h[1-6])>\s*<\/p>/gi, '</$1>');
+
+  // Clean up duplicate <p> tags: <p><p> -> <p>
+  decoded = decoded.replace(/<p>\s*<p>/gi, '<p>');
+  decoded = decoded.replace(/<\/p>\s*<\/p>/gi, '</p>');
+
+  return decoded;
+};
+
 const CreateProduct = () => {
   const [images, setImages] = useState<ImageData[]>([]);
 
@@ -166,7 +210,12 @@ const CreateProduct = () => {
 
   });
   const onSubmit = (data: FormValues) => {
-    mutate(data)
+    const payload = {
+      ...data,
+      detailed_description: decodeHTMLEntities(data.detailed_description || ''),
+    };
+    // mutate(data)
+    mutate(payload)
   };
 
 
