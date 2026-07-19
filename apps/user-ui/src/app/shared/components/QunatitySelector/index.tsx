@@ -77,9 +77,9 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
       </button>
 
       {/* Stock Info */}
-      <span className="text-sm text-gray-500 ml-2 font-semibold">
-        <span className="text-green-600 ">In Stock</span>{" "}
-        (stock {stock} )
+      <span className="text-sm text-gray-500 ml-2 font-semibold whitespace-nowrap">
+        <span className="text-green-600">In Stock</span>{" "}
+        (stock {stock})
       </span>
     </div>
   );

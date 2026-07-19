@@ -246,11 +246,11 @@ const ProductDetailsPage = ({ product }: { product: any }) => {
     );
   }
   return (
-    <div className="min-h-screen w-full bg-gray-300 p-8 ">
+    <div className="min-h-screen w-full bg-gray-300 p-2 sm:p-4 md:p-8 ">
       <div className="w-full max-w-7xl mx-auto flex flex-col gap-3 rounded-md  ">
-        <div className="grid lg:grid-cols-[450px_1fr_300px] gap-8 px-4 pb-4 bg-gradient-to-r from-white via-gray-100 to-gray-150 shadow-lg">
+        <div className="grid lg:grid-cols-[450px_1fr_300px] gap-4 sm:gap-8 px-2 sm:px-4 pb-4 bg-gradient-to-r from-white via-gray-100 to-gray-150 shadow-lg">
           {/*Image Gallery*/}
-          <div className="pt-6  space-y-3">
+          <div className="pt-6 space-y-3 min-w-0 overflow-hidden">
             {/* <div className="relative w-full aspect-square rounded-sm overflow-hidden">
               <Image
                 src={
@@ -298,8 +298,8 @@ const ProductDetailsPage = ({ product }: { product: any }) => {
             )}
           </div>
           {/*Product Details*/}
-          <div className="pt-5 px-10 lg:px-0 ">
-            <h2 className="font-bold whitespace-nowrap opacity-80 mt-0">
+          <div className="pt-5 px-0 sm:px-4 lg:px-0 min-w-0">
+            <h2 className="text-xl sm:text-2xl font-bold opacity-80 mt-0 whitespace-normal text-wrap">
               {product?.title || 'Product'}
             </h2>
             <div className="flex flex-col gap-2 border-b border-gray-200 mt-3  ">
@@ -419,7 +419,7 @@ const ProductDetailsPage = ({ product }: { product: any }) => {
             </button>
           </div>
           {/*Product address*/}
-          <div className="flex flex-col gap-6 text-gray-800 text-sm p-2 px-10 lg:px-0 border-none ">
+          <div className="flex flex-col gap-6 text-gray-800 text-sm p-2 px-0 sm:px-4 lg:px-0 border-none min-w-0">
             <div className="">
               <h4>Delivery Option</h4>
               <span className="flex items-center gap-1 text-[15px] font-semibold">
@@ -480,7 +480,7 @@ const ProductDetailsPage = ({ product }: { product: any }) => {
           </div>
         </div>
       </div>
-      <div className="w-full max-w-7xl mx-auto rounded-md  bg-gray-100 px-6 mt-4">
+      <div className="w-full max-w-7xl mx-auto rounded-md  bg-gray-100 px-2 sm:px-6 mt-4">
         <div className="bg-gray-100 rounded-xl p-4">
           <ProductDetailedAndReviewTab
             descriptionHTML={

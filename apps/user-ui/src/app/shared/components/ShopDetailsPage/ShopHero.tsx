@@ -73,99 +73,102 @@ export default function ShopHero({ shopData, followersCount }: { shopData: any, 
     <>
       <div className="w-full bg-black text-white pb-6">
         {/* HERO */}
-        <div className="max-w-7xl mx-auto px-10 flex gap-6">
-          {/* LEFT */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-10 flex flex-col sm:flex-row gap-6">
+          {/* LEFT — images */}
           <div className="flex-1">
-            <div className="relative w-full h-64">
+            <div className="relative w-full h-52 sm:h-64">
               <Image src={shop.images[0]} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" alt={shop.name} fill className="object-cover rounded-b-md" />
             </div>
 
             <div className="flex gap-2 mt-2">
               {shop.images.map((img, i) => (
-                <div key={i} className="relative w-1/3 h-20">
+                <div key={i} className="relative w-1/3 h-16 sm:h-20">
                   <Image src={img} sizes="(max-width: 640px) 33.33vw, (max-width: 1024px) 33.33vw, 33.33vw" alt={`thumb-${i}`} fill className="object-cover rounded-md" />
                 </div>
               ))}
             </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="flex-1 flex flex-col gap-4 pt-8">
-            <p className="text-gray-300/60">{shop.bio}</p>
-            <p className="font-semibold">Tags</p>
+          {/* RIGHT — bio / tags */}
+          <div className="flex-1 flex flex-col gap-3 sm:pt-8">
+            <p className="text-gray-300/60 text-sm sm:text-base">{shop.bio}</p>
+            <p className="font-semibold text-sm">Tags</p>
             <div className="flex flex-wrap gap-2">
               {["luxury", "AI", "Photo", "Arts"].map((tag) => (
-                <span key={tag} className="px-3 py-1 bg-white/10 rounded-full text-sm">#{tag}</span>
+                <span key={tag} className="px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm">#{tag}</span>
               ))}
             </div>
-            <button className="px-4 mt-5 h-8 w-fit cursor-default rounded-md text-xs font-normal transition flex items-center justify-center gap-1 bg-[#1DB81D] text-white">
+            <button className="px-4 mt-3 sm:mt-5 h-8 w-fit cursor-default rounded-md text-xs font-normal transition flex items-center justify-center gap-1 bg-[#1DB81D] text-white">
               Buy now $112
             </button>
           </div>
         </div>
       </div>
+
       {/* OVERLAY CARD */}
-      <div className="max-w-6xl mx-auto z-10 px-10">
-        <div className="p-6 -mt-[70px] flex gap-6 text-black">
+      <div className="max-w-6xl mx-auto z-10 px-4 sm:px-8 lg:px-10">
+        {/* -mt offset only on sm+ so it doesn't break mobile */}
+        <div className="py-4 sm:p-6 sm:-mt-[70px] flex flex-col sm:flex-row gap-4 text-black">
+
           {/* LEFT INFO */}
-          <div className="flex-1 flex gap-4 bg-white/20 backdrop-blur-xl border border-white/20 shadow-xl p-5 rounded-2xl">
-            <div className="relative w-12 h-12">
-              <Image src={shopData?.avatar || "/shop-logo.jpg"} sizes="(max-width: 640px) 48px, (max-width: 1024px) 48px, 48px" alt={shopData?.name} fill className="rounded-full object-cover" />
-            </div>
-
-            <div className="flex flex-1 justify-between">
-              <div className="flex flex-col font-jost tracking-wide gap-1">
-                <h3 className="text-xl font-semibold font-poppins tracking-tighter">{shopData?.name}</h3>
-                <p className="text-sm text-gray-600">{shopData?.bio}</p>
-
-                <div className="flex items-center gap-4 text-sm text-gray-600">
-                  <span className="flex items-center gap-1 text-blue-500">
-                    <Star className='text-blue-500 fill-blue-500' size={14} /> {shopData?.ratings ?? "N/A"}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Users size={14} />
-                    <span className="font-semibold">
-                      {followers} followers
-                    </span>
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Clock size={14} /> {shopData?.opening_hours}
-                </div>
-
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <MapPin size={14} /> {shopData?.address}
-                </div>
+          <div className="flex-1 flex flex-col sm:flex-row gap-4 bg-white/20 backdrop-blur-xl border border-white/20 shadow-xl p-4 sm:p-5 rounded-2xl">
+            <div className="flex gap-3 items-start">
+              <div className="relative shrink-0 w-12 h-12">
+                <Image src={shopData?.avatar || "/shop-logo.jpg"} sizes="48px" alt={shopData?.name} fill className="rounded-full object-cover" />
               </div>
 
-              <button
-                onClick={toggleFollow}
-                disabled={isPending}
-                className={`px-4 h-8 cursor-pointer rounded-lg text-xs font-normal transition flex items-center justify-center gap-1 ${isFollowing ? "bg-red-500 text-white" : "bg-blue-600 text-white"
-                  }`}
-              >
-                <Heart size={14} className={isFollowing ? "text-white fill-red-500" : "text-white"} />
-                {isFollowing ? "Unfollow" : "Follow"}
-              </button>
+              <div className="flex flex-1 flex-col font-jost tracking-wide gap-1 min-w-0">
+                <div className="flex items-start justify-between gap-2">
+                  <h3 className="text-lg sm:text-xl font-semibold font-poppins tracking-tighter leading-tight">{shopData?.name}</h3>
+                  {/* Follow button — inline with name on mobile */}
+                  <button
+                    onClick={toggleFollow}
+                    disabled={isPending}
+                    className={`shrink-0 px-3 h-8 cursor-pointer rounded-lg text-xs font-normal transition flex items-center justify-center gap-1 ${isFollowing ? "bg-red-500 text-white" : "bg-blue-600 text-white"}`}
+                  >
+                    <Heart size={13} className={isFollowing ? "text-white fill-red-500" : "text-white"} />
+                    {isFollowing ? "Unfollow" : "Follow"}
+                  </button>
+                </div>
+
+                <p className="text-sm text-gray-600 line-clamp-2">{shopData?.bio}</p>
+
+                <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600">
+                  <span className="flex items-center gap-1 text-blue-500">
+                    <Star className='text-blue-500 fill-blue-500' size={13} /> {shopData?.ratings ?? "N/A"}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Users size={13} />
+                    <span className="font-semibold">{followers} followers</span>
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Clock size={13} /> <span className="truncate">{shopData?.opening_hours}</span>
+                </div>
+
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <MapPin size={13} /> <span className="truncate">{shopData?.address}</span>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* RIGHT DETAILS */}
-          <div className="w-[280px] bg-white/20 backdrop-blur-xl border border-white/20 shadow-xl p-5 rounded-2xl">
-            <h4 className="font-semibold text-lg font-poppins tracking-tighter">Shop Details</h4>
+          <div className="w-full sm:w-[260px] bg-white/20 backdrop-blur-xl border border-white/20 shadow-xl p-4 sm:p-5 rounded-2xl shrink-0">
+            <h4 className="font-semibold text-base sm:text-lg font-poppins tracking-tighter">Shop Details</h4>
 
             <div className="flex flex-col gap-2 text-sm text-gray-600 mt-2">
               <span className="flex items-center gap-2">
-                <Calendar size={14} /> Joined {new Date(shopData?.createdAt).toDateString()}
+                <Calendar size={13} /> Joined {new Date(shopData?.createdAt).toDateString()}
               </span>
-              <span className="flex items-center gap-2">
-                <Globe size={14} />
-                <a className="text-blue-500" href={shopData?.website} target="_blank" rel="noopener noreferrer">
+              <span className="flex items-center gap-2 min-w-0">
+                <Globe size={13} className="shrink-0" />
+                <a className="text-blue-500 truncate" href={shopData?.website} target="_blank" rel="noopener noreferrer">
                   {shopData?.website}
                 </a>
               </span>
-              <h3 className="font-semibold font-poppins tracking-tighter mt-2">Follow us</h3>
+              <h3 className="font-semibold font-poppins tracking-tighter mt-1">Follow us</h3>
               <div className="flex items-center gap-3">
                 <Facebook fill="black" size={16} className="cursor-pointer" />
                 <Twitter fill="black" size={16} className="cursor-pointer" />
@@ -173,9 +176,9 @@ export default function ShopHero({ shopData, followersCount }: { shopData: any, 
               </div>
             </div>
           </div>
+
         </div>
       </div>
-
     </>
   );
 }

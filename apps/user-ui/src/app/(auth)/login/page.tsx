@@ -58,18 +58,17 @@ const LoginPage = () => {
   };
   return (
     <div className="w-full bg-[#f1f1f1] min-h-[90vh]">
-      <div className="w-full flex flex-col items-center justify-center h-full py-5">
-        <h1 className="text-center font-poppins font-bold mb-2 text-3xl">
+      <div className="w-full flex flex-col items-center justify-center h-full py-6 px-4">
+        <h1 className="text-center font-poppins font-bold mb-2 text-2xl sm:text-3xl">
           Login
         </h1>
-        <div className="flex gap-1 items-baseline mb-3">
+        <div className="flex gap-1 items-baseline mb-4">
           <span className="text-sm font-medium text-gray-500">Home</span>
           <span className="p-0.5 h-1 bg-gray-500 rounded-full"></span>
           <span className="text-sm font-medium text-gray-500">Login</span>
         </div>
-        <div className="w-[30vw] min-h-[400px] bg-white p-5 rounded-md shadow-md flex flex-col items-center">
-          {/* Login form elements will go here */}
-          <h2 className="text-center font-poppins font-semibold text-2xl mb-2">
+        <div className="w-full max-w-[440px] bg-white p-5 sm:p-7 rounded-md shadow-md flex flex-col items-center">
+          <h2 className="text-center font-poppins font-semibold text-xl sm:text-2xl mb-2">
             Login To Majehub
           </h2>
           <p className="text-gray-600 font-roboto text-center text-sm mb-4">
@@ -79,9 +78,9 @@ const LoginPage = () => {
             </Link>
           </p>
           <GoogleButton />
-          <div className="flex items-center justify-between gap-1 my-6 w-full">
+          <div className="flex items-center justify-between gap-1 my-5 w-full">
             <div className="flex-1 h-0.5 bg-gray-300 rounded-md" />
-            <span className="text-gray-500 text-xs font-semibold">
+            <span className="text-gray-500 text-xs font-semibold whitespace-nowrap px-2">
               Or Signin with Email
             </span>
             <div className="flex-1 h-0.5 bg-gray-300 rounded-md" />
@@ -109,18 +108,18 @@ const LoginPage = () => {
                 </p>
               )}
             </div>
-            <div className="w-full relative ">
+            <div className="w-full relative">
               <label
                 htmlFor="password"
                 className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
-                Passowrd
+                Password
               </label>
               <input
                 id="password"
-                className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
                 type={showPassword ? 'text' : 'password'}
-                placeholder="Min 6. characters"
+                placeholder="Min 6 characters"
                 {...register('password', {
                   required: 'Password is required',
                   minLength: {
@@ -130,10 +129,11 @@ const LoginPage = () => {
                 })}
               />
               <button
+                type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute top-8 right-2 cursor-pointer text-gray-500"
               >
-                {showPassword ? <Eye /> : <EyeOff />}
+                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
               </button>
               {errors.password && (
                 <p className="text-red-500 text-xs mt-1">
@@ -141,15 +141,14 @@ const LoginPage = () => {
                 </p>
               )}
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between flex-wrap gap-2">
               <div className="flex items-center gap-2">
                 <input
-                  className="h-3 w-3 rounded cursor-pointer"
+                  className="h-3.5 w-3.5 rounded cursor-pointer"
                   type="checkbox"
-                  name=""
-                  id=""
+                  id="remember-me"
                 />
-                <span className="font-poppins">Remember me</span>
+                <label htmlFor="remember-me" className="font-poppins text-sm">Remember me</label>
               </div>
               <Link
                 className="text-blue-500 text-sm font-poppins"
@@ -161,9 +160,9 @@ const LoginPage = () => {
             <button
               disabled={loginMutation.isPending}
               type="submit"
-              className="w-full font-poppins bg-black text-white py-2 rounded-md hover:bg-black/75 transition-colors"
+              className="w-full font-poppins bg-black text-white py-2.5 rounded-md hover:bg-black/75 transition-colors text-sm"
             >
-              {loginMutation.isPending ? 'login in.....' : 'login'}
+              {loginMutation.isPending ? 'Logging in…' : 'Login'}
             </button>
             {serverError && (
               <p className="text-red-500 text-sm mt-2 text-center">
@@ -172,7 +171,6 @@ const LoginPage = () => {
             )}
           </form>
         </div>
-        {/* Login Page */}
       </div>
     </div>
   );

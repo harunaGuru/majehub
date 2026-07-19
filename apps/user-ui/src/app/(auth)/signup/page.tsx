@@ -169,19 +169,18 @@ const SignUpPage = () => {
 
   return (
     <div className="w-full bg-[#f1f1f1] min-h-[85vh]">
-      <div className="w-full flex flex-col items-center justify-center h-full py-5">
-        <h1 className="text-center font-poppins font-bold mb-2 text-3xl">
+      <div className="w-full flex flex-col items-center justify-center h-full py-6 px-4">
+        <h1 className="text-center font-poppins font-bold mb-2 text-2xl sm:text-3xl">
           Signup
         </h1>
-        <div className="flex gap-1 items-baseline mb-3">
+        <div className="flex gap-1 items-baseline mb-4">
           <span className="text-sm font-medium text-gray-500">Home</span>
           <span className="p-0.5 h-1 bg-gray-500 rounded-full"></span>
           <span className="text-sm font-medium text-gray-500">Signup</span>
         </div>
-        <div className="w-[30vw] min-h-[400px] bg-white p-5 rounded-md shadow-md flex flex-col items-center">
-          {/* Login form elements will go here */}
-          <h2 className="text-center font-poppins font-semibold text-2xl mb-2">
-            Login To Majehub
+        <div className="w-full max-w-[440px] bg-white p-5 sm:p-7 rounded-md shadow-md flex flex-col items-center">
+          <h2 className="text-center font-poppins font-semibold text-xl sm:text-2xl mb-2">
+            Create an Account
           </h2>
           <p className="text-gray-600 font-roboto text-center text-sm mb-4">
             Already have an account?{' '}
@@ -190,10 +189,10 @@ const SignUpPage = () => {
             </Link>
           </p>
           <GoogleButton />
-          <div className="flex items-center justify-between gap-1 my-6 w-full">
+          <div className="flex items-center justify-between gap-1 my-5 w-full">
             <div className="flex-1 h-0.5 bg-gray-300 rounded-md" />
-            <span className="text-gray-500 text-xs font-semibold">
-              Or Signin with Email
+            <span className="text-gray-500 text-xs font-semibold whitespace-nowrap px-2">
+              Or Signup with Email
             </span>
             <div className="flex-1 h-0.5 bg-gray-300 rounded-md" />
           </div>
@@ -231,18 +230,18 @@ const SignUpPage = () => {
                   </p>
                 )}
               </div>
-              <div className="w-full relative ">
+              <div className="w-full relative">
                 <label
                   htmlFor="password"
                   className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
                 >
-                  Passowrd
+                  Password
                 </label>
                 <input
                   id="password"
-                  className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="Min 6. characters"
+                  placeholder="Min 6 characters"
                   {...register('password', {
                     required: 'Password is required',
                     minLength: {
@@ -252,10 +251,11 @@ const SignUpPage = () => {
                   })}
                 />
                 <button
+                  type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute top-8 right-2 cursor-pointer text-gray-500"
                 >
-                  {showPassword ? <Eye /> : <EyeOff />}
+                  {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
                 </button>
                 {errors.password && (
                   <p className="text-red-500 text-xs mt-1">
@@ -266,9 +266,9 @@ const SignUpPage = () => {
               <button
                 disabled={loginMutation.isPending}
                 type="submit"
-                className="w-full font-poppins bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors"
+                className="w-full font-poppins bg-blue-500 text-white py-2.5 rounded-md hover:bg-blue-600 transition-colors text-sm"
               >
-                {loginMutation.isPending ? 'Signing Up...' : 'Sign Up'}
+                {loginMutation.isPending ? 'Signing Up…' : 'Sign Up'}
               </button>
               {serverError && (
                 <p className="text-red-500 text-sm mt-2 text-center">
@@ -278,11 +278,13 @@ const SignUpPage = () => {
             </form>
           ) : (
             <>
-              <h3 className="text-center font-bold font-poppins text-lg mb-3">
+              <h3 className="text-center font-bold font-poppins text-lg mb-2">
                 Enter OTP
               </h3>
-              {/* OTP input fields can be added here */}
-              <div className="flex justify-center gap-2 mb-4">
+              <p className="text-gray-500 text-sm text-center mb-4">
+                We sent a 4-digit code to your email
+              </p>
+              <div className="flex justify-center gap-3 mb-5">
                 {otp.map((digit, index) => (
                   <input
                     key={index}
@@ -290,11 +292,12 @@ const SignUpPage = () => {
                       if (el) inputRefs.current[index] = el;
                     }}
                     type="text"
+                    inputMode="numeric"
                     maxLength={1}
                     value={digit}
                     onKeyDown={(e) => handleKeyDown(e, index)}
                     onChange={(e) => handleChange(e.target.value, index)}
-                    className="w-10 h-10 text-center border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-12 h-12 sm:w-14 sm:h-14 text-center text-lg font-semibold border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   />
                 ))}
               </div>
@@ -305,15 +308,15 @@ const SignUpPage = () => {
                   OtpVerificationMutation.isPending
                 }
                 onClick={handleOTP}
-                className="w-full font-poppins bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors"
+                className="w-full font-poppins bg-blue-500 text-white py-2.5 rounded-md hover:bg-blue-600 transition-colors text-sm disabled:opacity-60"
               >
                 {OtpVerificationMutation.isPending
-                  ? 'Verifying OTP...'
+                  ? 'Verifying OTP…'
                   : 'Verify OTP'}
               </button>
-              <p className="text-center text-sm mt-2 font-medium font-roboto">
+              <p className="text-center text-sm mt-3 font-medium font-roboto">
                 {timer > 0 ? (
-                  `Resend OTP in ${timer}s`
+                  <span className="text-gray-500">Resend OTP in <span className="text-blue-500 font-bold">{timer}s</span></span>
                 ) : (
                   <button
                     onClick={resendOtp}
@@ -328,14 +331,6 @@ const SignUpPage = () => {
                   {OtpError}
                 </p>
               )}
-              {/* {OtpVerificationMutation.isError && (
-                <p className="text-red-500 text-sm mt-2 text-center">
-                  {(OtpVerificationMutation.error as any).response?.data
-                    ?.error ||
-                    OtpVerificationMutation.error?.message ||
-                    'An error occurred during OTP verification.'}
-                </p>
-              )} */}
             </>
           )}
         </div>

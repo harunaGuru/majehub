@@ -155,9 +155,9 @@ const ShopDetailsPage: React.FC<Props> = ({ shop, followersCount }: Props) => {
     <div className='w-full min-h-screen bg-white flex flex-col gap-4'>
       <ShopHero shopData={shop} followersCount={followersCount} />
       {/* TABS */}
-      <div className='w-full max-w-6xl mx-auto z-10 px-10'>
+      <div className='w-full max-w-6xl mx-auto z-10 px-4 sm:px-8 lg:px-10'>
         <div className="relative border-b">
-          <div className="flex gap-6">
+          <div className="flex gap-4 sm:gap-6">
             {tabs.map((t) => (
               <button
                 key={t.key}
@@ -177,7 +177,7 @@ const ShopDetailsPage: React.FC<Props> = ({ shop, followersCount }: Props) => {
         </div>
       </div>
       {/* CONTENT */}
-      <div className="mt-6 w-full max-w-6xl mx-auto z-10 px-10">
+      <div className="mt-6 w-full max-w-6xl mx-auto z-10 px-4 sm:px-8 lg:px-10">
         <AnimatePresence mode="wait">
           {active === "products" && (
             <motion.div
@@ -207,7 +207,7 @@ const ShopDetailsPage: React.FC<Props> = ({ shop, followersCount }: Props) => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
-              className="grid md:grid-cols-2 lg:grid-cols-4 gap-4"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
             >
               {offersLoading ? (
                 Array.from({ length: 10 }).map((_, i) => (
@@ -240,13 +240,13 @@ const ShopDetailsPage: React.FC<Props> = ({ shop, followersCount }: Props) => {
         </AnimatePresence>
       </div>
       {/* Pagination */}
-      <div className="flex justify-center items-center gap-2 mt-8 mb-4">
+      <div className="flex justify-center items-center flex-wrap gap-2 mt-8 mb-6 px-4">
         <button
           disabled={currentPage === 1}
           onClick={() => goToPage(currentPage - 1)}
-          className="px-3 py-1 bg-gray-200 disabled:opacity-50"
+          className="px-4 py-1.5 rounded-md bg-gray-100 text-sm font-medium hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
-          Prev
+          ← Prev
         </button>
 
         {Array.from({ length: totalPages }).map((_, i) => {
@@ -255,7 +255,11 @@ const ShopDetailsPage: React.FC<Props> = ({ shop, followersCount }: Props) => {
             <button
               key={pageNum}
               onClick={() => goToPage(pageNum)}
-              className={currentPage === pageNum ? "active" : ""}
+              className={`w-8 h-8 rounded-md text-sm font-medium transition-colors ${
+                currentPage === pageNum
+                  ? "bg-black text-white"
+                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+              }`}
             >
               {pageNum}
             </button>
@@ -265,9 +269,9 @@ const ShopDetailsPage: React.FC<Props> = ({ shop, followersCount }: Props) => {
         <button
           disabled={currentPage === totalPages}
           onClick={() => goToPage(currentPage + 1)}
-          className="px-3 py-1 bg-gray-200 disabled:opacity-50"
+          className="px-4 py-1.5 rounded-md bg-gray-100 text-sm font-medium hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
-          Next
+          Next →
         </button>
       </div>
     </div>
