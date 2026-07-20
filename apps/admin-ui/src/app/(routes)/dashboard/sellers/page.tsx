@@ -106,7 +106,7 @@ const SellersPage = () => {
       accessorKey: "avatar",
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
-          <Image width={32} height={32} src={row.original.avatar} alt="Avatar" className="w-8 h-8 rounded-full" />
+          <Image width={32} height={32} src={row.original.avatar || '/banner.jpg'} alt="Avatar" className="w-8 h-8 rounded-full" />
         </div>
       ),
     },
@@ -171,7 +171,7 @@ const SellersPage = () => {
         </h1>
         <button
           onClick={() => downloadCSV(sellers)}
-          className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-2 rounded-md"
+          className="flex mb-1 items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-2 rounded-md"
         >
           <Download size={16} />
           Download CSV
@@ -202,66 +202,70 @@ const SellersPage = () => {
             Updating...
           </div>
         )}
-        <div className="grid grid-cols-11 gap-1 border-b border-gray-600 text-white text-sm font-semibold p-3">
-          {table.getHeaderGroups().map((headerGroup) =>
-            headerGroup.headers.map((header) => (
-              <span key={header.id} style={{ width: header.getSize() }} className={header.id === "email" ? "col-span-3" : header.id === "shopName" ? "col-span-2" : header.id === "address" ? "col-span-3" : ""}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-              </span>
-            ))
-          )}
-        </div>
-
-        {isLoading ? (
-          <div className="flex justify-center items-center py-10">
-            <Loader2 className="animate-spin text-white" />
-          </div>
-        ) : table.getRowModel().rows.length === 0 ? (
-          <div className="text-center text-gray-400 py-10">
-            No sellers found
-          </div>
-        ) : (
-          table.getRowModel().rows.map((row) => (
-            <div
-              key={row.id}
-              className="grid grid-cols-11 gap-1 items-center border-b border-gray-700 text-sm text-gray-200 p-3 hover:bg-slate-700 transition"
-            >
-              {row.getVisibleCells().map((cell) => (
-                <span key={cell.id} className={cell.column.id === "email" ? "col-span-3" : cell.column.id === "shopName" ? "col-span-2" : cell.column.id === "address" ? "col-span-3" : ""}>
-                  {flexRender(
-                    cell.column.columnDef.cell,
-                    cell.getContext()
-                  )}
-                </span>
-              ))}
+        <div className="w-full overflow-x-auto rounded-lg bg-slate-800">
+          <div className="min-w-[950px]">
+            <div className="grid grid-cols-11 gap-1 border-b border-gray-600 text-white text-sm font-semibold p-3">
+              {table.getHeaderGroups().map((headerGroup) =>
+                headerGroup.headers.map((header) => (
+                  <span key={header.id} style={{ width: header.getSize() }} className={header.id === "email" ? "col-span-3" : header.id === "shopName" ? "col-span-2" : header.id === "address" ? "col-span-3" : ""}>
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </span>
+                ))
+              )}
             </div>
-          ))
-        )}
-        <div className="flex items-center justify-between px-4 my-4 text-white">
-          <button
-            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-            disabled={!pagination?.hasPrevPage}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Prev
-          </button>
-          <span className="text-sm">
-            Page {pagination?.page || 1} of {pagination?.totalPages || 1}
-          </span>
-          <button
-            onClick={() =>
-              setPage((prev) =>
-                pagination?.hasNextPage ? prev + 1 : prev
-              )
-            }
-            disabled={!pagination?.hasNextPage}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Next
-          </button>
+
+            {isLoading ? (
+              <div className="flex justify-center items-center py-10">
+                <Loader2 className="animate-spin text-white" />
+              </div>
+            ) : table.getRowModel().rows.length === 0 ? (
+              <div className="text-center text-gray-400 py-10">
+                No sellers found
+              </div>
+            ) : (
+              table.getRowModel().rows.map((row) => (
+                <div
+                  key={row.id}
+                  className="grid grid-cols-11 gap-1 items-center border-b border-gray-700 text-sm text-gray-200 p-3 hover:bg-slate-700 transition"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <span key={cell.id} className={cell.column.id === "email" ? "col-span-3" : cell.column.id === "shopName" ? "col-span-2" : cell.column.id === "address" ? "col-span-3" : ""}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </span>
+                  ))}
+                </div>
+              ))
+            )}
+            <div className="flex items-center justify-between px-4 my-4 text-white">
+              <button
+                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                disabled={!pagination?.hasPrevPage}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Prev
+              </button>
+              <span className="text-sm">
+                Page {pagination?.page || 1} of {pagination?.totalPages || 1}
+              </span>
+              <button
+                onClick={() =>
+                  setPage((prev) =>
+                    pagination?.hasNextPage ? prev + 1 : prev
+                  )
+                }
+                disabled={!pagination?.hasNextPage}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

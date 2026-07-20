@@ -317,33 +317,44 @@ const UsersPage = () => {
 
   return (
     <div className="min-h-screen w-full flex flex-col p-4">
-      <div className="flex items-center justify-between pl-4 lg:pl-0">
-        <h1 className="font-poppins text-white font-semibold text-lg tracking-wide">
-          All Users
-        </h1>
-        <div className='flex gap-2 items-center'>
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between mt-2 sm:mt-0 mb-4 px-4 lg:px-0">
+        <div>
+          <h1 className="font-poppins text-white font-semibold text-xl tracking-wide">
+            All Users
+          </h1>
+
+          <div className="flex items-center text-white mt-0 sm:mt-1 text-sm">
+            <Link href="/dashboard" className="text-blue-500 hover:underline">
+              Dashboard
+            </Link>
+
+            <ChevronRight size={16} className="mx-1 opacity-80" />
+
+            <span className="opacity-80">All Users</span>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
           <button
             onClick={() => downloadCSV(users)}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-2 rounded-md"
+            className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-md w-full sm:w-auto"
           >
             <Download size={16} />
             Download CSV
           </button>
-          <select value={role} onChange={(e) => handleRoleChange(e.target.value as "" | "Admin" | "User")} className="bg-gray-700 text-white px-3 py-2 text-xs rounded-md">
+
+          <select
+            value={role}
+            onChange={(e) =>
+              handleRoleChange(e.target.value as '' | 'Admin' | 'User')
+            }
+            className="bg-gray-700 text-white text-sm px-4 py-2 rounded-md w-full sm:w-40"
+          >
             <option value="">All</option>
             <option value="Admin">Admin</option>
             <option value="User">User</option>
           </select>
         </div>
-      </div>
-      <div className="flex items-center text-white mb-3 pl-4 lg:pl-0 -mt-2">
-        <Link href="/dashboard" className="text-blue-500 opacity-80">
-          Dashboard
-        </Link>
-        <span className="opacity-80">
-          <ChevronRight size={20} />
-        </span>
-        <span>All Users</span>
       </div>
       <div className="w-full bg-slate-800 flex items-center py-1 px-3 rounded-md my-4">
         <Search size={16} className="text-gray-400 mr-2" />
@@ -361,66 +372,70 @@ const UsersPage = () => {
             Updating...
           </div>
         )}
-        <div className="grid grid-cols-6 border-b border-gray-600 text-white text-sm font-semibold p-3">
-          {table.getHeaderGroups().map((headerGroup) =>
-            headerGroup.headers.map((header) => (
-              <span key={header.id} style={{ width: header.getSize() }} className={header.id === "email" ? "col-span-2" : ""}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-              </span>
-            ))
-          )}
-        </div>
-
-        {isLoading ? (
-          <div className="flex justify-center items-center py-10">
-            <Loader2 className="animate-spin text-white" />
-          </div>
-        ) : table.getRowModel().rows.length === 0 ? (
-          <div className="text-center text-gray-400 py-10">
-            No Users found
-          </div>
-        ) : (
-          table.getRowModel().rows.map((row) => (
-            <div
-              key={row.id}
-              className="grid grid-cols-6 items-center border-b border-gray-700 text-sm text-gray-200 p-3 hover:bg-slate-700 transition"
-            >
-              {row.getVisibleCells().map((cell) => (
-                <span key={cell.id} className={cell.column.id === "email" ? "col-span-2" : ""}>
-                  {flexRender(
-                    cell.column.columnDef.cell,
-                    cell.getContext()
-                  )}
-                </span>
-              ))}
+        <div className="w-full overflow-x-auto rounded-lg bg-slate-800">
+          <div className="min-w-[700px]">
+            <div className="grid grid-cols-6 border-b border-gray-600 text-white text-sm font-semibold p-3">
+              {table.getHeaderGroups().map((headerGroup) =>
+                headerGroup.headers.map((header) => (
+                  <span key={header.id} style={{ width: header.getSize() }} className={header.id === "email" ? "col-span-2" : ""}>
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </span>
+                ))
+              )}
             </div>
-          ))
-        )}
-        <div className="flex items-center justify-between px-4 my-4 text-white">
-          <button
-            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-            disabled={!pagination?.hasPrevPage}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Prev
-          </button>
-          <span className="text-sm">
-            Page {pagination?.page || 1} of {pagination?.totalPages || 1}
-          </span>
-          <button
-            onClick={() =>
-              setPage((prev) =>
-                pagination?.hasNextPage ? prev + 1 : prev
-              )
-            }
-            disabled={!pagination?.hasNextPage}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Next
-          </button>
+
+            {isLoading ? (
+              <div className="flex justify-center items-center py-10">
+                <Loader2 className="animate-spin text-white" />
+              </div>
+            ) : table.getRowModel().rows.length === 0 ? (
+              <div className="text-center text-gray-400 py-10">
+                No Users found
+              </div>
+            ) : (
+              table.getRowModel().rows.map((row) => (
+                <div
+                  key={row.id}
+                  className="grid grid-cols-6 items-center border-b border-gray-700 text-sm text-gray-200 p-3 hover:bg-slate-700 transition"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <span key={cell.id} className={cell.column.id === "email" ? "col-span-2" : ""}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </span>
+                  ))}
+                </div>
+              ))
+            )}
+            <div className="flex items-center justify-between px-4 my-4 text-white">
+              <button
+                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                disabled={!pagination?.hasPrevPage}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Prev
+              </button>
+              <span className="text-sm">
+                Page {pagination?.page || 1} of {pagination?.totalPages || 1}
+              </span>
+              <button
+                onClick={() =>
+                  setPage((prev) =>
+                    pagination?.hasNextPage ? prev + 1 : prev
+                  )
+                }
+                disabled={!pagination?.hasNextPage}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <UserActionModal name={banUserName} type="ban" />

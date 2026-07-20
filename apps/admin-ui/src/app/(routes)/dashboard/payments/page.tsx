@@ -86,7 +86,7 @@ const PaymentPage = () => {
         id: "actions",
         cell: ({ row }) => (
           <Link href={`/order/${row.original.id}`}>
-            <Eye className="cursor-pointer hover:text-blue-400" size={18} />
+            <Eye className="cursor-pointer text-blue-400 hover:text-blue-3000" size={18} />
           </Link>
         ),
       },
@@ -129,45 +129,49 @@ const PaymentPage = () => {
         />
       </div>
 
-      <div className="bg-slate-800 rounded-lg overflow-hidden">
-        <div className="grid grid-cols-8 border-b border-gray-600 text-white text-sm font-semibold p-3">
-          {table.getHeaderGroups().map((headerGroup) =>
-            headerGroup.headers.map((header) => (
-              <span key={header.id}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-              </span>
-            ))
-          )}
-        </div>
-
-        {isLoading ? (
-          <div className="flex justify-center items-center py-10">
-            <Loader2 className="animate-spin text-white" />
-          </div>
-        ) : table.getRowModel().rows.length === 0 ? (
-          <div className="text-center text-gray-400 py-10">
-            No Payments found
-          </div>
-        ) : (
-          table.getRowModel().rows.map((row) => (
-            <div
-              key={row.id}
-              className="grid grid-cols-8 items-center border-b border-gray-700 text-sm text-gray-200 p-3 hover:bg-slate-700 transition"
-            >
-              {row.getVisibleCells().map((cell) => (
-                <span key={cell.id}>
-                  {flexRender(
-                    cell.column.columnDef.cell,
-                    cell.getContext()
-                  )}
-                </span>
-              ))}
+      <div className="w-full overflow-x-auto rounded-lg bg-slate-800">
+        <div className="min-w-[700px]">
+          <div className="bg-slate-800 rounded-lg overflow-hidden">
+            <div className="grid grid-cols-8 border-b border-gray-600 text-white text-sm font-semibold p-3">
+              {table.getHeaderGroups().map((headerGroup) =>
+                headerGroup.headers.map((header) => (
+                  <span key={header.id}>
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </span>
+                ))
+              )}
             </div>
-          ))
-        )}
+
+            {isLoading ? (
+              <div className="flex justify-center items-center py-10">
+                <Loader2 className="animate-spin text-white" />
+              </div>
+            ) : table.getRowModel().rows.length === 0 ? (
+              <div className="text-center text-gray-400 py-10">
+                No Payments found
+              </div>
+            ) : (
+              table.getRowModel().rows.map((row) => (
+                <div
+                  key={row.id}
+                  className="grid grid-cols-8 items-center border-b border-gray-700 text-sm text-gray-200 p-3 hover:bg-slate-700 transition"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <span key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </span>
+                  ))}
+                </div>
+              ))
+            )}
+          </div>
+        </div>
       </div>
     </div>
   )

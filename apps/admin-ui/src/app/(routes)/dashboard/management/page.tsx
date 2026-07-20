@@ -199,44 +199,48 @@ const ManagementPage = () => {
       </div>
 
       <div className="bg-slate-800 rounded-lg">
-        <div className="grid grid-cols-3 border-b border-gray-600 text-white text-sm font-semibold p-3">
-          {table.getHeaderGroups().map((headerGroup) =>
-            headerGroup.headers.map((header) => (
-              <span key={header.id}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-              </span>
-            ))
-          )}
-        </div>
-
-        {isLoading ? (
-          <div className="flex justify-center items-center py-10">
-            <Loader2 className="animate-spin text-white" />
-          </div>
-        ) : table.getRowModel().rows.length === 0 ? (
-          <div className="text-center text-gray-400 py-10">
-            No Admins found
-          </div>
-        ) : (
-          table.getRowModel().rows.map((row) => (
-            <div
-              key={row.id}
-              className="grid grid-cols-3 items-center border-b border-gray-700 text-sm text-gray-200 p-3 hover:bg-slate-700 transition"
-            >
-              {row.getVisibleCells().map((cell) => (
-                <span key={cell.id}>
-                  {flexRender(
-                    cell.column.columnDef.cell,
-                    cell.getContext()
-                  )}
-                </span>
-              ))}
+        <div className="w-full overflow-x-auto rounded-lg bg-slate-800">
+          <div className="min-w-[500px]">
+            <div className="grid grid-cols-3 border-b border-gray-600 text-white text-sm font-semibold p-3">
+              {table.getHeaderGroups().map((headerGroup) =>
+                headerGroup.headers.map((header) => (
+                  <span key={header.id}>
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </span>
+                ))
+              )}
             </div>
-          ))
-        )}
+
+            {isLoading ? (
+              <div className="flex justify-center items-center py-10">
+                <Loader2 className="animate-spin text-white" />
+              </div>
+            ) : table.getRowModel().rows.length === 0 ? (
+              <div className="text-center text-gray-400 py-10">
+                No Admins found
+              </div>
+            ) : (
+              table.getRowModel().rows.map((row) => (
+                <div
+                  key={row.id}
+                  className="grid grid-cols-3 items-center border-b border-gray-700 text-sm text-gray-200 p-3 hover:bg-slate-700 transition"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <span key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </span>
+                  ))}
+                </div>
+              ))
+            )}
+          </div>
+        </div>
       </div>
       {isAddModalOpen && <AddAdminModal />}
     </div>

@@ -128,16 +128,15 @@ const RecentOrdersTable = () => {
         title="Recent Orders"
         subtitle="A quick snapshot of your latest transactions."
       />
-
-      <div className="overflow-x-auto mt-5">
-        <table className="w-full min-w-[300px]">
-          <thead className="bg-[#0A0F1C]">
+      <div className="mt-5 overflow-x-auto rounded-lg border border-[#111827]">
+        <table className="w-full min-w-[700px] border-collapse">
+          <thead className="bg-[#0A0F1C] sticky top-0">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="text-left text-gray-400 text-sm font-medium px-2 py-2 border-b border-[#111827]"
+                    className="whitespace-nowrap px-3 py-3 text-left text-xs sm:text-sm font-semibold text-gray-300 border-b border-[#111827]"
                   >
                     {flexRender(
                       header.column.columnDef.header,
@@ -153,12 +152,12 @@ const RecentOrdersTable = () => {
             {table.getRowModel().rows.map((row) => (
               <tr
                 key={row.id}
-                className="border-b border-[#111827]"
+                className="border-b border-[#111827] even:bg-[#0D1324] hover:bg-[#111827] transition-colors"
               >
                 {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
-                    className="px-2 py-2 text-sm text-white"
+                    className="whitespace-nowrap px-3 py-3 text-xs sm:text-sm text-white"
                   >
                     {flexRender(
                       cell.column.columnDef.cell,
