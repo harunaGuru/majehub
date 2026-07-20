@@ -216,11 +216,11 @@ const ForgotPasswordPage = () => {
     const data = { email: email, newPassword: payload.newPassword };
     passwordResetMutation.mutate(data);
   };
-
+  // [450px]
   return (
-    <div className="w-full h-full min-h-[450px] bg-[#f1f1f1]  pb-4">
-      <div className="w-full flex flex-col items-center justify-center h-full py-5">
-        <h1 className="text-center font-poppins font-bold mb-2 text-3xl">
+    <div className="w-full h-full min-h-[81.5vh] bg-[#f1f1f1]  pb-4">
+      <div className="w-full flex flex-col items-center justify-center h-full py-6 px-4">
+        <h1 className="text-center font-poppins font-bold mb-2 text-2xl sm:text-3xl">
           Forgot Password
         </h1>
         <div className="flex gap-1 items-baseline mb-3">
@@ -238,7 +238,7 @@ const ForgotPasswordPage = () => {
             Login
           </Link>
         </p>
-        <div className="w-[25vw] h-fit bg-white p-5 rounded-md shadow-md flex flex-col items-center">
+        <div className="w-full max-w-[440px] bg-white p-5 sm:p-7 rounded-md shadow-md flex flex-col items-center mt-6 sm:mt-0">
           {/* Login form elements will go here */}
           <h2 className="text-center font-poppins font-semibold text-2xl mb-2">
             Login To Majehub
@@ -358,6 +358,7 @@ const ForgotPasswordPage = () => {
                   onBlur={validate}
                 />
                 <button
+                  type='button'
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute top-8 right-2 cursor-pointer text-gray-500"
                 >
@@ -385,6 +386,7 @@ const ForgotPasswordPage = () => {
                   onBlur={validate}
                 />
                 <button
+                  type='button'
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   className="absolute top-8 right-2 cursor-pointer text-gray-500"
                 >

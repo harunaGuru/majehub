@@ -219,21 +219,21 @@ const EventPage = () => {
     router.push(`?page=${newPage}`);
   };
   return (
-    <div className="h-screen w-full flex flex-col p-4">
-      <div className=" flex items-center justify-between pl-10 lg:pl-0">
-        <h1 className="font-poppins text-white font-semibold text-lg tracking-wide">
+    <div className="w-full min-h-screen flex flex-col p-4 pt-5">
+      <div className=" flex items-center justify-between">
+        <h1 className="font-poppins text-white font-semibold pl-10 lg:pl-0 text-lg tracking-wide">
           All Events
         </h1>
         <Link
           href="/dashboard/create-event"
-          className="flex items-center text-sm gap-2 bg-blue-600 hover:bg-blue-500 transition p-2 rounded-md font-poppins text-white"
+          className="flex mb-1 items-center text-sm gap-2 bg-blue-600 hover:bg-blue-500 transition p-2 rounded-md font-poppins text-white"
         >
           <PlusIcon size={16} color="white" />
           Add Event
         </Link>
       </div>
       {/*BreadCrumbs*/}
-      <div className="flex items-center text-white mb-3 pl-10 lg:pl-0 -mt-2">
+      <div className="flex pl-10 lg:pl-0 items-center text-white mb-3 -mt-2">
         <Link href="/dashboard" className="text-blue-500 opacity-80">
           Dashboard
         </Link>
@@ -261,9 +261,9 @@ const EventPage = () => {
           }}
         />
       </div>
-      <div className="text white bg-slate-700 w-full px-6 py-2 text-white/80 text-sm rounded-sm">
+      <div className="bg-slate-700 w-full px-4 py-2 text-white/80 text-sm rounded-sm overflow-x-auto">
         {/* 📊 Table */}
-        <table className="w-full border-collapse text-white space-y-3.5">
+        <table className="w-full min-w-[800px] border-collapse text-white space-y-3.5">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
@@ -312,7 +312,7 @@ const EventPage = () => {
           </tbody>
         </table>
         {/* 🔄 Pagination Controls */}
-        <div className="flex justify-between mt-6">
+        <div className="flex justify-between mt-6 min-w-[800px]">
           <button
             disabled={page <= 1}
             onClick={() => goToPage(page - 1)}

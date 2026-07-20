@@ -64,8 +64,8 @@ const Index = () => {
 
   return (
     <div className="w-full bg-[#090D19]">
-      <div className="w-full min-h-screen flex flex-col items-center justify-center py-5 text-white">
-        <div className="w-[30vw] bg-[#0E182A] p-5 rounded-md shadow-md flex flex-col items-center">
+      <div className="w-full min-h-screen flex flex-col items-center justify-center py-5 px-4 text-white">
+        <div className="w-full max-w-[440px]  p-5 sm:p-7 rounded-md shadow-md flex flex-col items-center">
           {/* Login form elements will go here */}
           <h2 className="text-center font-poppins font-bold text-2xl mb-2">
             Welcome Admin
@@ -120,6 +120,7 @@ const Index = () => {
                 })}
               />
               <button
+                type='button'
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute top-8 right-2 cursor-pointer text-gray-500"
               >

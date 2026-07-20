@@ -145,44 +145,80 @@ const OrderPage = () => {
                 </div>
               </div>
 
-              {/* STATUS TEXT */}
-              <div className="flex justify-between text-sm mb-2">
-                {deliveryStatus.map((status, index) => (
-                  <span
-                    key={index}
-                    className={`text-left flex-1 ${index <= currentStatusIndex
-                      ? 'text-blue-600 font-medium'
-                      : 'text-gray-500'
-                      }`}
-                  >
-                    {status}
-                  </span>
-                ))}
-              </div>
-
-              {/* PROGRESS BAR */}
-              <div className="flex items-center justify-between">
-                {deliveryStatus.map((_, index) => (
-                  <div key={index} className="flex items-center flex-1">
-                    {/* CIRCLE */}
-                    <div
-                      className={`w-4 h-4 rounded-full ${index <= currentStatusIndex
-                        ? 'bg-blue-600'
-                        : 'bg-gray-300'
+              {/* Desktop Horizontal Progress Bar */}
+              <div className="hidden sm:block">
+                {/* STATUS TEXT */}
+                <div className="flex justify-between text-sm mb-2">
+                  {deliveryStatus.map((status, index) => (
+                    <span
+                      key={index}
+                      className={`text-left flex-1 ${index <= currentStatusIndex
+                        ? 'text-blue-600 font-medium'
+                        : 'text-gray-500'
                         }`}
-                    />
+                    >
+                      {status}
+                    </span>
+                  ))}
+                </div>
 
-                    {/* BAR */}
-                    {index !== deliveryStatus.length - 1 && (
+                {/* PROGRESS BAR */}
+                <div className="flex items-center justify-between">
+                  {deliveryStatus.map((_, index) => (
+                    <div key={index} className="flex items-center flex-1">
+                      {/* CIRCLE */}
                       <div
-                        className={`h-1 flex-1 ${index <= currentStatusIndex
+                        className={`w-4 h-4 rounded-full ${index <= currentStatusIndex
                           ? 'bg-blue-600'
                           : 'bg-gray-300'
                           }`}
                       />
-                    )}
-                  </div>
-                ))}
+
+                      {/* BAR */}
+                      {index !== deliveryStatus.length - 1 && (
+                        <div
+                          className={`h-1 flex-1 ${index <= currentStatusIndex
+                            ? 'bg-blue-600'
+                            : 'bg-gray-300'
+                            }`}
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile Vertical Progress Bar */}
+              <div className="flex flex-col gap-4 sm:hidden pl-2">
+                {deliveryStatus.map((status, index) => {
+                  const isActive = index <= currentStatusIndex;
+                  return (
+                    <div key={index} className="flex items-start gap-3 relative">
+                      {/* Vertical line connector */}
+                      {index !== deliveryStatus.length - 1 && (
+                        <div
+                          className={`absolute left-[7px] top-4 w-[2px] h-[calc(100%+16px)] ${
+                            index < currentStatusIndex ? 'bg-blue-600' : 'bg-gray-700'
+                          }`}
+                        />
+                      )}
+                      {/* Step circle */}
+                      <div
+                        className={`w-4 h-4 rounded-full z-10 shrink-0 mt-1 ${
+                          isActive ? 'bg-blue-600' : 'bg-gray-700'
+                        }`}
+                      />
+                      {/* Step label */}
+                      <span
+                        className={`text-sm ${
+                          isActive ? 'text-blue-500 font-medium' : 'text-gray-500'
+                        }`}
+                      >
+                        {status}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
 
               {/* ORDER META */}

@@ -81,11 +81,11 @@ const OrdersPage = () => {
   })
 
   return (
-    <div className="h-screen w-full flex flex-col p-4">
-      <h1 className="font-poppins text-white font-semibold text-lg tracking-wide pl-10 lg:pl-0">
+    <div className="w-full min-h-screen flex flex-col p-4 pt-6">
+      <h1 className="font-poppins text-white font-semibold text-lg pl-10 lg:pl-0 tracking-wide">
         All Orders
       </h1>
-      <div className="flex items-center text-white mb-3 pl-10 lg:pl-0">
+      <div className="flex -mt-1 items-center text-white pl-10 lg:pl-0 mb-3">
         <Link href="/dashboard" className="text-blue-500 opacity-80">
           Dashboard
         </Link>
@@ -104,48 +104,51 @@ const OrdersPage = () => {
         />
       </div>
 
-      <div className="bg-slate-800 rounded-lg overflow-hidden">
-        <div className="grid grid-cols-6 border-b border-gray-600 text-white text-sm font-semibold p-3">
-          {table.getHeaderGroups().map((headerGroup) =>
-            headerGroup.headers.map((header) => (
-              <span key={header.id}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-              </span>
+      <div className="w-full overflow-x-auto rounded-lg bg-slate-800">
+        <div className="min-w-[700px]">
+          <div className="grid grid-cols-6 border-b border-gray-600 text-white text-sm font-semibold p-3">
+            {table.getHeaderGroups().map((headerGroup) =>
+              headerGroup.headers.map((header) => (
+                <span key={header.id}>
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
+                </span>
+              ))
+            )}
+          </div>
+
+          {isLoading ? (
+            <div className="flex justify-center items-center py-10">
+              <Loader2 className="animate-spin text-white" />
+            </div>
+          ) : table.getRowModel().rows.length === 0 ? (
+            <div className="text-center text-gray-400 py-10">
+              No orders found
+            </div>
+          ) : (
+            table.getRowModel().rows.map((row) => (
+              <div
+                key={row.id}
+                className="grid grid-cols-6 items-center border-b border-gray-700 text-sm text-gray-200 p-3 hover:bg-slate-700 transition"
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <span key={cell.id}>
+                    {flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext()
+                    )}
+                  </span>
+                ))}
+              </div>
             ))
           )}
         </div>
-
-        {isLoading ? (
-          <div className="flex justify-center items-center py-10">
-            <Loader2 className="animate-spin text-white" />
-          </div>
-        ) : table.getRowModel().rows.length === 0 ? (
-          <div className="text-center text-gray-400 py-10">
-            No orders found
-          </div>
-        ) : (
-          table.getRowModel().rows.map((row) => (
-            <div
-              key={row.id}
-              className="grid grid-cols-6 items-center border-b border-gray-700 text-sm text-gray-200 p-3 hover:bg-slate-700 transition"
-            >
-              {row.getVisibleCells().map((cell) => (
-                <span key={cell.id}>
-                  {flexRender(
-                    cell.column.columnDef.cell,
-                    cell.getContext()
-                  )}
-                </span>
-              ))}
-            </div>
-          ))
-        )}
       </div>
     </div>
-  )
+  );
 }
+
 
 export default OrdersPage

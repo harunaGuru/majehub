@@ -54,7 +54,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
       >
         <Menu size={20} />
       </button>
-      <aside className="w-full md:w-[280px] h-screen bg-[#0a0a0c] text-white border-r border-[rgba(255,255,255,0.06)] flex flex-col relative">
+      <aside className="w-[280px] h-[100dvh] bg-[#0a0a0c] text-white border-r border-[rgba(255,255,255,0.06)] flex flex-col relative overflow-hidden">
         <button
           onClick={() => setSidebarOpen(false)}
           className="absolute top-4 right-4 md:hidden"

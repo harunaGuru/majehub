@@ -115,28 +115,28 @@ export const EditProductModal = ({
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="relative bg-gray-900 text-white p-6 rounded-lg w-5/6 max-w-4xl h-[80vh] overflow-y-auto flex">
+        className="relative bg-gray-900 text-white p-4 sm:p-6 rounded-lg w-[95%] sm:w-5/6 max-w-4xl h-[90vh] sm:h-[80vh] overflow-y-auto flex flex-col md:flex-row gap-4">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white"
+          className="absolute top-4 right-4 text-gray-400 hover:text-white z-10 bg-gray-900/80 p-1 rounded-full"
         >
           <X size={20} />
         </button>
-        {/* Image on the Left */}
-        <div className="w-1/3 flex-shrink-0 p-4">
+        {/* Image on the Left/Top */}
+        <div className="w-full md:w-1/3 flex-shrink-0 p-2 sm:p-4 flex justify-center items-center">
           <img
             src={
               product.images?.[0]?.fileUrl ||
               "https://via.placeholder.com/200"
             }
             alt={product.title}
-            className="rounded-lg w-full h-auto object-contain"
+            className="rounded-lg w-auto max-h-[180px] md:max-h-none object-contain"
           />
         </div>
-        {/* Form on the Right */}
+        {/* Form on the Right/Bottom */}
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-2/3 p-4 flex flex-col gap-4"
+          className="w-full md:w-2/3 p-2 sm:p-4 flex flex-col gap-4"
         >
           {/* Title */}
           <div className="flex flex-col">

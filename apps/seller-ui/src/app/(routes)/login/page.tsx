@@ -67,7 +67,7 @@ const SellerLoginPage = () => {
   };
   return (
     <div className="w-full bg-[#f1f1f1] min-h-screen">
-      <div className="w-full flex flex-col items-center justify-center h-full py-5">
+      <div className="w-full flex flex-col items-center justify-center h-full py-5 px-4">
         <h1 className="text-center font-poppins font-bold mb-2 text-3xl">
           Login
         </h1>
@@ -76,7 +76,7 @@ const SellerLoginPage = () => {
           <span className="p-0.5 h-1 bg-gray-500 rounded-full"></span>
           <span className="text-sm font-medium text-gray-500">Login</span>
         </div>
-        <div className="w-[30vw] min-h-[400px] bg-white p-5 rounded-md shadow-md flex flex-col items-center">
+        <div className="w-full max-w-[440px] bg-white p-5 sm:p-7 rounded-md shadow-md flex flex-col items-center">
           {/* Login form elements will go here */}
           <h2 className="text-center font-poppins font-semibold text-2xl mb-2">
             Login To Majehub
@@ -141,6 +141,7 @@ const SellerLoginPage = () => {
                 })}
               />
               <button
+                type='button'
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute top-8 right-2 cursor-pointer text-gray-500"
               >

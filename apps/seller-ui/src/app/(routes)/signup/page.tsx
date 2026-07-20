@@ -201,18 +201,25 @@ const SellerSignupPage = () => {
   }
   return (
     <div className="w-full min-h-screen flex flex-col items-center  pt-6">
-      <div className="md:w-[50%] w-full px-4 mb-8 flex items-center justify-between relative">
-        <div className="absolute w-[80%] md:w-[80%] left-11 top-[25%] h-1 bg-gray-300 -z-10" />
+      <div className="md:w-[60%] lg:w-[50%] w-full px-4 mb-8 flex relative">
+        {/* Connector Lines */}
+        <div className="absolute left-[16.6%] right-[16.6%] top-4 h-[3px] bg-gray-200 -z-10 rounded" />
+        <div
+          className="absolute left-[16.6%] top-4 h-[3px] bg-blue-600 -z-10 rounded transition-all duration-300"
+          style={{
+            width: active === 1 ? '0%' : active === 2 ? '33.4%' : '66.8%',
+          }}
+        />
         {[1, 2, 3].map((step) => {
           return (
-            <div key={step}>
+            <div key={step} className="flex flex-col items-center flex-1 min-w-0">
               <div
-                className={`rounded-full font-bold flex items-center justify-center text-white h-8 w-8  ${step <= active ? 'bg-blue-600' : 'bg-gray-300'
+                className={`rounded-full font-bold flex items-center justify-center text-white h-8 w-8 shadow-sm transition-colors duration-300 ${step <= active ? 'bg-blue-600' : 'bg-gray-300'
                   }`}
               >
                 {step}
               </div>
-              <span className="font-poppins md:-ml-5 text-lg font-semibold">
+              <span className="font-poppins mt-2 text-xs sm:text-sm md:text-base font-semibold text-gray-700 text-center break-words px-1">
                 {step === 1
                   ? 'Create Account'
                   : step === 2
@@ -322,6 +329,7 @@ const SellerSignupPage = () => {
                     })}
                   />
                   <button
+                    type='button'
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute top-8 right-2 cursor-pointer text-gray-500"
                   >

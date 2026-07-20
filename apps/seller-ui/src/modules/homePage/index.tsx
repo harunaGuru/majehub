@@ -184,14 +184,14 @@ export default function HomePage() {
           alt="banner"
           width={1200}
           height={300}
-          className="w-full h-[300px] object-cover"
+          className="w-full h-[150px] sm:h-[220px] md:h-[300px] object-cover"
         />
 
         <button
           onClick={() => fileRef.current?.click()}
-          className="absolute top-4 right-4 flex items-center gap-2 bg-black/60 px-3 py-2 rounded-md text-sm hover:bg-black"
+          className="absolute top-4 right-4 flex items-center gap-2 bg-black/60 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-md text-xs sm:text-sm hover:bg-black transition-colors"
         >
-          <Pencil size={16} /> Edit Cover
+          <Pencil size={14} /> Edit Cover
         </button>
 
         <input
@@ -207,21 +207,21 @@ export default function HomePage() {
       </div>
 
       {/* Cards Row */}
-      <div className="max-w-6xl mx-auto px-4 -mt-20">
+      <div className="max-w-6xl mx-auto px-4 -mt-12 sm:-mt-20">
         <div className="flex flex-col md:flex-row gap-4">
           {/* Main Card */}
-          <div className="flex-1 bg-slate-900/80 backdrop-blur border border-slate-800 rounded-xl p-6 flex gap-6">
+          <div className="flex-1 bg-slate-900/80 backdrop-blur border border-slate-800 rounded-xl p-6 flex flex-col sm:flex-row gap-6">
             {/* Logo */}
-            <div className="relative">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 mx-auto sm:mx-0">
               <Image
                 src={logo}
                 alt="logo"
                 width={96}
                 height={96}
-                className="rounded-full w-20 h-20 bg-white"
+                className="rounded-full w-full h-full object-cover bg-white"
               />
-              <button onClick={() => logoRef.current?.click()} className="absolute bottom-16 md:bottom-20 right-2 bg-black p-1 rounded-full">
-                <Pencil size={14} />
+              <button onClick={() => logoRef.current?.click()} className="absolute bottom-0 right-0 bg-black/85 hover:bg-black p-1.5 rounded-full shadow-md transition-colors">
+                <Pencil size={12} />
               </button>
               <input
                 ref={logoRef}
@@ -236,12 +236,21 @@ export default function HomePage() {
             </div>
 
             {/* Info */}
-            <div className="flex-1 relative">
-              <button onClick={() => setOpenModal(true)} className="absolute -top-3 right-0 flex items-center gap-2 text-sm text-white bg-black/60 px-3 py-2 rounded-md hover:bg-black">
-                <Pencil size={16} /> Edit Profile
-              </button>
+            <div className="flex-1 min-w-0 w-full">
+              {/* Mobile-only Edit Profile Button */}
+              <div className="flex justify-end w-full sm:hidden mb-2">
+                <button onClick={() => setOpenModal(true)} className="flex items-center gap-2 text-xs text-white bg-slate-800 px-3 py-1.5 rounded-md hover:bg-slate-700 whitespace-nowrap transition-colors">
+                  <Pencil size={14} /> Edit Profile
+                </button>
+              </div>
 
-              <h1 className="text-md font-semibold">{shopData.name}</h1>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-4 mb-2">
+                <h1 className="text-lg sm:text-xl font-semibold truncate text-center sm:text-left">{shopData.name}</h1>
+                <button onClick={() => setOpenModal(true)} className="hidden sm:flex w-fit items-center gap-2 text-xs text-white bg-slate-800 px-3 py-1.5 rounded-md hover:bg-slate-700 whitespace-nowrap transition-colors">
+                  <Pencil size={14} /> Edit Profile
+                </button>
+              </div>
+
               <p className="text-sm text-slate-500 mt-1">
                 {shopData.bio}
               </p>
@@ -254,10 +263,10 @@ export default function HomePage() {
                   <Users size={16} className="text-slate-500" /> {followersCount} followers
                 </div>
               </div>
-              <div className="flex items-center text-slate-500 gap-1">
+              <div className="flex items-center text-slate-500 gap-1 mt-2">
                 <Clock size={16} /> {shopData.hours}
               </div>
-              <div className="flex items-center text-slate-500 gap-1">
+              <div className="flex items-center text-slate-500 gap-1 mt-1">
                 <MapPin size={16} /> {shopData.address}
               </div>
             </div>
