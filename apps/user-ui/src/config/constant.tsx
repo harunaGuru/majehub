@@ -5,7 +5,7 @@ export const navLinks: NavItem[] = [
   { name: 'Products', path: '/products' },
   { name: 'Shops', path: '/shops' },
   { name: 'Offers', path: '/offers' },
-  { name: 'Become a Seller', path: `${process.env.NEXT_PUBLIC_SELLER_URL}/signup` },
+  { name: 'Become a Seller', path: `${process.env.NEXT_PUBLIC_SELLER_URL}/login` },
 ];
 
 export const defaultCategories: string[] = [

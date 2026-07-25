@@ -1,5 +1,5 @@
 import './global.css';
-import Header from './shared/widgets/header/header';
+// import Header from './shared/widgets/header/header';
 import QueryProvider from './providers/tanstackWrapper';
 import { Roboto, Poppins, Jost, Oregano } from 'next/font/google';
 import { Toaster } from "react-hot-toast";
@@ -52,7 +52,7 @@ export default function RootLayout({
         `}
       >
         <QueryProvider>
-          <Header />
+          {/* <Header /> */}
           {children}
           <Toaster position="top-right" reverseOrder={false} />
         </QueryProvider>

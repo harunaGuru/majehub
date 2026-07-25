@@ -5,8 +5,8 @@ import SectionTitle from "@/app/shared/components/SectionTitle";
 import { axiosInstance } from '@/utils/axiosInstance';
 import { useQuery } from '@tanstack/react-query';
 import ProductCardSkeleton from '@/app/shared/components/ProductCard/ProductCardSkeleton';
-import ShopCardSkeleton from './shared/components/shopCard/shopCardSkeleton';
-import ShopCard from './shared/components/shopCard';
+import ShopCardSkeleton from '../shared/components/shopCard/shopCardSkeleton';
+import ShopCard from '../shared/components/shopCard';
 
 
 const fetchLatestProduct = async () => {
