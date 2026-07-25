@@ -23,18 +23,19 @@ import EditProfileModal from "@/shared/components/Modals/EditProfileModal";
 import { useQuery } from "@tanstack/react-query";
 import ProductTab from "@/shared/components/ProductTab";
 import EventTab from "@/shared/components/EventTab";
+import toast from "react-hot-toast";
 
 const tabs = ["products", "offers", "reviews"];
 
 const uploadBanner = async (base64: string, fileName: string) => {
-  const { data } = await axiosInstance.post("/seller/api/update-shop-banner", {
+  const { data } = await axiosInstance.patch("/seller/api/update-shop-banner", {
     file: base64,
     fileName,
   });
   return data.data;
 };
 const uploadLogo = async (base64: string, fileName: string) => {
-  const { data } = await axiosInstance.post("/seller/api/update-shop-avatar", {
+  const { data } = await axiosInstance.patch("/seller/api/update-shop-avatar", {
     file: base64,
     fileName,
   });
@@ -122,10 +123,10 @@ export default function HomePage() {
     try {
       const res = await uploadLogo(base64, file.name);
       if (res?.avatar) {
-        // toast.success("Logo uploaded successfully");
+        toast.success("Logo uploaded successfully");
         setLogo(res?.avatar);
       } else {
-        // toast.error("Failed to upload logo");
+        toast.error("Failed to upload logo");
         setLogo("/shop-logo.png");
       }
     } catch (err) {
@@ -141,8 +142,10 @@ export default function HomePage() {
     try {
       const res = await uploadBanner(base64, file.name);
       if (res?.coverBanner) {
+        toast.success("Banner uploaded successfully");
         setCoverImage(res?.coverBanner);
       } else {
+        toast.error("Failed to upload banner");
         setCoverImage("/shop-cover-page.png")
       }
     } catch (err) {
