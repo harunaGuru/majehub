@@ -3,7 +3,7 @@ import { axiosInstance } from '@/utils/axiosInstance';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import React, { useState } from 'react'
-import { ChevronRight, Search, Loader2, Download } from "lucide-react"
+import { ChevronRight, Search, Loader2, Download, Eye } from "lucide-react"
 import {
   ColumnDef,
   flexRender,
@@ -19,6 +19,7 @@ type Product = {
   price: number;
   stock: number;
   start: string;
+  slug: string;
   end: string;
   date: string;
   image?: string | null;
@@ -189,6 +190,17 @@ const EventsPage = () => {
         );
       },
     },
+
+    {
+      header: "Actions",
+      id: "actions",
+      cell: ({ row }) => (
+        <Link href={`${process.env.NEXT_PUBLIC_USER_URL}/product/${row.original.slug}`} >
+          <Eye className="w-5 h-5 text-blue-400 hover:text-blue-300 cursor-pointer" />
+        </Link>
+      ),
+      size: 80,
+    },
   ];
 
   const table = useReactTable({
@@ -244,7 +256,7 @@ const EventsPage = () => {
         )}
         <div className="w-full overflow-x-auto lg:overflow-x-hidden rounded-lg bg-slate-800">
           <div className="min-w-[750px] lg:min-w-full">
-            <div className="grid grid-cols-9 border-b border-gray-600 text-white text-sm font-semibold p-3">
+            <div className="grid grid-cols-10 border-b border-gray-600 text-white text-sm font-semibold p-3">
               {table.getHeaderGroups().map((headerGroup) =>
                 headerGroup.headers.map((header) => (
                   <span key={header.id} className={header.id === "name" ? "col-span-3" : ""}>
@@ -268,7 +280,7 @@ const EventsPage = () => {
               table.getRowModel().rows.map((row) => (
                 <div
                   key={row.id}
-                  className="grid grid-cols-9 items-center border-b border-gray-700 text-sm text-gray-200 p-3 hover:bg-slate-700 transition"
+                  className="grid grid-cols-10 items-center border-b border-gray-700 text-sm text-gray-200 p-3 hover:bg-slate-700 transition"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <span key={cell.id} className={cell.column.id === "name" ? "col-span-3" : ""}>

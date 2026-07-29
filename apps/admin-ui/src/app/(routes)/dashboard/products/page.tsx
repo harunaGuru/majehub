@@ -21,6 +21,7 @@ type Product = {
   date: string;
   image?: string | null;
   category?: string;
+  slug: string;
   subCategory?: string;
   ratings?: number;
   shop?: {
@@ -65,6 +66,7 @@ const ProductsPage = () => {
     placeholderData: (previousData) => previousData,
   });
   const products = data?.data || [];
+  console.log(products)
   const pagination = data?.pagination;
   const downloadCSV = (products: Product[]) => {
     if (!products.length) return;
@@ -133,7 +135,7 @@ const ProductsPage = () => {
     {
       header: "Title",
       accessorKey: "name",
-      size: 400, // 👈 wide column
+      size: 400,
       cell: ({ row }) => {
         const title = row.original.name;
 
@@ -207,7 +209,7 @@ const ProductsPage = () => {
       header: "Actions",
       id: "actions",
       cell: ({ row }) => (
-        <Link href={`${process.env.NEXT_PUBLIC_USER_URL}/product/${row.original.id}`} >
+        <Link href={`${process.env.NEXT_PUBLIC_USER_URL}/product/${row.original.slug}`} >
           <Eye className="w-5 h-5 text-blue-400 hover:text-blue-300 cursor-pointer" />
         </Link>
       ),
