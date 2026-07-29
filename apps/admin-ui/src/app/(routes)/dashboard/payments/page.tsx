@@ -87,7 +87,7 @@ const PaymentPage = () => {
         header: "Actions",
         id: "actions",
         cell: ({ row }) => (
-          <Link href={`/order/${row.original.id}`}>
+          <Link href={`${process.env.NEXT_PUBLIC_USER_URL}/order/${row.original.id}`}>
             <Eye className="cursor-pointer text-blue-400 hover:text-blue-3000" size={18} />
           </Link>
         ),
