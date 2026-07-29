@@ -207,7 +207,7 @@ const ProductsPage = () => {
       header: "Actions",
       id: "actions",
       cell: ({ row }) => (
-        <Link href={`/product/${row.original.id}`} >
+        <Link href={`${process.env.NEXT_PUBLIC_USER_URL}/product/${row.original.id}`} >
           <Eye className="w-5 h-5 text-blue-400 hover:text-blue-300 cursor-pointer" />
         </Link>
       ),
