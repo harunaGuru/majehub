@@ -1,5 +1,6 @@
 'use client'
 import { axiosInstance } from '@/utils/axiosInstance';
+import { paginateData } from '@/utils/paginate';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import React, { useState, useMemo } from 'react'
@@ -18,6 +19,7 @@ const getOrders = async () => {
 };
 
 const PaymentPage = () => {
+  const [page, setPage] = useState(1);
   const [globalFilter, setGlobalFilter] = useState("")
   const { data: orders = [], isLoading } = useQuery({
     queryKey: ["orders"],
@@ -105,8 +107,11 @@ const PaymentPage = () => {
     getFilteredRowModel: getFilteredRowModel(),
   })
 
+  const rows = table.getRowModel().rows;
+  const paginated = paginateData(rows, page, 5);
+
   return (
-    <div className="h-screen w-full flex flex-col p-4">
+    <div className="min-h-screen w-full flex flex-col p-4">
       <h1 className="font-poppins text-white font-semibold text-lg tracking-wide pl-4 lg:pl-0">
         All Payments
       </h1>
@@ -125,12 +130,15 @@ const PaymentPage = () => {
           placeholder="Search payments..."
           className="w-full bg-transparent text-white outline-none"
           value={globalFilter ?? ""}
-          onChange={(e) => setGlobalFilter(e.target.value)}
+          onChange={(e) => {
+            setGlobalFilter(e.target.value);
+            setPage(1);
+          }}
         />
       </div>
 
-      <div className="w-full overflow-x-auto rounded-lg bg-slate-800">
-        <div className="min-w-[700px]">
+      <div className="w-full overflow-x-auto lg:overflow-x-hidden rounded-lg bg-slate-800">
+        <div className="min-w-[700px] lg:min-w-full">
           <div className="bg-slate-800 rounded-lg overflow-hidden">
             <div className="grid grid-cols-8 border-b border-gray-600 text-white text-sm font-semibold p-3">
               {table.getHeaderGroups().map((headerGroup) =>
@@ -149,12 +157,12 @@ const PaymentPage = () => {
               <div className="flex justify-center items-center py-10">
                 <Loader2 className="animate-spin text-white" />
               </div>
-            ) : table.getRowModel().rows.length === 0 ? (
+            ) : rows.length === 0 ? (
               <div className="text-center text-gray-400 py-10">
                 No Payments found
               </div>
             ) : (
-              table.getRowModel().rows.map((row) => (
+              paginated.data.map((row) => (
                 <div
                   key={row.id}
                   className="grid grid-cols-8 items-center border-b border-gray-700 text-sm text-gray-200 p-3 hover:bg-slate-700 transition"
@@ -170,6 +178,28 @@ const PaymentPage = () => {
                 </div>
               ))
             )}
+            {/* pagination */}
+            <div className="flex items-center justify-between px-4 my-4 text-white">
+              <button
+                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                disabled={!paginated.hasPrevPage}
+                className="px-4 py-2 bg-slate-700 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Prev
+              </button>
+
+              <span className="text-sm">
+                Page {paginated.page} of {paginated.totalPages}
+              </span>
+
+              <button
+                onClick={() => setPage((prev) => prev + 1)}
+                disabled={!paginated.hasNextPage}
+                className="px-4 py-2 bg-slate-700 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </div>

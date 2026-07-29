@@ -372,12 +372,12 @@ const UsersPage = () => {
             Updating...
           </div>
         )}
-        <div className="w-full overflow-x-auto rounded-lg bg-slate-800">
-          <div className="min-w-[700px]">
+        <div className="w-full overflow-x-auto lg:overflow-x-hidden rounded-lg bg-slate-800">
+          <div className="min-w-[700px] lg:min-w-full">
             <div className="grid grid-cols-6 border-b border-gray-600 text-white text-sm font-semibold p-3">
               {table.getHeaderGroups().map((headerGroup) =>
                 headerGroup.headers.map((header) => (
-                  <span key={header.id} style={{ width: header.getSize() }} className={header.id === "email" ? "col-span-2" : ""}>
+                  <span key={header.id} className={header.id === "email" ? "col-span-2" : ""}>
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()

@@ -202,12 +202,12 @@ const SellersPage = () => {
             Updating...
           </div>
         )}
-        <div className="w-full overflow-x-auto rounded-lg bg-slate-800">
-          <div className="min-w-[950px]">
+        <div className="w-full overflow-x-auto lg:overflow-x-hidden rounded-lg bg-slate-800">
+          <div className="min-w-[950px] lg:min-w-full">
             <div className="grid grid-cols-11 gap-1 border-b border-gray-600 text-white text-sm font-semibold p-3">
               {table.getHeaderGroups().map((headerGroup) =>
                 headerGroup.headers.map((header) => (
-                  <span key={header.id} style={{ width: header.getSize() }} className={header.id === "email" ? "col-span-3" : header.id === "shopName" ? "col-span-2" : header.id === "address" ? "col-span-3" : ""}>
+                  <span key={header.id} className={header.id === "email" ? "col-span-3" : header.id === "shopName" ? "col-span-2" : header.id === "address" ? "col-span-3" : ""}>
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()

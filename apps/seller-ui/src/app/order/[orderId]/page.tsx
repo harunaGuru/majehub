@@ -197,22 +197,19 @@ const OrderPage = () => {
                       {/* Vertical line connector */}
                       {index !== deliveryStatus.length - 1 && (
                         <div
-                          className={`absolute left-[7px] top-4 w-[2px] h-[calc(100%+16px)] ${
-                            index < currentStatusIndex ? 'bg-blue-600' : 'bg-gray-700'
-                          }`}
+                          className={`absolute left-[7px] top-4 w-[2px] h-[calc(100%+16px)] ${index < currentStatusIndex ? 'bg-blue-600' : 'bg-gray-700'
+                            }`}
                         />
                       )}
                       {/* Step circle */}
                       <div
-                        className={`w-4 h-4 rounded-full z-10 shrink-0 mt-1 ${
-                          isActive ? 'bg-blue-600' : 'bg-gray-700'
-                        }`}
+                        className={`w-4 h-4 rounded-full z-10 shrink-0 mt-1 ${isActive ? 'bg-blue-600' : 'bg-gray-700'
+                          }`}
                       />
                       {/* Step label */}
                       <span
-                        className={`text-sm ${
-                          isActive ? 'text-blue-500 font-medium' : 'text-gray-500'
-                        }`}
+                        className={`text-sm ${isActive ? 'text-blue-500 font-medium' : 'text-gray-500'
+                          }`}
                       >
                         {status}
                       </span>

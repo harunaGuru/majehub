@@ -10,7 +10,7 @@ const AdminGuard = ({ children }: { children: React.ReactNode }) => {
 
   if (isLoading) {
     return (
-      <div className="h-screen flex items-center bg-black justify-center text-white">
+      <div className="h-screen w-screen flex items-center bg-black justify-center text-white">
         <div className="animate-spin w-12 h-12 border-2 border-white border-t-transparent rounded-full" />
       </div>
     );

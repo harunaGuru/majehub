@@ -208,7 +208,7 @@ const ProductsPage = () => {
       id: "actions",
       cell: ({ row }) => (
         <Link href={`/product/${row.original.id}`} >
-          <Eye className="w-5 h-5 text-gray-600 hover:text-black cursor-pointer" />
+          <Eye className="w-5 h-5 text-blue-400 hover:text-blue-300 cursor-pointer" />
         </Link>
       ),
       size: 80,
@@ -266,12 +266,12 @@ const ProductsPage = () => {
             Updating...
           </div>
         )}
-        <div className="w-full overflow-x-auto rounded-lg bg-slate-800">
-          <div className="min-w-[950px]">
+        <div className="w-full overflow-x-auto lg:overflow-x-hidden rounded-lg bg-slate-800">
+          <div className="min-w-[950px] lg:min-w-full">
             <div className="grid grid-cols-11 border-b border-gray-600 text-white text-sm font-semibold p-3">
               {table.getHeaderGroups().map((headerGroup) =>
                 headerGroup.headers.map((header) => (
-                  <span key={header.id} style={{ width: header.getSize() }} className={header.id === "name" ? "col-span-3" : ""}>
+                  <span key={header.id} className={header.id === "name" ? "col-span-3" : ""}>
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()

@@ -242,12 +242,12 @@ const EventsPage = () => {
             Updating...
           </div>
         )}
-        <div className="w-full overflow-x-auto rounded-lg bg-slate-800">
-          <div className="min-w-[800px]">
+        <div className="w-full overflow-x-auto lg:overflow-x-hidden rounded-lg bg-slate-800">
+          <div className="min-w-[750px] lg:min-w-full">
             <div className="grid grid-cols-9 border-b border-gray-600 text-white text-sm font-semibold p-3">
               {table.getHeaderGroups().map((headerGroup) =>
                 headerGroup.headers.map((header) => (
-                  <span key={header.id} style={{ width: header.getSize() }} className={header.id === "name" ? "col-span-3" : ""}>
+                  <span key={header.id} className={header.id === "name" ? "col-span-3" : ""}>
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()
