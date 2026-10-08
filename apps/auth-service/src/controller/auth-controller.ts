@@ -440,18 +440,39 @@ export const sellerRefreshToken = async (
 };
 
 //get login-user
+// export const getUser = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   const user = req.user;
+//   await sendLog({
+//     type: 'success',
+//     message: `${user?.email} logged in successfully`,
+//     source: 'auth-service',
+//   });
+//   return res.status(200).json(user);
+// };
 export const getUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const user = req.user;
-  await sendLog({
-    type: 'success',
-    message: `${user?.email} logged in successfully`,
-    source: 'auth-service',
-  });
-  return res.status(200).json(user);
+  try {
+    const user = req.user;
+
+    void sendLog({
+      type: 'success',
+      message: `${user?.email} logged in successfully`,
+      source: 'auth-service',
+    }).catch((error) => {
+      console.error('Failed to send login log:', error);
+    });
+
+    return res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const logoutUser = async (
